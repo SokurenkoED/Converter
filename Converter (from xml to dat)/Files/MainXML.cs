@@ -39,35 +39,28 @@ namespace Converter__from_xml_to_dat_.Files
         }
         private void WriteParams(XDocument xdoc, REAC_PARAM RParams, INT_PARAM IParams, REST_PRINT_PARAM RPParams, CONT_PARAM CParams)
         {
-            try
+            using (StreamWriter sw = new StreamWriter("OldFormat-TIGR/main.dat", false, System.Text.Encoding.Default))
             {
-                using (StreamWriter sw = new StreamWriter("OldFormat-TIGR/main.dat", false, System.Text.Encoding.Default))
+                sw.WriteLine($"{ RParams.JCAN} { RParams.JK1} { RParams.JK2} { RParams.JO} { RParams.JR} { RParams.JTFT} { RParams.JBORAZ}");
+                sw.WriteLine($"{ RPParams.JTIME} { RPParams.PRINT_STEP1} { RPParams.PRINT_STEP2} { RPParams.PRINT_STEP3} { RPParams.PRINT_TIME1} { RPParams.PRINT_TIME2} { RPParams.PRINT_TIME3} { RPParams.JREAD} { RPParams.JWRITE} { RPParams.JNP}");
+                sw.WriteLine($"{ IParams.DTMIN} { IParams.DTMAX} { IParams.EPSMIN} { IParams.EPSMAX}");
+                sw.WriteLine($"{ RPParams.JNGR} { RPParams.TGRAF}");
+                sw.WriteLine($"{ RParams.JKIN} { RParams.JJSNAT} { RPParams.DTDISK}");
+                sw.WriteLine(CParams.JVTOT.Count);
+                for (int i = 0; i < CParams.JVTOT.Count; i++)
                 {
-                    sw.WriteLine($"{ RParams.JCAN} { RParams.JK1} { RParams.JK2} { RParams.JO} { RParams.JR} { RParams.JTFT} { RParams.JBORAZ}");
-                    sw.WriteLine($"{ RPParams.JTIME} { RPParams.PRINT_STEP1} { RPParams.PRINT_STEP2} { RPParams.PRINT_STEP3} { RPParams.PRINT_TIME1} { RPParams.PRINT_TIME2} { RPParams.PRINT_TIME3} { RPParams.JREAD} { RPParams.JWRITE} { RPParams.JNP}");
-                    sw.WriteLine($"{ IParams.DTMIN} { IParams.DTMAX} { IParams.EPSMIN} { IParams.EPSMAX}");
-                    sw.WriteLine($"{ RPParams.JNGR} { RPParams.TGRAF}");
-                    sw.WriteLine($"{ RParams.JKIN} { RParams.JJSNAT} { RPParams.DTDISK}");
-                    sw.WriteLine(CParams.JVTOT.Count);
-                    for (int i = 0; i < CParams.JVTOT.Count; i++)
-                    {
-                        sw.WriteLine(CParams.JVTOT[i]);
-                        sw.WriteLine(CParams.Q02K[i]);
-                        sw.WriteLine(CParams.G02K[i]);
-                        sw.WriteLine(CParams.TOCVOL[i]);
-                        sw.WriteLine($"{CParams.CPGAS2[i]} {CParams.AMGAS2[i]} {CParams.ALGAS2[i]} {CParams.RGAS2[i]}");
-                        sw.WriteLine(CParams.JGASCN[i]);
-                    }
-                    foreach (XElement Params in xdoc.Element("GENERAL_DATA").Elements("JNEV_T"))
-                    {
-                        XAttribute nameAttribute = Params.Attribute("Value");
-                        sw.WriteLine(nameAttribute.Value);
-                    }
+                    sw.WriteLine(CParams.JVTOT[i]);
+                    sw.WriteLine(CParams.Q02K[i]);
+                    sw.WriteLine(CParams.G02K[i]);
+                    sw.WriteLine(CParams.TOCVOL[i]);
+                    sw.WriteLine($"{CParams.CPGAS2[i]} {CParams.AMGAS2[i]} {CParams.ALGAS2[i]} {CParams.RGAS2[i]}");
+                    sw.WriteLine(CParams.JGASCN[i]);
                 }
-            }
-            catch (FileNotFoundException)
-            {
-                Console.WriteLine("Файл Main.dat не был найден");
+                foreach (XElement Params in xdoc.Element("GENERAL_DATA").Elements("JNEV_T"))
+                {
+                    XAttribute nameAttribute = Params.Attribute("Value");
+                    sw.WriteLine(nameAttribute.Value);
+                }
             }
         }
 
@@ -75,12 +68,19 @@ namespace Converter__from_xml_to_dat_.Files
 
         public MainXML()
         {
-            XDocument xdoc = XDocument.Load("main.xml");
-            REAC_PARAM RParams = new REAC_PARAM(ParseParams(xdoc, "REAC_PARAM"));
-            INT_PARAM IParams = new INT_PARAM(ParseParams(xdoc, "INT_PARAM"));
-            REST_PRINT_PARAM RPParams = new REST_PRINT_PARAM(ParseParams(xdoc, "REST_PRINT_PARAM"));
-            CONT_PARAM CParams = new CONT_PARAM(ParseCONT_PARAM(xdoc));
-            WriteParams(xdoc, RParams, IParams, RPParams, CParams);
+            try
+            {
+                XDocument xdoc = XDocument.Load("main.xml");
+                REAC_PARAM RParams = new REAC_PARAM(ParseParams(xdoc, "REAC_PARAM"));
+                INT_PARAM IParams = new INT_PARAM(ParseParams(xdoc, "INT_PARAM"));
+                REST_PRINT_PARAM RPParams = new REST_PRINT_PARAM(ParseParams(xdoc, "REST_PRINT_PARAM"));
+                CONT_PARAM CParams = new CONT_PARAM(ParseCONT_PARAM(xdoc));
+                WriteParams(xdoc, RParams, IParams, RPParams, CParams);
+            }
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine("Файл Main.dat не был найден");
+            }
         }
     }
     class REAC_PARAM
