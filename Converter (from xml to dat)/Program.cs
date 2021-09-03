@@ -22,6 +22,7 @@ namespace Converter__from_xml_to_dat_
 
             MainXML Main = new MainXML();
 
+            Console.ReadKey();
 
 
         }

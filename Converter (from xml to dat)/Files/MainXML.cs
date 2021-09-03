@@ -9,6 +9,8 @@ namespace Converter__from_xml_to_dat_.Files
 {
     class MainXML
     {
+        #region Методы
+
         private List<string> ParseParams(XDocument xdoc, string name)
         {
             List<string> ReturnParams = new List<string>();
@@ -68,6 +70,8 @@ namespace Converter__from_xml_to_dat_.Files
                 Console.WriteLine("Файл Main.dat не был найден");
             }
         }
+
+        #endregion
 
         public MainXML()
         {
