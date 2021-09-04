@@ -79,7 +79,7 @@ namespace Converter__from_xml_to_dat_.Files
             }
             catch (FileNotFoundException)
             {
-                Console.WriteLine("Файл Main.dat не был найден");
+                Console.WriteLine("Файл Main.xml не был найден");
             }
         }
     }
