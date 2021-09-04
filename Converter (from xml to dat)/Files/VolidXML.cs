@@ -1,4 +1,4 @@
-﻿using Converter__from_xml_to_dat_.Functions;
+﻿using Converter__from_xml_to_dat_.ElemsOfVolid;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,7 +32,7 @@ namespace Converter__from_xml_to_dat_.Files
                     }
                     else
                     {
-                        Elem = new Chamb(AttributeNumb.Value, "НЕТ ОПИСАНИЯ");
+                        Elem = new Chamb(AttributeNumb.Value);
                     }
 
                 }
@@ -55,11 +55,6 @@ namespace Converter__from_xml_to_dat_.Files
 
                         SetTypeOfElem(Elems,ref Elem);
 
-                        if (Elem.Type == "1")
-                        {
-                            Console.WriteLine("1");
-                        }
-
                         cont.Add(Elem);// Записали элемент в контур
                     }
                     Conts.Add(cont); // Записали контур
@@ -81,22 +76,6 @@ namespace Converter__from_xml_to_dat_.Files
             {
                 Elems.Add(elem);
             }
-        }
-
-        class Elems
-        {
-            public string Type { get; set; }
-        }
-        class Chamb : Elems
-        {
-            public Chamb(string Numb, string Discr)
-            {
-                Number = Numb;
-                Description = Discr;
-                Type = "1";
-            }
-            public string Number { get; set; }
-            public string Description { get; set; }
         }
     }
 }
