@@ -8,16 +8,16 @@ namespace Converter__from_xml_to_dat_.ElemsOfVolid
 {
     class Tube : Elems
     {
-        public Tube(string Numb, string Discr)
+        public Tube(string Numb, string Discr, string TypeV)
         {
             Number = Numb;
             Description = Discr;
-            Type = "2";
+            Type = TypeV;
         }
-        public Tube(string Numb)
+        public Tube(string Numb, string TypeV)
         {
             Number = Numb;
-            Type = "2";
+            Type = TypeV;
         }
 
         public string ELEM_VOLMLT { get; set; }
