@@ -12,7 +12,7 @@ namespace Converter__from_xml_to_dat_.Files.Volid
     {
         public static void ReadParams(ref Elems Elem, XElement Elems)
         {
-            if (Elem.Type == "2")
+            if (Elem.Type == "2" || Elem.Type == "5")
             {
                 Tube tube = (Tube)Elem;
                 foreach (XElement VOLMLT in Elems.Descendants("ELEM_VOLMLT"))
