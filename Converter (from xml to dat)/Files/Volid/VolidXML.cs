@@ -41,7 +41,7 @@ namespace Converter__from_xml_to_dat_.Files
                             Elem = new Chamb(AttributeNumb.Value);
                         }
                     }
-                    else if (AttributeValue.Value == "2")
+                    else if (AttributeValue.Value == "2" || AttributeValue.Value == "5")
                     {
                         if (AttributeDescription != null)
                         {
