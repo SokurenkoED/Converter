@@ -15,31 +15,32 @@ namespace Converter__from_xml_to_dat_.Files
         IFormatProvider formatter = new NumberFormatInfo { NumberDecimalSeparator = "." };
 
         /// <summary>
-        /// Определили тип элемента
+        /// Определили тип элемента, записали его номер и описание
         /// </summary>
         /// <param name="Elems"></param>
         /// <param name="Elem"></param>
         private void SetTypeOfElem(XElement Elems,ref Elems Elem)
         {
-            foreach (XElement Elem_Prop in Elems.Elements("ELEM_PROP"))
+            foreach (XElement Elem_Type in Elems.Descendants("ELEM_TYPE"))
             {
-                XAttribute AttributeComment = Elem_Prop.Attribute("Comment");
-                XAttribute AttributeNumb = Elem_Prop.Attribute("Numb");
-                XAttribute AttributeDescription = Elem_Prop.Attribute("Description");
+                XAttribute AttributeValue = Elem_Type.Attribute("Value");
 
-                if (AttributeComment.Value == "Камера смешения")
+                foreach (XElement Elem_Prop in Elems.Elements("ELEM_PROP"))
                 {
-                    if (AttributeDescription != null)
+                    XAttribute AttributeNumb = Elem_Prop.Attribute("Numb");
+                    XAttribute AttributeDescription = Elem_Prop.Attribute("Description");
+                    if (AttributeValue.Value == "1")
                     {
-                        Elem = new Chamb(AttributeNumb.Value, AttributeDescription.Value);
+                        if (AttributeDescription != null)
+                        {
+                            Elem = new Chamb(AttributeNumb.Value, AttributeDescription.Value);
+                        }
+                        else
+                        {
+                            Elem = new Chamb(AttributeNumb.Value);
+                        }
                     }
-                    else
-                    {
-                        Elem = new Chamb(AttributeNumb.Value);
-                    }
-
                 }
-
             }
         }
         public VolidXML()
@@ -140,7 +141,6 @@ namespace Converter__from_xml_to_dat_.Files
                                 chamb.CHAMB_TETVOL = AttributeValue.Value;
                             }
                             Elem = chamb;
-
                         }
 
                         cont.Add(Elem);// Записали элемент в контур
