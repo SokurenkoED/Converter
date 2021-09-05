@@ -45,11 +45,11 @@ namespace Converter__from_xml_to_dat_.Files
                     {
                         if (AttributeDescription != null)
                         {
-                            Elem = new Tube(AttributeNumb.Value, AttributeDescription.Value);
+                            Elem = new Tube(AttributeNumb.Value, AttributeDescription.Value, AttributeValue.Value);
                         }
                         else
                         {
-                            Elem = new Tube(AttributeNumb.Value);
+                            Elem = new Tube(AttributeNumb.Value, AttributeValue.Value);
                         }
                     }
                 }
@@ -74,6 +74,8 @@ namespace Converter__from_xml_to_dat_.Files
                         ChambParams.ReadParams(ref Elem, Elems);
 
                         TubeParams.ReadParams(ref Elem, Elems);
+
+
 
                         cont.Add(Elem);// Записали элемент в контур
                     }
