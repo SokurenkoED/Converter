@@ -71,9 +71,9 @@ namespace Converter__from_xml_to_dat_.Files
 
                         SetTypeOfElem(Elems,ref Elem);
 
-                        ChambParams.ReadParams(ref Elem, Elems); 
+                        ChambParams.ReadParams(ref Elem, Elems);
 
-
+                        TubeParams.ReadParams(ref Elem, Elems);
 
                         cont.Add(Elem);// Записали элемент в контур
                     }
