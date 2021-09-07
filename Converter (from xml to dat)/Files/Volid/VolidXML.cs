@@ -64,6 +64,17 @@ namespace Converter__from_xml_to_dat_.Files
                             Elem = new Volume(AttributeNumb.Value, AttributeValue.Value);
                         }
                     }
+                    else if (AttributeValue.Value == "0")
+                    {
+                        if (AttributeDescription != null)
+                        {
+                            Elem = new Dep(AttributeNumb.Value, AttributeDescription.Value, AttributeValue.Value);
+                        }
+                        else
+                        {
+                            Elem = new Dep(AttributeNumb.Value, AttributeValue.Value);
+                        }
+                    }
                 }
             }
         }
@@ -89,6 +100,7 @@ namespace Converter__from_xml_to_dat_.Files
 
                         VolumeParams.ReadParams(ref Elem, Elems);
 
+                        DepParams.ReadParams(ref Elem, Elems);
 
                         cont.Add(Elem);// Записали элемент в контур
                     }
