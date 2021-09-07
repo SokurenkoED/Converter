@@ -1,5 +1,6 @@
 ﻿using Converter__from_xml_to_dat_.ElemsOfVolid;
 using Converter__from_xml_to_dat_.Files.Volid;
+using Converter__from_xml_to_dat_.Files.Volid.ReadParamsElems;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -52,6 +53,17 @@ namespace Converter__from_xml_to_dat_.Files
                             Elem = new Tube(AttributeNumb.Value, AttributeValue.Value);
                         }
                     }
+                    else if (AttributeValue.Value == "3" || AttributeValue.Value == "31")
+                    {
+                        if (AttributeDescription != null)
+                        {
+                            Elem = new Volume(AttributeNumb.Value, AttributeDescription.Value, AttributeValue.Value);
+                        }
+                        else
+                        {
+                            Elem = new Volume(AttributeNumb.Value, AttributeValue.Value);
+                        }
+                    }
                 }
             }
         }
@@ -75,6 +87,7 @@ namespace Converter__from_xml_to_dat_.Files
 
                         TubeParams.ReadParams(ref Elem, Elems);
 
+                        VolumeParams.ReadParams(ref Elem, Elems);
 
 
                         cont.Add(Elem);// Записали элемент в контур
