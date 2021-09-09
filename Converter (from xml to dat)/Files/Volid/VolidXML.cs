@@ -1,6 +1,7 @@
 ﻿using Converter__from_xml_to_dat_.ElemsOfVolid;
 using Converter__from_xml_to_dat_.Files.Volid;
 using Converter__from_xml_to_dat_.Files.Volid.ReadParamsElems;
+using Converter__from_xml_to_dat_.Functions;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -15,66 +16,19 @@ namespace Converter__from_xml_to_dat_.Files
     class VolidXML
     {
         IFormatProvider formatter = new NumberFormatInfo { NumberDecimalSeparator = "." };
-
-        /// <summary>
-        /// Определили тип элемента, записали его номер и описание
-        /// </summary>
-        /// <param name="Elems"></param>
-        /// <param name="Elem"></param>
-        private void SetTypeOfElem(XElement Elems,ref Elems Elem)
+        public void WriteParamsToFile()
         {
-            foreach (XElement Elem_Type in Elems.Descendants("ELEM_TYPE"))
+            using (StreamWriter sw = new StreamWriter("OldFormat-TIGR/volid.dat", false, Encoding.Default))
             {
-                XAttribute AttributeValue = Elem_Type.Attribute("Value");
-
-                foreach (XElement Elem_Prop in Elems.Elements("ELEM_PROP"))
+                foreach (var Cont in Conts)
                 {
-                    XAttribute AttributeNumb = Elem_Prop.Attribute("Numb");
-                    XAttribute AttributeDescription = Elem_Prop.Attribute("Description");
-                    if (AttributeValue.Value == "1")
+                    sw.WriteLine(Cont.Value);
+
+                    foreach (var item in Cont.Elems)
                     {
-                        if (AttributeDescription != null)
-                        {
-                            Elem = new Chamb(AttributeNumb.Value, AttributeDescription.Value);
-                        }
-                        else
-                        {
-                            Elem = new Chamb(AttributeNumb.Value);
-                        }
+
                     }
-                    else if (AttributeValue.Value == "2" || AttributeValue.Value == "5")
-                    {
-                        if (AttributeDescription != null)
-                        {
-                            Elem = new Tube(AttributeNumb.Value, AttributeDescription.Value, AttributeValue.Value);
-                        }
-                        else
-                        {
-                            Elem = new Tube(AttributeNumb.Value, AttributeValue.Value);
-                        }
-                    }
-                    else if (AttributeValue.Value == "3" || AttributeValue.Value == "31")
-                    {
-                        if (AttributeDescription != null)
-                        {
-                            Elem = new Volume(AttributeNumb.Value, AttributeDescription.Value, AttributeValue.Value);
-                        }
-                        else
-                        {
-                            Elem = new Volume(AttributeNumb.Value, AttributeValue.Value);
-                        }
-                    }
-                    else if (AttributeValue.Value == "0")
-                    {
-                        if (AttributeDescription != null)
-                        {
-                            Elem = new Dep(AttributeNumb.Value, AttributeDescription.Value, AttributeValue.Value);
-                        }
-                        else
-                        {
-                            Elem = new Dep(AttributeNumb.Value, AttributeValue.Value);
-                        }
-                    }
+
                 }
             }
         }
@@ -83,16 +37,20 @@ namespace Converter__from_xml_to_dat_.Files
             try
             {
                 XDocument xdoc = XDocument.Load("volid.xml");
-                List<Cont> Conts = new List<Cont>();
 
                 foreach (XElement ContNode in xdoc.Element("JCNTR").Elements("CONT"))
                 {
-                    Cont cont = new Cont(); // Создали конутр
+                    XAttribute AttrValueCont = ContNode.Attribute("Value");
+
+                    Cont cont = new Cont(AttrValueCont.Value); // Создали конутр
+
                     foreach (XElement Elems in ContNode.Elements("ELEM_NAME"))
                     {
+                        XAttribute AttrValue = Elems.Attribute("Value");
+
                         Elems Elem = new Elems(); // Создали элемент
 
-                        SetTypeOfElem(Elems,ref Elem);
+                        StaticMethods.SetTypeOfElem(Elems,ref Elem, AttrValue);
 
                         ChambParams.ReadParams(ref Elem, Elems);
 
@@ -107,6 +65,7 @@ namespace Converter__from_xml_to_dat_.Files
                     Conts.Add(cont); // Записали контур
                 }
 
+                WriteParamsToFile();
 
             }
             catch (FileNotFoundException)
@@ -115,9 +74,17 @@ namespace Converter__from_xml_to_dat_.Files
             }
         }
 
-        class Cont
+        public List<Cont> Conts = new List<Cont>();
+
+        public class Cont
         {
-            List<Elems> Elems = new List<Elems>();
+            public Cont(string Value)
+            {
+                this.Value = Value;
+            }
+            public List<Elems> Elems = new List<Elems>();
+
+            public string Value { get; set; }
 
             public void Add(Elems elem)
             {
