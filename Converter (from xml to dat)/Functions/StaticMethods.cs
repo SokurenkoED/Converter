@@ -23,6 +23,7 @@ namespace Converter__from_xml_to_dat_.Functions
                 XAttribute AttributeValueFromDiscr = Elems.Attribute("Discription");
                 XAttribute AttributeValueFromNumb = Elems.Attribute("Numb");
                 Elem.Type = AttrValue.Value;
+                Elem.Name = AttrValue.Value;
                 Elem.Description = AttributeValueFromDiscr.Value;
                 Elem.Number = AttributeValueFromNumb.Value;
             }
@@ -35,6 +36,7 @@ namespace Converter__from_xml_to_dat_.Functions
                 {
                     XAttribute AttributeNumb = Elem_Prop.Attribute("Numb");
                     XAttribute AttributeDescription = Elem_Prop.Attribute("Description");
+                    
                     if (AttributeValue.Value == "1")
                     {
                         if (AttributeDescription != null)
@@ -79,6 +81,7 @@ namespace Converter__from_xml_to_dat_.Functions
                             Elem = new Dep(AttributeNumb.Value, AttributeValue.Value);
                         }
                     }
+                    Elem.Name = AttrValue.Value;
                 }
             }
         }
