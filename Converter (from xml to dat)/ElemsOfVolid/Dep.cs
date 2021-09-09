@@ -26,6 +26,8 @@ namespace Converter__from_xml_to_dat_.ElemsOfVolid
         public string DEP_JIVT { get; set; }
         public string DEP_JCBVT { get; set; }
 
+        public string DEP_JTVT { get; set; }
+
         public List<string> DEP_PVOLT_ARG = new List<string>();
         public List<string> DEP_PVOLT = new List<string>();
         public List<string> DEP_PSVOLT_ARG = new List<string>();
@@ -34,6 +36,8 @@ namespace Converter__from_xml_to_dat_.ElemsOfVolid
         public List<string> DEP_IVOLT = new List<string>();
         public List<string> DEP_CBVOLT_ARG = new List<string>();
         public List<string> DEP_CBVOLT = new List<string>();
+        public List<string> DEP_TVOLT_ARG = new List<string>();
+        public List<string> DEP_TVOLT = new List<string>();
 
     }
 }
