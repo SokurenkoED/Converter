@@ -23,14 +23,16 @@ namespace Converter__from_xml_to_dat_.Files
             {
                 foreach (var Cont in Conts)
                 {
+                    sw.WriteLine($"C ***********************************CONTUR NAME ************************");
                     sw.WriteLine($"{" "}{Cont.Value}");
 
                     foreach (var Elem in Cont.Elems)
                     {
-                        //WriteDepParams.WriteParams(Elem, sw);
-                        //WriteChambParams.WriteParams(Elem, sw, formatter);
-                        //WriteTubeParams.WriteParams(Elem, sw, formatter);
+                        WriteDepParams.WriteParams(Elem, sw);
+                        WriteChambParams.WriteParams(Elem, sw, formatter);
+                        WriteTubeParams.WriteParams(Elem, sw, formatter);
                         WriteVolumeParams.WriteParams(Elem, sw, formatter);
+                        WriteVolGasParams.WriteParams(Elem, sw, formatter);
                     }
 
                 }
@@ -63,6 +65,8 @@ namespace Converter__from_xml_to_dat_.Files
                         VolumeParams.ReadParams(ref Elem, Elems);
 
                         DepParams.ReadParams(ref Elem, Elems);
+
+                        VolGasParams.ReadParams(ref Elem, Elems);
 
                         cont.Add(Elem);// Записали элемент в контур
                     }
