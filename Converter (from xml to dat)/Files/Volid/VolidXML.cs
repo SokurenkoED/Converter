@@ -1,6 +1,7 @@
 ﻿using Converter__from_xml_to_dat_.ElemsOfVolid;
 using Converter__from_xml_to_dat_.Files.Volid;
 using Converter__from_xml_to_dat_.Files.Volid.ReadParamsElems;
+using Converter__from_xml_to_dat_.Files.Volid.WriteParamsElems;
 using Converter__from_xml_to_dat_.Functions;
 using System;
 using System.Collections.Generic;
@@ -22,11 +23,11 @@ namespace Converter__from_xml_to_dat_.Files
             {
                 foreach (var Cont in Conts)
                 {
-                    sw.WriteLine(Cont.Value);
+                    sw.WriteLine($"{" "}{Cont.Value}");
 
-                    foreach (var item in Cont.Elems)
+                    foreach (var Elem in Cont.Elems)
                     {
-
+                        WriteVolumeParams.WriteParams(Elem, sw);
                     }
 
                 }
