@@ -27,7 +27,8 @@ namespace Converter__from_xml_to_dat_.Files
 
                     foreach (var Elem in Cont.Elems)
                     {
-                        WriteVolumeParams.WriteParams(Elem, sw);
+                        //WriteDepParams.WriteParams(Elem, sw);
+                        WriteChambParams.WriteParams(Elem, sw, formatter);
                     }
 
                 }

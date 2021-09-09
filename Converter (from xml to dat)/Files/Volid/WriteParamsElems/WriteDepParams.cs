@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace Converter__from_xml_to_dat_.Files.Volid.WriteParamsElems
 {
-    static class WriteVolumeParams
+    static class WriteDepParams
     {
         public static void WriteParams(Elems Elem, StreamWriter sw)
         {
