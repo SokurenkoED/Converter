@@ -25,7 +25,6 @@ namespace Converter__from_xml_to_dat_.Files
                 {
                     sw.WriteLine($"C ***********************************CONTUR NAME ************************");
                     sw.WriteLine($"{" "}{Cont.Value}");
-
                     foreach (var Elem in Cont.Elems)
                     {
                         WriteDepParams.WriteParams(Elem, sw);
@@ -34,7 +33,6 @@ namespace Converter__from_xml_to_dat_.Files
                         WriteVolumeParams.WriteParams(Elem, sw, formatter);
                         WriteVolGasParams.WriteParams(Elem, sw, formatter);
                     }
-
                 }
             }
         }
