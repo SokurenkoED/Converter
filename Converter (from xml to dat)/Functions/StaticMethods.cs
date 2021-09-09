@@ -81,6 +81,17 @@ namespace Converter__from_xml_to_dat_.Functions
                             Elem = new Dep(AttributeNumb.Value, AttributeValue.Value);
                         }
                     }
+                    else if (AttributeValue.Value == "4")
+                    {
+                        if (AttributeDescription != null)
+                        {
+                            Elem = new VolGas(AttributeNumb.Value, AttributeDescription.Value, AttributeValue.Value);
+                        }
+                        else
+                        {
+                            Elem = new VolGas(AttributeNumb.Value, AttributeValue.Value);
+                        }
+                    }
                     Elem.Name = AttrValue.Value;
                 }
             }
