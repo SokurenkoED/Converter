@@ -12,7 +12,7 @@ namespace Converter__from_xml_to_dat_.Functions
     static class StaticMethods
     {
         /// <summary>
-        /// Определили тип элемента, записали его номер и описание
+        /// Определили тип элемента, записали его номер и описание, файл volid.dat
         /// </summary>
         /// <param name="Elems"></param>
         /// <param name="Elem"></param>
