@@ -24,6 +24,8 @@ namespace Converter__from_xml_to_dat_
 
             VolidXML Volid = new VolidXML();
 
+            Gidr2kXML Gidr2k = new Gidr2kXML();
+
             Console.ReadKey();
 
 
