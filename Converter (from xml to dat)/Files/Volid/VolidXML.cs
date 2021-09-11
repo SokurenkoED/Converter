@@ -102,7 +102,7 @@ namespace Converter__from_xml_to_dat_.Files
             }
         }
 
-        public void WriteParamsToFile()
+        public void WriteParamsFromFile()
         {
             using (StreamWriter sw = new StreamWriter("OldFormat-TIGR/volid.dat", false, Encoding.Default))
             {
@@ -160,7 +160,8 @@ namespace Converter__from_xml_to_dat_.Files
             try
             {
                 ReadParamsToFile();
-                WriteParamsToFile();
+
+                WriteParamsFromFile();
             }
             catch (FileNotFoundException)
             {
