@@ -33,11 +33,18 @@ namespace Converter__from_xml_to_dat_.Files.Gidr2k.Functions
                     if (AttrType.Value == "1")
                     {
                         jun = SetParamsToStandart(AttrName.Value, JunFromFIle);
-
                     }
                     else if (AttrType.Value == "2")
                     {
-                        jun = new Turb(AttrName.Value);
+                        jun = SetParamsToStandart(AttrName.Value, JunFromFIle); // В отличии от стандартного соединения - нет клапанов и насосов
+                    }
+                    else if (AttrType.Value == "0")
+                    {
+                        jun = SetParamsToDep(AttrName.Value, JunFromFIle);
+                    }
+                    else if (AttrType.Value == "3")
+                    {
+                        jun = SetParamsToGas(AttrName.Value, JunFromFIle);
                     }
                     jun.Type = AttrType.Value;
                 }
@@ -58,6 +65,206 @@ namespace Converter__from_xml_to_dat_.Files.Gidr2k.Functions
                 }
                 Juns.Add(jun);
             }
+        }
+
+        private static Gas SetParamsToGas(string name, XElement JunFromFIle)
+        {
+            Gas gas = new Gas(name);
+
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_AJNMLT"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                gas.JUN_AJNMLT = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_VJ"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                gas.JUN_VJ = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_SG"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                gas.JUN_SG = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_DGG2K"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                gas.JUN_DGG2K = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_LG"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                gas.JUN_LG = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_DZG2K"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                gas.JUN_DZG2K = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_HJ1"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                gas.JUN_HJ1 = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_HJ2"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                gas.JUN_HJ2 = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_V0KDI1"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                gas.JUN_V0KDI1 = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_V1KDI1"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                gas.JUN_V1KDI1 = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_V0KDI2"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                gas.JUN_V0KDI2 = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_V1KDI2"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                gas.JUN_V1KDI2 = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_KSIG2K"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                gas.JUN_KSIG2K = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_SHRG2K"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                gas.JUN_SHRG2K = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_INMG2K"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                gas.JUN_INMG2K = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_VLVDISCR"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                gas.JUN_VLVDISCR = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_VLVNAM"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                gas.JUN_VLVNAM = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_S0VLV"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                gas.JUN_S0VLV = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_KSIVLV"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                gas.JUN_KSIVLV = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_DGVLV"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                gas.JUN_DGVLV = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_LVLV"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                gas.JUN_LVLV = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_CVLV"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                gas.JUN_CVLV = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_VLVA1"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                gas.JUN_VLVA1 = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_VLVA2"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                gas.JUN_VLVA2 = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_JVTBL"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                gas.JUN_JVTBL = Attr.Value;
+            }
+
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_VLVTBL_ARG"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                gas.JUN_VLVTBL_ARG.Add(Attr.Value);
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_VLVTBL_S"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                gas.JUN_VLVTBL_S.Add(Attr.Value);
+            }
+
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_KCI2KJ"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                gas.JUN_KCI2KJ = Attr.Value;
+            }
+
+            return gas;
+        }
+
+        private static Dep SetParamsToDep(string name, XElement JunFromFIle)
+        {
+            Dep dep = new Dep(name);
+
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_AJNMLT"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                dep.JUN_AJNMLT = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_HJ1"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                dep.JUN_HJ1 = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_HJ2"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                dep.JUN_HJ2 = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_JJNPAR"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                dep.JUN_JJNPAR = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_JJNT"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                dep.JUN_JJNT = Attr.Value;
+            }
+
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_KC2KT_ARG"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                dep.JUN_KC2KT_ARG.Add(Attr.Value);
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_KC2KT"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                dep.JUN_KC2KT.Add(Attr.Value);
+            }
+
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_KCI2KJ"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                dep.JUN_KCI2KJ = Attr.Value;
+            }
+
+            return dep;
         }
 
         private static Standart SetParamsToStandart(string name, XElement JunFromFIle)
