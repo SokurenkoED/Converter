@@ -18,5 +18,7 @@ namespace Converter__from_xml_to_dat_.Files.Gidr2k.Junctions
         public string JUN_FROM { get; set; }
         public string JUN_TO { get; set; }
 
+        public string JUN_KCI2KJ { get; set; }
+
     }
 }

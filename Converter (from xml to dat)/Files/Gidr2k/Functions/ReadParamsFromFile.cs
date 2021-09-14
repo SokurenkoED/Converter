@@ -1,4 +1,5 @@
-﻿using Converter__from_xml_to_dat_.Files.Gidr2k.Junctions;
+﻿using Converter__from_xml_to_dat_.Files.Gidr2k.HomolChar;
+using Converter__from_xml_to_dat_.Files.Gidr2k.Junctions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,75 @@ namespace Converter__from_xml_to_dat_.Files.Gidr2k.Functions
     static class ReadParamsFromFile
     {
 
-        public static void ReadFIle(ref List<Jun> Juns, XDocument xdoc)
+        public static void ReadFIle(ref List<Jun> Juns,ref List<Homol> Homols,ref List<string> LastParams, XDocument xdoc)
         {
             SetJun(ref Juns, xdoc);
+            SetHomols(ref Homols, xdoc);
+            SetLastTwoParams(ref LastParams, xdoc);
+        }
+
+        private static void SetLastTwoParams(ref List<string> LastParams, XDocument xdoc)
+        {
+            foreach (XElement item in xdoc.Element("JUN_CNT").Elements("JUN_AMUG2K"))
+            {
+                XAttribute Attr = item.Attribute("Value");
+                LastParams.Add(Attr.Value);
+            }
+            foreach (XElement item in xdoc.Element("JUN_CNT").Elements("JUN_EPUG2K"))
+            {
+                XAttribute Attr = item.Attribute("Value");
+                LastParams.Add(Attr.Value);
+            }
+        }
+
+        private static void SetHomols(ref List<Homol> Homols, XDocument xdoc)
+        {
+            foreach (XElement HC in xdoc.Element("JUN_CNT").Element("JUN_HC_GENERAL").Elements("JUN_HC_N"))
+            {
+                Homol hom = new Homol();
+                foreach (var item in HC.Element("JUN_JHG2K").Elements("JUN_SQHCC1").Descendants())
+                {
+                    XAttribute Attr = item.Attribute("Value");
+                    hom.JUN_SQHCC1.Add(Attr.Value);
+                }
+                foreach (var item in HC.Element("JUN_JHG2K").Elements("JUN_SQHCC2").Descendants())
+                {
+                    XAttribute Attr = item.Attribute("Value");
+                    hom.JUN_SQHCC2.Add(Attr.Value);
+                }
+                foreach (var item in HC.Element("JUN_JHG2K").Elements("JUN_SQHCC3").Descendants())
+                {
+                    XAttribute Attr = item.Attribute("Value");
+                    hom.JUN_SQHCC3.Add(Attr.Value);
+                }
+                foreach (var item in HC.Element("JUN_JHG2K").Elements("JUN_SQHCC4").Descendants())
+                {
+                    XAttribute Attr = item.Attribute("Value");
+                    hom.JUN_SQHCC4.Add(Attr.Value);
+                }
+
+                foreach (var item in HC.Element("JUN_JMG2K").Elements("JUN_SQMCC1").Descendants())
+                {
+                    XAttribute Attr = item.Attribute("Value");
+                    hom.JUN_SQMCC1.Add(Attr.Value);
+                }
+                foreach (var item in HC.Element("JUN_JMG2K").Elements("JUN_SQMCC2").Descendants())
+                {
+                    XAttribute Attr = item.Attribute("Value");
+                    hom.JUN_SQMCC2.Add(Attr.Value);
+                }
+                foreach (var item in HC.Element("JUN_JMG2K").Elements("JUN_SQMCC3").Descendants())
+                {
+                    XAttribute Attr = item.Attribute("Value");
+                    hom.JUN_SQMCC3.Add(Attr.Value);
+                }
+                foreach (var item in HC.Element("JUN_JMG2K").Elements("JUN_SQMCC4").Descendants())
+                {
+                    XAttribute Attr = item.Attribute("Value");
+                    hom.JUN_SQMCC4.Add(Attr.Value);
+                }
+                Homols.Add(hom);
+            }
         }
 
         /// <summary>
@@ -271,10 +338,20 @@ namespace Converter__from_xml_to_dat_.Files.Gidr2k.Functions
         {
             Standart stdrt = new Standart(name);
 
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_DP02K"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                stdrt.JUN_DP02K = Attr.Value;
+            }
             foreach (XElement Param in JunFromFIle.Descendants("JUN_AJNMLT"))
             {
                 XAttribute Attr = Param.Attribute("Value");
                 stdrt.JUN_AJNMLT = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_JOBR"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                stdrt.JUN_JOBR = Attr.Value;
             }
             foreach (XElement Param in JunFromFIle.Descendants("JUN_JCRFLJ"))
             {
