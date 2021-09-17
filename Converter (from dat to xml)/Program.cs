@@ -6147,7 +6147,10 @@ namespace Converter__from_dat_to_xml_
                                 sw.WriteLine("  <ELM_NAME Value=\"{0}\">", NamesOfAsuelm[j]);
                                 sw.WriteLine("   <ELM_PROP Numb=\"{0}\" Comment=\"Электродвигатель\"/>", (j + 1), NamesOfAsuelm[j]);
                                 sw.WriteLine("   <GENERAL_ELM Comment=\"ИД для электродвигателя\">");
-                                sw.WriteLine("    <ELM_ASU Value=\"{0}\" Comment=\"Сигнал от АСУ на изменение состояния электродвигателя\"/>", AsuOfAsuelm[j]);
+                                sw.WriteLine("    <ELM_ASU1 Value=\"{0}NO\" Comment=\"Сигнал NO от АСУ на изменение состояния электродвигателя\"/>", NamesOfAsuelm[j]);
+                                sw.WriteLine("    <ELM_ASU2 Value=\"{0}00\" Comment=\"Сигнал 00 от АСУ на изменение состояния электродвигателя\"/>", NamesOfAsuelm[j]);
+                                sw.WriteLine("    <ELM_ASU3 Value=\"{0}01\" Comment=\"Сигнал 01 от АСУ на изменение состояния электродвигателя\"/>", NamesOfAsuelm[j]);
+                                sw.WriteLine("    <ELM_ASU4 Value=\"{0}02\" Comment=\"Сигнал 02 от АСУ на изменение состояния электродвигателя\"/>", NamesOfAsuelm[j]);
                                 sw.WriteLine("    <ELM_PHAND Value=\"{0}\" Comment=\"Число пар полюсов обмоток электродвигателя\"/>", PropsOfAsuelm[3 * j]);
                                 sw.WriteLine("    <ELM_MHAND Value=\"{0}\" Comment=\"Момент, развиваемый электродвигателем при критическом скольжении\"/>", PropsOfAsuelm[3 * j + 1]);
                                 sw.WriteLine("    <ELM_SHAND Value=\"{0}\" Comment=\"Критическое скольжение ротора при подключении обмоток\"/>", PropsOfAsuelm[3 * j + 2]);
