@@ -8,11 +8,6 @@ namespace Converter__from_xml_to_dat_.Files.Hstr.Structures
 {
     class TempJun : Structure
     {
-        public TempJun()
-        {
-
-        }
-
         public string HSTR_JHHS { get; set; }
         public string HSTR_JHSTIP { get; set; }
         public string HSTR_ALHS { get; set; }

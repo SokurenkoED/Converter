@@ -8,11 +8,6 @@ namespace Converter__from_xml_to_dat_.Files.Hstr.Structures
 {
     class HeatSource : Structure
     {
-        public HeatSource()
-        {
-
-        }
-
         public string HSTR_ALHS { get; set; }
         public string HSTR_QADHS { get; set; }
         public string HSTR_ASU { get; set; }
