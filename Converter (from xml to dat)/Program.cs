@@ -1,5 +1,6 @@
 ﻿using Converter__from_xml_to_dat_.Files;
 using Converter__from_xml_to_dat_.Files.Hstr;
+using Converter__from_xml_to_dat_.Files.Measure;
 using System;
 using System.IO;
 
@@ -21,13 +22,15 @@ namespace Converter__from_xml_to_dat_
 
             #endregion
 
-            MainXML Main = new MainXML();
+            MainXML Main = new MainXML(); 
 
             VolidXML Volid = new VolidXML();
 
             Gidr2kXML Gidr2k = new Gidr2kXML();
 
             HstrXML Hstr = new HstrXML();
+
+            MeasureXML Measure = new MeasureXML();
 
             Console.ReadKey();
 
