@@ -149,11 +149,10 @@ namespace Converter__from_xml_to_dat_.Files
 
                     VolGasParams.ReadParams(ref Elem, Elems);
 
-                    cont.Add(Elem);// Записали элемент в контур
+                        cont.Add(Elem);// Записали элемент в контур
+                    }
+                    Conts.Add(cont); // Записали контур
                 }
-                Conts.Add(cont); // Записали контур
-            }
-        }
 
         public VolidXML()
         {
@@ -161,7 +160,6 @@ namespace Converter__from_xml_to_dat_.Files
             {
                 ReadParamsToFile();
 
-                WriteParamsFromFile();
             }
             catch (FileNotFoundException)
             {
