@@ -6,8 +6,4 @@
     <RootNamespace>Converter__from_xml_to_dat_</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Files\Elpows\Новая папка\" />
-  </ItemGroup>
-
 </Project>
