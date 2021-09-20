@@ -77,10 +77,12 @@ namespace Converter__from_xml_to_dat_.Files
 
 
 
+
                         cont.Add(Elem);// Записали элемент в контур
                     }
                     Conts.Add(cont); // Записали контур
                 }
+
 
 
             }
