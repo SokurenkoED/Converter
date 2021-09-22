@@ -2,6 +2,7 @@
 using Converter__from_xml_to_dat_.Files.Measure.Sensors;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,16 +12,24 @@ namespace Converter__from_xml_to_dat_.Files.Measure
 {
     class MeasureXML
     {
-        XDocument xdoc = XDocument.Load("measure.xml");
+        XDocument xdoc;
         List<Sensor> Sensors = new List<Sensor>(); // Массив из всех датчиков
 
         public MeasureXML()
         {
+            try
+            {
+                xdoc = XDocument.Load("measure.xml");
 
-            ReadParamsFromFile.ReadFile(xdoc, ref Sensors);
+                ReadParamsFromFile.ReadFile(xdoc, ref Sensors);
 
-            WriteParamsToFile.WriteFile(ref Sensors);
+                WriteParamsToFile.WriteFile(ref Sensors);
 
-        }
+            }
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine("Файл measure.xml не был найден");
+            }
+}
     }
 }
