@@ -1,4 +1,5 @@
-﻿using Converter__from_xml_to_dat_.Files.Elpows.Functions;
+﻿using Converter__from_xml_to_dat_.Files.Elpows.Elems;
+using Converter__from_xml_to_dat_.Files.Elpows.Functions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,13 +13,14 @@ namespace Converter__from_xml_to_dat_.Files.Elpows
     class ElpowsXML
     {
         XDocument xdoc;
+        List<Elem> Elems = new List<Elem>();
         public ElpowsXML()
         {
             try
             {
                 xdoc = XDocument.Load("elpows.xml");
 
-                //ReadParamsFromFile.ReadFIle(ref Juns, ref Homols, ref LastParams, xdoc);
+                ReadParamsFromFile.ReadFile(xdoc, ref Elems );
 
                 //WriteParamsToFile.WriteFile(ref Juns, ref Homols, ref LastParams);
 
