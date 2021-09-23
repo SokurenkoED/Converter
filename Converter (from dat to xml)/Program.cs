@@ -300,18 +300,13 @@ namespace Converter__from_dat_to_xml_
                         string LineOfMain;
                         while ((LineOfMain = await sr.ReadLineAsync()) != null)
                         {
-                            if (!LineOfMain.StartsWith("C"))
+                            if (!LineOfMain.StartsWith("C") && !LineOfMain.StartsWith("c") && !string.IsNullOrWhiteSpace(LineOfMain) && !LineOfMain.StartsWith("!"))
                             {
-                                LineOfMain = LineOfMain.Trim();
-                                ArrayOfMain.Add(LineOfMain);
+                                ArrayOfMain.Add(LineOfMain.Trim());
                             }
                         }
                         // Проверяем количество элементов в файле main.dat
                         CountCont = int.Parse(ArrayOfMain[5]);
-                        if (ArrayOfMain.Count != (CountCont * 6 + 7))
-                        {
-                            Console.WriteLine("При считывании файла MAIN Файл Volid.dat, ошибка - не верное количество элементов в main.dat");
-                        }
 
                         #endregion
 
@@ -320,7 +315,7 @@ namespace Converter__from_dat_to_xml_
                         try
                         {
 
-                            string[] FirstStr = ArrayOfMain[0].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                            string[] FirstStr = ArrayOfMain[0].Split(new string[] { " ", "\t" }, StringSplitOptions.RemoveEmptyEntries);
                             for (int i = 0; i < 7; i++)
                             {
                                 СheckErrorMain = double.Parse(FirstStr[i]);
@@ -334,7 +329,7 @@ namespace Converter__from_dat_to_xml_
 
                         try
                         {
-                            string[] SecondStr = ArrayOfMain[1].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                            string[] SecondStr = ArrayOfMain[1].Split(new string[] { " ", "\t" }, StringSplitOptions.RemoveEmptyEntries);
                             for (int i = 0; i < 7; i++)
                             {
                                 СheckErrorMain = double.Parse(SecondStr[i], formatter);
@@ -351,7 +346,7 @@ namespace Converter__from_dat_to_xml_
 
                         try
                         {
-                            string[] ThirdStr = ArrayOfMain[2].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                            string[] ThirdStr = ArrayOfMain[2].Split(new string[] { " ", "\t" }, StringSplitOptions.RemoveEmptyEntries);
                             for (int i = 0; i < 4; i++)
                             {
                                 СheckErrorMain = double.Parse(ThirdStr[i], formatter);
@@ -365,7 +360,7 @@ namespace Converter__from_dat_to_xml_
 
                         try
                         {
-                            string[] FourthStr = ArrayOfMain[3].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                            string[] FourthStr = ArrayOfMain[3].Split(new string[] { " ", "\t" }, StringSplitOptions.RemoveEmptyEntries);
                             for (int i = 0; i < 2; i++)
                             {
                                 СheckErrorMain = double.Parse(FourthStr[i], formatter);
@@ -379,7 +374,7 @@ namespace Converter__from_dat_to_xml_
 
                         try
                         {
-                            string[] FifthStr = ArrayOfMain[4].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                            string[] FifthStr = ArrayOfMain[4].Split(new string[] { " ", "\t" }, StringSplitOptions.RemoveEmptyEntries);
                             REAC_PARAM[7] = FifthStr[0];
                             REAC_PARAM[8] = FifthStr[1];
                             REST_PRINT_PARAM[1] = FifthStr[2];
@@ -4607,7 +4602,7 @@ namespace Converter__from_dat_to_xml_
 
                             for (int j = 0; j < Gidr2kNames.Count; j++)
                             {
-                                if (Gidr2kNames[j].IndexOf(Name[0]) != -1)
+                                if (Gidr2kNames[j].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[0].IndexOf(Name[0]) != -1 && Gidr2kNames[j].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[0].Length == Name[0].Length)
                                 {
                                     GENERAL.Add(Gidr2kNames[j].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[1]);
                                     GENERAL.Add(Gidr2kNames[j].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[2]);
@@ -4755,13 +4750,21 @@ namespace Converter__from_dat_to_xml_
                                     GVERSUST.Add(GVERSUSTStr[j]);
                                 }
                                 IterStr++;
-                                string[] JUN_KC2KTStr = Gidr2kProp[IterStr].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                                ReadStar(ref Gidr2kProp, ref JUN_KC2KTStr, IterStr, formatter); // Проверяем на *
                                 for (int j = 0; j < 2 * int.Parse(GVERSUST[0]); j++)
                                 {
-                                    JUN_KC2KT.Add(JUN_KC2KTStr[j]);
+                                    string[] JUN_KC2KTStr = Gidr2kProp[IterStr].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                                    ReadStar(ref Gidr2kProp, ref JUN_KC2KTStr, IterStr, formatter); // Проверяем на *
+                                    for (int k = 0; k < JUN_KC2KTStr.Length; k++)
+                                    {
+                                        JUN_KC2KT.Add(JUN_KC2KTStr[k]);
+                                    }
+                                    IterStr++;
+                                    if (JUN_KC2KT.Count == 2 * int.Parse(GVERSUST[0]))
+                                    {
+                                        break;
+                                    }
                                 }
-                                IterStr++;
+                                
                             }
 
                             #endregion
