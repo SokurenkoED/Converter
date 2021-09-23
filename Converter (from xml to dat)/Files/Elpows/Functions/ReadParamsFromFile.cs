@@ -10,25 +10,23 @@ namespace Converter__from_xml_to_dat_.Files.Elpows.Functions
 {
     class ReadParamsFromFile
     {
-        public static void ReadFile(XDocument xdoc, ref List<Elem> Elems)
+        public static void ReadFile(XDocument xdoc, ref List<Elg> EG, ref List<Elm> EM, ref List<Net> NT, ref List<Pump> PMP, ref List<Shaft> Shft, ref List<Turb> TB)
         {
-            SetShaft(xdoc, ref Elems);
+            SetShaft(xdoc, ref Shft);
 
-            SetTurb(xdoc, ref Elems);
+            SetTurb(xdoc, ref TB);
 
-            SetElg(xdoc, ref Elems);
+            SetElg(xdoc, ref EG);
 
-            SetNet(xdoc, ref Elems);
+            SetNet(xdoc, ref NT);
 
-            SetElm(xdoc, ref Elems);
+            SetElm(xdoc, ref EM);
 
-            SetPump(xdoc, ref Elems);
-
-
+            SetPump(xdoc, ref PMP);
 
         }
 
-        private static void SetShaft(XDocument xdoc, ref List<Elem> Elems)
+        private static void SetShaft(XDocument xdoc, ref List<Shaft> Shft)
         {
             foreach (XElement Elms in xdoc.Element("EQP_DATA").Element("SHAFT_CNT").Elements("SHAFT_NAME"))
             {
@@ -46,11 +44,11 @@ namespace Converter__from_xml_to_dat_.Files.Elpows.Functions
                     shaft.SHAFT_OMTUR = item.Attribute("Value").Value;
                 }
 
-                Elems.Add(shaft);
+                Shft.Add(shaft);
             }
         }
 
-        private static void SetTurb(XDocument xdoc, ref List<Elem> Elems)
+        private static void SetTurb(XDocument xdoc, ref List<Turb> TBs)
         {
             foreach (XElement Elms in xdoc.Element("EQP_DATA").Element("TURB_CNT").Elements("TURB_NAME"))
             {
@@ -116,11 +114,11 @@ namespace Converter__from_xml_to_dat_.Files.Elpows.Functions
                     TB.TURB_OM0TUR = item.Attribute("Value").Value;
                 }
 
-                Elems.Add(TB);
+                TBs.Add(TB);
             }
         }
 
-        private static void SetElg(XDocument xdoc, ref List<Elem> Elems)
+        private static void SetElg(XDocument xdoc, ref List<Elg> EGs)
         {
             foreach (XElement Elms in xdoc.Element("EQP_DATA").Element("ELG_CNT").Elements("ELG_NAME"))
             {
@@ -190,11 +188,11 @@ namespace Converter__from_xml_to_dat_.Files.Elpows.Functions
                     EG.ELG_IALTER = item.Attribute("Value").Value;
                 }
 
-                Elems.Add(EG);
+                EGs.Add(EG);
             }
         }
 
-        private static void SetNet(XDocument xdoc, ref List<Elem> Elems)
+        private static void SetNet(XDocument xdoc, ref List<Net> NTs)
         {
             foreach (XElement Elms in xdoc.Element("EQP_DATA").Element("NET_CNT").Elements("NET_NAME"))
             {
@@ -220,16 +218,16 @@ namespace Converter__from_xml_to_dat_.Files.Elpows.Functions
                 {
                     NT.NET_PSOUR_ARG.Add(item.Attribute("Value").Value);
                 }
-                foreach (XElement item in Elms.Descendants("DEP_PVOLT"))
+                foreach (XElement item in Elms.Descendants("NET_PSOUR"))
                 {
                     NT.NET_PSOUR.Add(item.Attribute("Value").Value);
                 }
 
-                Elems.Add(NT);
+                NTs.Add(NT);
             }
         }
 
-        private static void SetElm(XDocument xdoc, ref List<Elem> Elems)
+        private static void SetElm(XDocument xdoc, ref List<Elm> EMs)
         {
             foreach (XElement Elms in xdoc.Element("EQP_DATA").Element("ELM_CNT").Elements("ELM_NAME"))
             {
@@ -245,6 +243,10 @@ namespace Converter__from_xml_to_dat_.Files.Elpows.Functions
                 foreach (var item in Elms.Descendants("ELM_JMAC"))
                 {
                     EM.ELM_JMAC = item.Attribute("Value").Value;
+                }
+                foreach (var item in Elms.Descendants("ELM_OMELMA"))
+                {
+                    EM.ELM_OMELMA = item.Attribute("Value").Value;
                 }
                 foreach (var item in Elms.Descendants("ELM_NETNAME"))
                 {
@@ -284,11 +286,11 @@ namespace Converter__from_xml_to_dat_.Files.Elpows.Functions
                     EM.ELM_VFMAC.Add(item.Attribute("Value").Value);
                 }
 
-                Elems.Add(EM);
+                EMs.Add(EM);
             }
         }
 
-        private static void SetPump(XDocument xdoc, ref List<Elem> Elems)
+        private static void SetPump(XDocument xdoc, ref List<Pump> PMPs)
         {
             foreach (XElement Elms in xdoc.Element("EQP_DATA").Element("PUMP_CNT").Elements("JUN_PUMPNUM"))
             {
@@ -313,7 +315,7 @@ namespace Converter__from_xml_to_dat_.Files.Elpows.Functions
                     PMP.PUMP_MJPUMP = item.Attribute("Value").Value;
                 }
 
-                Elems.Add(PMP);
+                PMPs.Add(PMP);
             }
         }
 

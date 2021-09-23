@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Converter__from_xml_to_dat_.Files.Elpows.Elems
 {
-    class Turb : Elem
+    class Turb
     {
         public string Name { get; set; }
         public string Number { get; set; }
