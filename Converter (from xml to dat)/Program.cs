@@ -1,4 +1,5 @@
 ﻿using Converter__from_xml_to_dat_.Files;
+using Converter__from_xml_to_dat_.Files.Asuval;
 using Converter__from_xml_to_dat_.Files.Elpows;
 using Converter__from_xml_to_dat_.Files.Hstr;
 using Converter__from_xml_to_dat_.Files.Measure;
@@ -34,6 +35,8 @@ namespace Converter__from_xml_to_dat_
             MeasureXML Measure = new MeasureXML();
 
             ElpowsXML Elpows = new ElpowsXML();
+
+            AsuvalXML Asuval = new AsuvalXML();
 
             Console.ReadKey();
 

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Converter__from_xml_to_dat_.Files.Asuval.Elems;
+using Converter__from_xml_to_dat_.Files.Asuval.Functions;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,15 +13,16 @@ namespace Converter__from_xml_to_dat_.Files.Asuval
     class AsuvalXML
     {
         XDocument xdoc;
+        List<Valve> Valves = new List<Valve>();
         public AsuvalXML()
         {
             try
             {
                 xdoc = XDocument.Load("asuval.xml");
 
-                //ReadParamsFromFile.ReadFIle(ref Juns, ref Homols, ref LastParams, xdoc);
+                ReadParamsFromFile.ReadFile(xdoc, ref Valves);
 
-                //WriteParamsToFile.WriteFile(ref Juns, ref Homols, ref LastParams);
+                WriteParamsToFile.WriteFile(ref Valves);
 
             }
             catch (FileNotFoundException)
