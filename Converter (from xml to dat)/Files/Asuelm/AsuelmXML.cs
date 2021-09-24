@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Converter__from_xml_to_dat_.Files.Asuelm.Elems;
+using Converter__from_xml_to_dat_.Files.Asuelm.Functions;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,15 +13,16 @@ namespace Converter__from_xml_to_dat_.Files.Asuelm
     class AsuelmXML
     {
         XDocument xdoc;
+        List<Elm> elms = new List<Elm>();
         public AsuelmXML()
         {
             try
             {
                 xdoc = XDocument.Load("asuelm.xml");
 
-                //ReadParamsFromFile.ReadFIle(ref Juns, ref Homols, ref LastParams, xdoc);
+                ReadParamsFromFile.ReadFile(xdoc, ref elms);
 
-                //WriteParamsToFile.WriteFile(ref Juns, ref Homols, ref LastParams);
+                WriteParamsToFile.WriteFile(ref elms);
 
             }
             catch (FileNotFoundException)

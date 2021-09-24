@@ -24,7 +24,7 @@ namespace Converter__from_xml_to_dat_.Files.Elpows.Functions
 
                 WriteParamsFromPump(sw, PMP);
 
-                sw.WriteLine("0  Количество винтов");
+                sw.WriteLine("0");
             }
         }
         private static void WriteParamsFromShaftAndTurb(StreamWriter sw, List<Shaft> Shft, List<Turb> TB)
