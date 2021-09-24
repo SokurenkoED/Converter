@@ -4851,7 +4851,7 @@ namespace Converter__from_dat_to_xml_
                             {
                                 sw.WriteLine("  <GVERSUST_DEPJUN Comment=\"Зависимость расхода от внешнего аргумента\">");
                                 sw.WriteLine("   <JUN_JJNSIG Value=\"{0}\" Comment=\"Номер сигнала 'жесткого' управления, по которому происходит включение таблицы\"/>", GVERSUST[1]);
-                                sw.WriteLine("   <JUN_JJNPAR Value=\"{0}\" Comment=\"Имя датчика - аргумент таблиц(\"нет\" – время)\"/>", GVERSUST[2]);
+                                sw.WriteLine("   <JUN_JJNPAR Value=\"{0}\" Comment=\"Имя датчика - аргумент таблиц\"/>", GVERSUST[2]);
                                 sw.WriteLine("   <JUN_JJNT Value=\"{0}\" Comment=\"Размерность таблицы\"/>", GVERSUST[0]);
                                 for (int j = 0; j < int.Parse(GVERSUST[0]); j++)
                                 {
