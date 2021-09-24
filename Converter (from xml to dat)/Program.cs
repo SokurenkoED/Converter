@@ -1,4 +1,5 @@
 ﻿using Converter__from_xml_to_dat_.Files;
+using Converter__from_xml_to_dat_.Files.Elpows;
 using Converter__from_xml_to_dat_.Files.Hstr;
 using Converter__from_xml_to_dat_.Files.Measure;
 using System;
@@ -32,6 +33,7 @@ namespace Converter__from_xml_to_dat_
 
             MeasureXML Measure = new MeasureXML();
 
+            ElpowsXML Elpows = new ElpowsXML();
 
             Console.ReadKey();
 
