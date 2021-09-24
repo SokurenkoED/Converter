@@ -22,7 +22,7 @@ namespace Converter__from_xml_to_dat_
 
             #endregion
 
-            MainXML Main = new MainXML(); 
+            MainXML Main = new MainXML();
 
             VolidXML Volid = new VolidXML();
 
