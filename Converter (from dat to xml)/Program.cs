@@ -1953,7 +1953,7 @@ namespace Converter__from_dat_to_xml_
                                                 sw.WriteLine("   <STRMAT_PIPE Comment=\"Свойства кострукционных материалов\">");
                                                 for (int j = 0; j < JNM.Count; j++)
                                                 {
-                                                    sw.WriteLine("    <PIPE_JMACRV_N Value=\"{0}\" Comment=\"Номер макроучастка теплообмена\"/>", j + 1);
+                                                    sw.WriteLine("    <PIPE_JMACRV_N Value=\"{0}\" Comment=\"Номер макроучастка теплообмена\">", j + 1);
 
                                                     sw.WriteLine("     <PIPE_JVV Value=\"{0}\" Comment=\"Количество расчетных участков теплообмена по длине\"/>", JNM[j][1]);
                                                     sw.WriteLine("     <PIPE_JNM Value=\"{0}\" Comment=\"Количество расчетных участков теплообмена по толщине\"/>", JNM[j][0]);
@@ -3496,7 +3496,7 @@ namespace Converter__from_dat_to_xml_
                                             sw.WriteLine("   <STRMAT_PIPE Comment=\"Свойства кострукционных материалов\">");
                                             for (int j = 0; j < JNM.Count; j++)
                                             {
-                                                sw.WriteLine("    <PIPE_JMACRV_N Value=\"{0}\" Comment=\"Номер макроучастка теплообмена\"/>", j + 1);
+                                                sw.WriteLine("    <PIPE_JMACRV_N Value=\"{0}\" Comment=\"Номер макроучастка теплообмена\">", j + 1);
 
                                                 sw.WriteLine("     <PIPE_JVV Value=\"{0}\" Comment=\"Количество расчетных участков теплообмена по длине\"/>", JNM[j][1]);
                                                 sw.WriteLine("     <PIPE_JNM Value=\"{0}\" Comment=\"Количество расчетных участков теплообмена по толщине\"/>", JNM[j][0]);
