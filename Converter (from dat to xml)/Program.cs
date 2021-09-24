@@ -4673,32 +4673,41 @@ namespace Converter__from_dat_to_xml_
                                     IterStr++;
                                     VLV_TBL.Add(Gidr2kProp[IterStr].Trim());
                                     IterStr++;
-                                    if (int.Parse(VLV_TBL[0]) != 0)
+                                    try
                                     {
-                                        string[] VLV_TBLStr = Gidr2kProp[IterStr].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                                        ReadStar(ref Gidr2kProp, ref VLV_TBLStr, IterStr, formatter); // Проверяем на *
-                                        if (VLV_TBLStr.Length == int.Parse(VLV_TBL[0]))
+                                        if (int.Parse(VLV_TBL[0]) != 0)
                                         {
-                                            for (int j = 0; j < int.Parse(VLV_TBL[0]); j++)
+                                            string[] VLV_TBLStr = Gidr2kProp[IterStr].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                                            ReadStar(ref Gidr2kProp, ref VLV_TBLStr, IterStr, formatter); // Проверяем на *
+                                            if (VLV_TBLStr.Length == int.Parse(VLV_TBL[0]))
                                             {
-                                                VLV_TBL.Add(VLV_TBLStr[j]);
+                                                for (int j = 0; j < int.Parse(VLV_TBL[0]); j++)
+                                                {
+                                                    VLV_TBL.Add(VLV_TBLStr[j]);
+                                                }
+                                                IterStr++;
+                                                string[] VLV_TBLStr2 = Gidr2kProp[IterStr].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                                                ReadStar(ref Gidr2kProp, ref VLV_TBLStr2, IterStr, formatter); // Проверяем на *
+                                                for (int j = 0; j < int.Parse(VLV_TBL[0]); j++)
+                                                {
+                                                    VLV_TBL.Add(VLV_TBLStr2[j]);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                for (int j = 0; j < 2 * int.Parse(VLV_TBL[0]); j++)
+                                                {
+                                                    VLV_TBL.Add(VLV_TBLStr[j]);
+                                                }
                                             }
                                             IterStr++;
-                                            string[] VLV_TBLStr2 = Gidr2kProp[IterStr].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                                            ReadStar(ref Gidr2kProp, ref VLV_TBLStr2, IterStr, formatter); // Проверяем на *
-                                            for (int j = 0; j < int.Parse(VLV_TBL[0]); j++)
-                                            {
-                                                VLV_TBL.Add(VLV_TBLStr2[j]);
-                                            }
                                         }
-                                        else
-                                        {
-                                            for (int j = 0; j < 2 * int.Parse(VLV_TBL[0]); j++)
-                                            {
-                                                VLV_TBL.Add(VLV_TBLStr[j]);
-                                            }
-                                        }
-                                        IterStr++;
+                                    }
+                                    catch (FormatException)
+                                    {
+
+                                        Console.WriteLine("Нет табличного значения для элемента " + Name[0]);
+                                        throw;
                                     }
                                 }
                                 if (ArrOfStr[0] != "0")
@@ -4976,7 +4985,9 @@ namespace Converter__from_dat_to_xml_
                                     {
                                         for (int k = 0; k < int.Parse(PumpTbl0[0]); k++)
                                         {
-                                            PumpTbl1.Add(Gidr2kProp[IterStr].Split(new string[] { " ", "\t" }, StringSplitOptions.RemoveEmptyEntries)[k]);
+                                            string[] HOMOL = Gidr2kProp[IterStr].Split(new string[] { " ", "\t" }, StringSplitOptions.RemoveEmptyEntries);
+                                            ReadStar(ref Gidr2kProp, ref HOMOL, IterStr, formatter); // Проверяем на *
+                                            PumpTbl1.Add(HOMOL[k]);
                                         }
                                         IterStr++;
                                     }
@@ -4984,7 +4995,9 @@ namespace Converter__from_dat_to_xml_
                                     {
                                         for (int k = 0; k < int.Parse(PumpTbl0[0]); k++)
                                         {
-                                            PumpTbl2.Add(Gidr2kProp[IterStr].Split(new string[] { " ", "\t" }, StringSplitOptions.RemoveEmptyEntries)[k]);
+                                            string[] HOMOL = Gidr2kProp[IterStr].Split(new string[] { " ", "\t" }, StringSplitOptions.RemoveEmptyEntries);
+                                            ReadStar(ref Gidr2kProp, ref HOMOL, IterStr, formatter); // Проверяем на *
+                                            PumpTbl2.Add(HOMOL[k]);
                                         }
                                         IterStr++;
                                     }
@@ -4992,7 +5005,9 @@ namespace Converter__from_dat_to_xml_
                                     {
                                         for (int k = 0; k < int.Parse(PumpTbl0[0]); k++)
                                         {
-                                            PumpTbl3.Add(Gidr2kProp[IterStr].Split(new string[] { " ", "\t" }, StringSplitOptions.RemoveEmptyEntries)[k]);
+                                            string[] HOMOL = Gidr2kProp[IterStr].Split(new string[] { " ", "\t" }, StringSplitOptions.RemoveEmptyEntries);
+                                            ReadStar(ref Gidr2kProp, ref HOMOL, IterStr, formatter); // Проверяем на *
+                                            PumpTbl3.Add(HOMOL[k]);
                                         }
                                         IterStr++;
                                     }
@@ -5000,7 +5015,9 @@ namespace Converter__from_dat_to_xml_
                                     {
                                         for (int k = 0; k < int.Parse(PumpTbl0[0]); k++)
                                         {
-                                            PumpTbl4.Add(Gidr2kProp[IterStr].Split(new string[] { " ", "\t" }, StringSplitOptions.RemoveEmptyEntries)[k]);
+                                            string[] HOMOL = Gidr2kProp[IterStr].Split(new string[] { " ", "\t" }, StringSplitOptions.RemoveEmptyEntries);
+                                            ReadStar(ref Gidr2kProp, ref HOMOL, IterStr, formatter); // Проверяем на *
+                                            PumpTbl4.Add(HOMOL[k]);
                                         }
                                         IterStr++;
                                     }
