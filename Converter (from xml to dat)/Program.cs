@@ -6,6 +6,7 @@ using Converter__from_xml_to_dat_.Files.Elpows;
 using Converter__from_xml_to_dat_.Files.Hstr;
 using Converter__from_xml_to_dat_.Files.Measure;
 using Converter__from_xml_to_dat_.Files.Oopent;
+using Converter__from_xml_to_dat_.Files.Otyent;
 using System;
 using System.IO;
 
@@ -46,6 +47,8 @@ namespace Converter__from_xml_to_dat_
             AsuelkXML Asuelk = new AsuelkXML();
 
             OopentXML Oopent = new OopentXML();
+
+            OtyentXML Otyent = new OtyentXML();
 
             Console.ReadKey();
 
