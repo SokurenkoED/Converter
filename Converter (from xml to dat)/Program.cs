@@ -1,4 +1,5 @@
 ﻿using Converter__from_xml_to_dat_.Files;
+using Converter__from_xml_to_dat_.Files.Asuelk;
 using Converter__from_xml_to_dat_.Files.Asuelm;
 using Converter__from_xml_to_dat_.Files.Asuval;
 using Converter__from_xml_to_dat_.Files.Elpows;
@@ -40,6 +41,8 @@ namespace Converter__from_xml_to_dat_
             AsuvalXML Asuval = new AsuvalXML();
 
             AsuelmXML Asuelm = new AsuelmXML();
+
+            AsuelkXML Asuelk = new AsuelkXML();
 
             Console.ReadKey();
 
