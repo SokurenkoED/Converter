@@ -90,12 +90,21 @@ namespace Converter__from_xml_to_dat_.Files.Elpows.Functions
 
         private static void WriteParamsFromElm(StreamWriter sw, List<Elm> EM)
         {
+            sw.WriteLine();
             sw.WriteLine($" {EM.Count} {"Количество электроприводов"}");
             foreach (var item in EM)
             {
                 sw.WriteLine($" {item.Name}");
                 sw.WriteLine($" {item.ELM_NETNUM} {item.ELM_MJMAC} {item.ELM_M1MAC} {item.ELM_M2MAC} {item.ELM_M3MAC} {"Номер сети,Момент инерции, коэффициенты потерь"}");
-                sw.WriteLine($" {item.ELM_JMAC} {item.ELM_JVFMAC} {"(Признак эл-да 0-асхр,1-асхр.через преобраз,2-коллектор.), К-во точек"} {"ОБРАТИТЬ ВНИМАНИЕ НА ТАБЛИЦУ!!!!!!!!!!!!!!!!!!!!!!!"}");
+                sw.Write($" {item.ELM_JMAC} {item.ELM_JVFMAC}");
+                if (item.ELM_JVFMAC == null)
+                {
+                    sw.WriteLine("2" + " (Признак эл-да 0-асхр,1-асхр.через преобраз,2-коллектор.), К-во точек");
+                }
+                else
+                {
+                    sw.WriteLine(" (Признак эл-да 0-асхр,1-асхр.через преобраз,2-коллектор.), К-во точек");
+                }
                 if (item.ELM_JMAC == "1")
                 {
                     foreach (var item2 in item.ELM_VFMAC_ARG)
@@ -108,6 +117,10 @@ namespace Converter__from_xml_to_dat_.Files.Elpows.Functions
                         sw.Write($" {item2}");
                     }
                     sw.WriteLine();
+                }
+                else
+                {
+                    sw.WriteLine(" 0. 1000. 1. 1.");
                 }
                 sw.WriteLine();
             }
