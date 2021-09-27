@@ -5,6 +5,7 @@ using Converter__from_xml_to_dat_.Files.Asuval;
 using Converter__from_xml_to_dat_.Files.Elpows;
 using Converter__from_xml_to_dat_.Files.Hstr;
 using Converter__from_xml_to_dat_.Files.Measure;
+using Converter__from_xml_to_dat_.Files.Oopent;
 using System;
 using System.IO;
 
@@ -43,6 +44,8 @@ namespace Converter__from_xml_to_dat_
             AsuelmXML Asuelm = new AsuelmXML();
 
             AsuelkXML Asuelk = new AsuelkXML();
+
+            OopentXML Oopent = new OopentXML();
 
             Console.ReadKey();
 
