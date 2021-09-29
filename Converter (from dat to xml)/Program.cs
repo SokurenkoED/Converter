@@ -1175,7 +1175,7 @@ namespace Converter__from_dat_to_xml_
 
                                         sw.WriteLine("   <GENERAL_DEP Comment=\"Общие\">");
                                         sw.WriteLine("    <ELEM_TYPE Value=\"{0}\" Comment=\"Тип расчетного элемента\"/>", DVType);
-                                        sw.WriteLine("    <DEP_JJARG Value=\"{0}\" Comment=\"Порядковый номер из файла measure.dat\"/>", DVArg);
+                                        sw.WriteLine("    <DEP_JJARG Value=\"{0}\" Comment=\"Порядковый номер из файла measure.xml\"/>", DVArg);
                                         sw.WriteLine("   </GENERAL_DEP>");
                                         sw.WriteLine("   <PVERSUST_DEP Comment=\"Зависимость давления теплоносителя от внешнего аргумента\">");
                                         sw.WriteLine("    <DEP_JPVT Value=\"{0}\" Comment=\"Размерность таблицы\"/>", PVERSUST_DEP[0]);
