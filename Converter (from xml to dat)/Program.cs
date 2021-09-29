@@ -7,6 +7,7 @@ using Converter__from_xml_to_dat_.Files.Hstr;
 using Converter__from_xml_to_dat_.Files.Measure;
 using Converter__from_xml_to_dat_.Files.Oopent;
 using Converter__from_xml_to_dat_.Files.Otyent;
+using Converter__from_xml_to_dat_.Files.Upper;
 using System;
 using System.IO;
 
@@ -49,6 +50,8 @@ namespace Converter__from_xml_to_dat_
             OopentXML Oopent = new OopentXML();
 
             OtyentXML Otyent = new OtyentXML();
+
+            UpperXML Upper = new UpperXML();
 
             Console.ReadKey();
 
