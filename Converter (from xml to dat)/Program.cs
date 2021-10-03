@@ -4,6 +4,7 @@ using Converter__from_xml_to_dat_.Files.Asuelm;
 using Converter__from_xml_to_dat_.Files.Asuval;
 using Converter__from_xml_to_dat_.Files.Elpows;
 using Converter__from_xml_to_dat_.Files.Hstr;
+using Converter__from_xml_to_dat_.Files.Kinet;
 using Converter__from_xml_to_dat_.Files.Measure;
 using Converter__from_xml_to_dat_.Files.Oopent;
 using Converter__from_xml_to_dat_.Files.Otyent;
@@ -52,6 +53,8 @@ namespace Converter__from_xml_to_dat_
             OtyentXML Otyent = new OtyentXML();
 
             UpperXML Upper = new UpperXML();
+
+            KinetXML Kinet = new KinetXML();
 
             Console.ReadKey();
 
