@@ -15,6 +15,7 @@ namespace Converter__from_xml_to_dat_.Files.Asuelk
         {
             try
             {
+
                 xdoc = XDocument.Load("asuelk.xml");
 
                 //ReadParamsFromFile.ReadFIle(ref Juns, ref Homols, ref LastParams, xdoc);
