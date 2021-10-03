@@ -29,7 +29,10 @@ namespace Converter__from_xml_to_dat_.Files
                 XAttribute AttributeValueFromNumb = Elems.Attribute("Numb");
                 Elem.Type = AttrValue.Value;
                 Elem.Name = AttrValue.Value;
-                Elem.Description = AttributeValueFromDiscr.Value;
+                if (AttributeValueFromDiscr != null)
+                {
+                    Elem.Description = AttributeValueFromDiscr.Value;
+                }
                 Elem.Number = AttributeValueFromNumb.Value;
             }
             foreach (XElement Elem_Type in Elems.Descendants("ELEM_TYPE"))

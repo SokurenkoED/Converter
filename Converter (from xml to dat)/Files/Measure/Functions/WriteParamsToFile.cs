@@ -19,6 +19,7 @@ namespace Converter__from_xml_to_dat_.Files.Measure.Functions
                 {
                     WriteParamsFromSensor(sw, item);
                 }
+                sw.WriteLine("endmeas");
             }
         }
 

@@ -1175,7 +1175,7 @@ namespace Converter__from_dat_to_xml_
 
                                         sw.WriteLine("   <GENERAL_DEP Comment=\"Общие\">");
                                         sw.WriteLine("    <ELEM_TYPE Value=\"{0}\" Comment=\"Тип расчетного элемента\"/>", DVType);
-                                        sw.WriteLine("    <DEP_JJARG Value=\"{0}\" Comment=\"Порядковый номер из файла measure.dat\"/>", DVArg);
+                                        sw.WriteLine("    <DEP_JJARG Value=\"{0}\" Comment=\"Порядковый номер из файла measure.xml\"/>", DVArg);
                                         sw.WriteLine("   </GENERAL_DEP>");
                                         sw.WriteLine("   <PVERSUST_DEP Comment=\"Зависимость давления теплоносителя от внешнего аргумента\">");
                                         sw.WriteLine("    <DEP_JPVT Value=\"{0}\" Comment=\"Размерность таблицы\"/>", PVERSUST_DEP[0]);
@@ -1953,7 +1953,7 @@ namespace Converter__from_dat_to_xml_
                                                 sw.WriteLine("   <STRMAT_PIPE Comment=\"Свойства кострукционных материалов\">");
                                                 for (int j = 0; j < JNM.Count; j++)
                                                 {
-                                                    sw.WriteLine("    <PIPE_JMACRV_N Value=\"{0}\" Comment=\"Номер макроучастка теплообмена\"/>", j + 1);
+                                                    sw.WriteLine("    <PIPE_JMACRV_N Value=\"{0}\" Comment=\"Номер макроучастка теплообмена\">", j + 1);
 
                                                     sw.WriteLine("     <PIPE_JVV Value=\"{0}\" Comment=\"Количество расчетных участков теплообмена по длине\"/>", JNM[j][1]);
                                                     sw.WriteLine("     <PIPE_JNM Value=\"{0}\" Comment=\"Количество расчетных участков теплообмена по толщине\"/>", JNM[j][0]);
@@ -3496,7 +3496,7 @@ namespace Converter__from_dat_to_xml_
                                             sw.WriteLine("   <STRMAT_PIPE Comment=\"Свойства кострукционных материалов\">");
                                             for (int j = 0; j < JNM.Count; j++)
                                             {
-                                                sw.WriteLine("    <PIPE_JMACRV_N Value=\"{0}\" Comment=\"Номер макроучастка теплообмена\"/>", j + 1);
+                                                sw.WriteLine("    <PIPE_JMACRV_N Value=\"{0}\" Comment=\"Номер макроучастка теплообмена\">", j + 1);
 
                                                 sw.WriteLine("     <PIPE_JVV Value=\"{0}\" Comment=\"Количество расчетных участков теплообмена по длине\"/>", JNM[j][1]);
                                                 sw.WriteLine("     <PIPE_JNM Value=\"{0}\" Comment=\"Количество расчетных участков теплообмена по толщине\"/>", JNM[j][0]);
@@ -4673,32 +4673,41 @@ namespace Converter__from_dat_to_xml_
                                     IterStr++;
                                     VLV_TBL.Add(Gidr2kProp[IterStr].Trim());
                                     IterStr++;
-                                    if (int.Parse(VLV_TBL[0]) != 0)
+                                    try
                                     {
-                                        string[] VLV_TBLStr = Gidr2kProp[IterStr].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                                        ReadStar(ref Gidr2kProp, ref VLV_TBLStr, IterStr, formatter); // Проверяем на *
-                                        if (VLV_TBLStr.Length == int.Parse(VLV_TBL[0]))
+                                        if (int.Parse(VLV_TBL[0]) != 0)
                                         {
-                                            for (int j = 0; j < int.Parse(VLV_TBL[0]); j++)
+                                            string[] VLV_TBLStr = Gidr2kProp[IterStr].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                                            ReadStar(ref Gidr2kProp, ref VLV_TBLStr, IterStr, formatter); // Проверяем на *
+                                            if (VLV_TBLStr.Length == int.Parse(VLV_TBL[0]))
                                             {
-                                                VLV_TBL.Add(VLV_TBLStr[j]);
+                                                for (int j = 0; j < int.Parse(VLV_TBL[0]); j++)
+                                                {
+                                                    VLV_TBL.Add(VLV_TBLStr[j]);
+                                                }
+                                                IterStr++;
+                                                string[] VLV_TBLStr2 = Gidr2kProp[IterStr].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                                                ReadStar(ref Gidr2kProp, ref VLV_TBLStr2, IterStr, formatter); // Проверяем на *
+                                                for (int j = 0; j < int.Parse(VLV_TBL[0]); j++)
+                                                {
+                                                    VLV_TBL.Add(VLV_TBLStr2[j]);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                for (int j = 0; j < 2 * int.Parse(VLV_TBL[0]); j++)
+                                                {
+                                                    VLV_TBL.Add(VLV_TBLStr[j]);
+                                                }
                                             }
                                             IterStr++;
-                                            string[] VLV_TBLStr2 = Gidr2kProp[IterStr].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                                            ReadStar(ref Gidr2kProp, ref VLV_TBLStr2, IterStr, formatter); // Проверяем на *
-                                            for (int j = 0; j < int.Parse(VLV_TBL[0]); j++)
-                                            {
-                                                VLV_TBL.Add(VLV_TBLStr2[j]);
-                                            }
                                         }
-                                        else
-                                        {
-                                            for (int j = 0; j < 2 * int.Parse(VLV_TBL[0]); j++)
-                                            {
-                                                VLV_TBL.Add(VLV_TBLStr[j]);
-                                            }
-                                        }
-                                        IterStr++;
+                                    }
+                                    catch (FormatException)
+                                    {
+
+                                        Console.WriteLine("Нет табличного значения для элемента " + Name[0]);
+                                        throw;
                                     }
                                 }
                                 if (ArrOfStr[0] != "0")
@@ -4851,7 +4860,7 @@ namespace Converter__from_dat_to_xml_
                             {
                                 sw.WriteLine("  <GVERSUST_DEPJUN Comment=\"Зависимость расхода от внешнего аргумента\">");
                                 sw.WriteLine("   <JUN_JJNSIG Value=\"{0}\" Comment=\"Номер сигнала 'жесткого' управления, по которому происходит включение таблицы\"/>", GVERSUST[1]);
-                                sw.WriteLine("   <JUN_JJNPAR Value=\"{0}\" Comment=\"Имя датчика - аргумент таблиц(\"нет\" – время)\"/>", GVERSUST[2]);
+                                sw.WriteLine("   <JUN_JJNPAR Value=\"{0}\" Comment=\"Имя датчика - аргумент таблиц\"/>", GVERSUST[2]);
                                 sw.WriteLine("   <JUN_JJNT Value=\"{0}\" Comment=\"Размерность таблицы\"/>", GVERSUST[0]);
                                 for (int j = 0; j < int.Parse(GVERSUST[0]); j++)
                                 {
@@ -4976,7 +4985,9 @@ namespace Converter__from_dat_to_xml_
                                     {
                                         for (int k = 0; k < int.Parse(PumpTbl0[0]); k++)
                                         {
-                                            PumpTbl1.Add(Gidr2kProp[IterStr].Split(new string[] { " ", "\t" }, StringSplitOptions.RemoveEmptyEntries)[k]);
+                                            string[] HOMOL = Gidr2kProp[IterStr].Split(new string[] { " ", "\t" }, StringSplitOptions.RemoveEmptyEntries);
+                                            ReadStar(ref Gidr2kProp, ref HOMOL, IterStr, formatter); // Проверяем на *
+                                            PumpTbl1.Add(HOMOL[k]);
                                         }
                                         IterStr++;
                                     }
@@ -4984,7 +4995,9 @@ namespace Converter__from_dat_to_xml_
                                     {
                                         for (int k = 0; k < int.Parse(PumpTbl0[0]); k++)
                                         {
-                                            PumpTbl2.Add(Gidr2kProp[IterStr].Split(new string[] { " ", "\t" }, StringSplitOptions.RemoveEmptyEntries)[k]);
+                                            string[] HOMOL = Gidr2kProp[IterStr].Split(new string[] { " ", "\t" }, StringSplitOptions.RemoveEmptyEntries);
+                                            ReadStar(ref Gidr2kProp, ref HOMOL, IterStr, formatter); // Проверяем на *
+                                            PumpTbl2.Add(HOMOL[k]);
                                         }
                                         IterStr++;
                                     }
@@ -4992,7 +5005,9 @@ namespace Converter__from_dat_to_xml_
                                     {
                                         for (int k = 0; k < int.Parse(PumpTbl0[0]); k++)
                                         {
-                                            PumpTbl3.Add(Gidr2kProp[IterStr].Split(new string[] { " ", "\t" }, StringSplitOptions.RemoveEmptyEntries)[k]);
+                                            string[] HOMOL = Gidr2kProp[IterStr].Split(new string[] { " ", "\t" }, StringSplitOptions.RemoveEmptyEntries);
+                                            ReadStar(ref Gidr2kProp, ref HOMOL, IterStr, formatter); // Проверяем на *
+                                            PumpTbl3.Add(HOMOL[k]);
                                         }
                                         IterStr++;
                                     }
@@ -5000,7 +5015,9 @@ namespace Converter__from_dat_to_xml_
                                     {
                                         for (int k = 0; k < int.Parse(PumpTbl0[0]); k++)
                                         {
-                                            PumpTbl4.Add(Gidr2kProp[IterStr].Split(new string[] { " ", "\t" }, StringSplitOptions.RemoveEmptyEntries)[k]);
+                                            string[] HOMOL = Gidr2kProp[IterStr].Split(new string[] { " ", "\t" }, StringSplitOptions.RemoveEmptyEntries);
+                                            ReadStar(ref Gidr2kProp, ref HOMOL, IterStr, formatter); // Проверяем на *
+                                            PumpTbl4.Add(HOMOL[k]);
                                         }
                                         IterStr++;
                                     }
