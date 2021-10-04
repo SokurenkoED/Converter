@@ -36,7 +36,7 @@ namespace Converter__from_xml_to_dat_.Files.Canent
 
                 ReadParamsFromFile.ReadFile(xdoc, ref GC, ref SCs, ref MC, ref FaC, ref UC, ref CG, ref CGeom, ref FCs, ref SFC, ref SUC, ref CC, ref CTFT);
 
-                //WriteParamsToFile.WriteFile(ref GC, ref SCs, ref MC, ref FaC, ref UC, ref CG, ref CGeom, ref FCs, ref SFC, ref SUC, ref CC, ref CTFT);
+                WriteParamsToFile.WriteFile(ref GC, ref SCs, ref MC, ref FaC, ref UC, ref CG, ref CGeom, ref FCs, ref SFC, ref SUC, ref CC, ref CTFT);
 
             }
             catch (FileNotFoundException)
