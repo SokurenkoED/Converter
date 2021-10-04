@@ -2,6 +2,7 @@
 using Converter__from_xml_to_dat_.Files.Asuelk;
 using Converter__from_xml_to_dat_.Files.Asuelm;
 using Converter__from_xml_to_dat_.Files.Asuval;
+using Converter__from_xml_to_dat_.Files.Canent;
 using Converter__from_xml_to_dat_.Files.Elpows;
 using Converter__from_xml_to_dat_.Files.Hstr;
 using Converter__from_xml_to_dat_.Files.Kinet;
@@ -55,6 +56,8 @@ namespace Converter__from_xml_to_dat_
             UpperXML Upper = new UpperXML();
 
             KinetXML Kinet = new KinetXML();
+
+            CanentXML Canent = new CanentXML();
 
             Console.ReadKey();
 

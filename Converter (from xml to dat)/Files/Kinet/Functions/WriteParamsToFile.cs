@@ -196,6 +196,17 @@ namespace Converter__from_xml_to_dat_.Files.Kinet.Functions
                 sw.WriteLine();
                 sw.WriteLine(" 0");
                 sw.Write(" 0");
+                using (StreamWriter sw3 = new StreamWriter("OldFormat-TIGR/asupo.dat", false, Encoding.Default))
+                {
+                    foreach (var item3 in CDs)
+                    {
+                        sw3.WriteLine($"{"/USU/"} {item3.KIN_ASUOR}");
+                    }
+                    foreach (var item3 in CDs)
+                    {
+                        sw3.Write($" {item3.KIN_ASUHRO0}");
+                    }
+                }
             }
         }
     }
