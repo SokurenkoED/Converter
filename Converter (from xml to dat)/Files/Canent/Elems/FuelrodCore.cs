@@ -22,11 +22,12 @@ namespace Converter__from_xml_to_dat_.Files.Canent.Elems
         public List<string> CORE_LTTAB_ARG = new List<string>();
         public List<string> CORE_LTTAB = new List<string>();
 
-        public List<string> CORE_PTVL = new List<string>();
-        public List<string> CORE_AMGTVL = new List<string>();
-        public List<string> CORE_RGTVL = new List<string>();
-        public List<string> CORE_VGSTVL = new List<string>();
-        public List<string> CORE_FTTVL = new List<string>();
+        public string CORE_JGTVL { get; set; }
+        public string CORE_PTVL { get; set; }
+        public string CORE_AMGTVL { get; set; }
+        public string CORE_RGTVL { get; set; }
+        public string CORE_VGSTVL { get; set; }
+        public string CORE_FTTVL { get; set; }
 
         public string CORE_D0ZAZ { get; set; }
 

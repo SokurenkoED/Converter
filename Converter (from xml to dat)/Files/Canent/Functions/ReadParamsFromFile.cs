@@ -337,25 +337,29 @@ namespace Converter__from_xml_to_dat_.Files.Canent.Functions
                     FC.CORE_LTTAB.Add(item.Attribute("Value").Value);
                 }
 
+                foreach (var item in Data.Descendants("CORE_JGTVL"))
+                {
+                    FC.CORE_JGTVL = item.Attribute("Value").Value;
+                }
                 foreach (var item in Data.Descendants("CORE_PTVL"))
                 {
-                    FC.CORE_PTVL.Add(item.Attribute("Value").Value);
+                    FC.CORE_PTVL = item.Attribute("Value").Value;
                 }
                 foreach (var item in Data.Descendants("CORE_AMGTVL"))
                 {
-                    FC.CORE_AMGTVL.Add(item.Attribute("Value").Value);
+                    FC.CORE_AMGTVL = item.Attribute("Value").Value ;
                 }
                 foreach (var item in Data.Descendants("CORE_RGTVL"))
                 {
-                    FC.CORE_RGTVL.Add(item.Attribute("Value").Value);
+                    FC.CORE_RGTVL = item.Attribute("Value").Value;
                 }
                 foreach (var item in Data.Descendants("CORE_VGSTVL"))
                 {
-                    FC.CORE_VGSTVL.Add(item.Attribute("Value").Value);
+                    FC.CORE_VGSTVL = item.Attribute("Value").Value;
                 }
                 foreach (var item in Data.Descendants("CORE_FTTVL"))
                 {
-                    FC.CORE_FTTVL.Add(item.Attribute("Value").Value);
+                    FC.CORE_FTTVL = item.Attribute("Value").Value;
                 }
 
                 foreach (var item in Data.Descendants("CORE_D0ZAZ"))
