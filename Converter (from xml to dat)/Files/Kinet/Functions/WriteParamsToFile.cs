@@ -197,6 +197,7 @@ namespace Converter__from_xml_to_dat_.Files.Kinet.Functions
                 sw.WriteLine(" 0");
                 sw.Write(" 0");
             }
+
         }
     }
 }
