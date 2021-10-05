@@ -260,9 +260,9 @@ namespace Converter__from_xml_to_dat_.Files.Canent.Functions
                 }
                 sw.WriteLine();
                 sw.WriteLine("-2.0");
-                sw.WriteLine("0");
+                sw.WriteLine(CC.CORE_JCROSS);
                 sw.WriteLine("C Число т/ф каналов");
-                sw.WriteLine("0");
+                sw.WriteLine(CTFT.CORE_JTFT);
                 sw.WriteLine("0");
             }
         }

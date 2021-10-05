@@ -24,6 +24,8 @@ namespace Converter__from_xml_to_dat_.Files.Canent.Functions
             ReadParamsFormFuelRodCore(xdoc, ref FCs);
             ReadParamsFormStrmatFaCore(xdoc, ref SFC);
             ReadParamsFormStrmatUnheatCore(xdoc, ref SUC);
+            ReadParamsFormStrmatCoreCross(xdoc, ref CC);
+            ReadParamsFormStrmatCoreTFT(xdoc, ref CTFT);
         }
 
         public static void ReadParamsFormGeneralCore(XDocument xdoc, ref GeneralCore GC)
@@ -459,6 +461,28 @@ namespace Converter__from_xml_to_dat_.Files.Canent.Functions
                 foreach (var item in Data.Descendants("CORE_ALMI2"))
                 {
                     SUC.CORE_ALMI2.Add(item.Attribute("Value").Value);
+                }
+            }
+        }
+
+        public static void ReadParamsFormStrmatCoreCross(XDocument xdoc, ref CoreCross CTFT)
+        {
+            foreach (XElement Data in xdoc.Element("CORE_DATA").Elements("CORE_CROSS"))
+            {
+                foreach (var item in Data.Descendants("CORE_JCROSS"))
+                {
+                    CTFT.CORE_JCROSS = item.Attribute("Value").Value;
+                }
+            }
+        }
+
+        public static void ReadParamsFormStrmatCoreTFT(XDocument xdoc, ref CoreTFT CTFT)
+        {
+            foreach (XElement Data in xdoc.Element("CORE_DATA").Elements("CORE_TFT"))
+            {
+                foreach (var item in Data.Descendants("CORE_JTFT"))
+                {
+                    CTFT.CORE_JTFT = item.Attribute("Value").Value;
                 }
             }
         }

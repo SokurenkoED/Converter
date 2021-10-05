@@ -8,5 +8,6 @@ namespace Converter__from_xml_to_dat_.Files.Canent.Elems
 {
     class CoreCross
     {
+        public string CORE_JCROSS { get; set; }
     }
 }
