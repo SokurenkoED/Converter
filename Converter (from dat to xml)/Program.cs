@@ -4675,7 +4675,7 @@ namespace Converter__from_dat_to_xml_
                                     IterStr++;
                                     try
                                     {
-                                        if (int.Parse(VLV_TBL[0]) != 0)
+                                        if (double.Parse(VLV_TBL[0], formatter) != 0)
                                         {
                                             string[] VLV_TBLStr = Gidr2kProp[IterStr].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                                             ReadStar(ref Gidr2kProp, ref VLV_TBLStr, IterStr, formatter); // Проверяем на *
@@ -4893,7 +4893,7 @@ namespace Converter__from_dat_to_xml_
                                         sw.WriteLine("   <JUN_VLVA2 Value=\"{0}\" Comment=\"Коэффициент при квадратичном члене зависимости местного сопротивления от площади\"/>", VLV[7]);
                                     }
                                     sw.WriteLine("   <JUN_JVTBL Value=\"{0}\" Comment=\"Размерность таблицы зависимости степени открытия клапана от времени\"/>", VLV_TBL[0]);
-                                    if (int.Parse(VLV_TBL[0]) != 0)
+                                    if (double.Parse(VLV_TBL[0], formatter) != 0)
                                     {
                                         for (int j = 1; j <= int.Parse(VLV_TBL[0]); j++)
                                         {
@@ -5357,7 +5357,7 @@ namespace Converter__from_dat_to_xml_
                             sw.WriteLine("  <SENS_WPARAM Value=\"{0}\" Comment=\"Номер участка ТВС по высоте\"/>", ArrOfStr[5]);
                             sw.WriteLine("  <SENS_TAU Value=\"{0}\" Comment=\"Постоянная времени канала измерения, с\"/>", ArrOfStr[6]);
                             sw.WriteLine("  <SENS_KUS Value=\"{0}\" Comment=\"Чувствительность канала измерения, 1 / ед.изм.вел.\"/>", ArrOfStr[7]);
-                            if (ArrOfStr[2] == "AZ_OUT")
+                            if (ArrOfStr[2] == "AZ_OUT" && ArrOfStr[1] == "D_Pow")
                             {
                                 sw.WriteLine("  <TVERSUSN Comment=\"Зависимость постоянной времени от нейтронного потока\">");
                                 i++;
@@ -5455,6 +5455,10 @@ namespace Converter__from_dat_to_xml_
 
                         List<string> PUMP_StrN1 = new List<string>();
 
+                        string[] NomVelos = null;
+
+                        string[] ELG_5 = null;
+
                         #endregion
 
 
@@ -5489,17 +5493,19 @@ namespace Converter__from_dat_to_xml_
 
                             string[][] PropOfTurb = new string[int.Parse(CountShaftAndTurb[1])][];
 
-                            #region Считываем названия валов
-
-                            for (int j = 0; j < int.Parse(CountShaftAndTurb[0]); j++)
+                            if (double.Parse(CountShaftAndTurb[0], formatter) != 0 && double.Parse(CountShaftAndTurb[0], formatter) != 0)
                             {
-                                NameOfShaft.Add(ArrayOfElpows[i]);
-                                i++;
-                            }
+                                #region Считываем названия валов
+
+                                for (int j = 0; j < int.Parse(CountShaftAndTurb[0]); j++)
+                                {
+                                    NameOfShaft.Add(ArrayOfElpows[i]);
+                                    i++;
+                                }
 
                             #endregion
 
-                            #region Считываем характеристики всех турбин
+                                #region Считываем характеристики всех турбин
 
                             for (int j = 0; j < int.Parse(CountShaftAndTurb[1]); j++)
                             {
@@ -5525,14 +5531,16 @@ namespace Converter__from_dat_to_xml_
 
                             #endregion
 
-                            #region Считываем номинальные скорости на валах
+                                #region Считываем номинальные скорости на валах
 
-                            string[] NomVelos = ArrayOfElpows[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                            NomVelos = ArrayOfElpows[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                             ReadStar(ref ArrayOfElpows, ref NomVelos, i, formatter); // Проверяем на *
 
                             i++;
 
-                            #endregion
+                                #endregion
+
+                            }
 
                             #endregion
 
@@ -5545,6 +5553,9 @@ namespace Converter__from_dat_to_xml_
                             i++;
 
                             #endregion
+
+                            if (double.Parse(CountELG[0], formatter) != 0)
+                            {
 
                             #region Считываем каждый электрогенераторы
 
@@ -5581,7 +5592,7 @@ namespace Converter__from_dat_to_xml_
                                 i++;
                             }
 
-                            string[] ELG_5 = (ArrayOfElpows[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
+                            ELG_5 = (ArrayOfElpows[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
                             ReadStar(ref ArrayOfElpows, ref ELG_5, i, formatter); // Проверяем на *
                             for (int k = 0; k < 2 * NameOfELG.Count; k++)
                             {
@@ -5589,12 +5600,14 @@ namespace Converter__from_dat_to_xml_
 
                             }
                             i++;
-                            #endregion
+                                #endregion
 
+                            }
                             #endregion
 
 
                             #region ОПИСАНИЕ ЭЛЕКТРОСЕТЕЙ
+
 
                             #region Считываем количество электросетей
 
@@ -5603,9 +5616,12 @@ namespace Converter__from_dat_to_xml_
 
                             #endregion
 
+                            if (double.Parse(CountNET[0], formatter) != 0)
+                            {
+                                
                             #region Считываем каждую электросеть
 
-                            for (int j = 0; j < int.Parse(CountNET[0]); j++)
+                                for (int j = 0; j < int.Parse(CountNET[0]); j++)
                             {
                                 NameOfNET.Add(ArrayOfElpows[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[0]); // Название
                                 i++;
@@ -5633,8 +5649,9 @@ namespace Converter__from_dat_to_xml_
                                 NET_StrN3.Add(NET_2[k]);
                             }
                             i++;
-                            #endregion
+                                #endregion
 
+                            }
                             #endregion
 
 
@@ -5647,10 +5664,13 @@ namespace Converter__from_dat_to_xml_
 
                             #endregion
 
+                            if (double.Parse(CountELM[0], formatter) != 0)
+                            {
+
                             #region Описание электродвигателя
 
-                            for (int j = 0; j < int.Parse(CountELM[0]); j++)
-                            {
+                                for (int j = 0; j < int.Parse(CountELM[0]); j++)
+                                {
 
                                 NameOfELM.Add(ArrayOfElpows[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[0]); // Название
                                 i++;
@@ -5693,7 +5713,9 @@ namespace Converter__from_dat_to_xml_
 
                             }
                             i++;
-                            #endregion
+                                #endregion
+
+                            }
 
                             #endregion
 
@@ -5707,20 +5729,25 @@ namespace Converter__from_dat_to_xml_
 
                             #endregion
 
+                            if (double.Parse(CountPUMP[0], formatter) != 0)
+                            {
+
                             #region Описание свойств насосов
 
-                            for (int j = 0; j < int.Parse(CountPUMP[0]); j++)
-                            {
-                                string[] PUMP_1 = (ArrayOfElpows[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
-                                ReadStar(ref ArrayOfElpows, ref PUMP_1, i, formatter); // Проверяем на *
+                                for (int j = 0; j < int.Parse(CountPUMP[0]); j++)
+                                {
+                                    string[] PUMP_1 = (ArrayOfElpows[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
+                                    ReadStar(ref ArrayOfElpows, ref PUMP_1, i, formatter); // Проверяем на *
 
-                                PUMP_StrN1.Add(PUMP_1[0].Substring(0, 2));
-                                PUMP_StrN1.Add(PUMP_1[0].Substring(2, 2));
-                                PUMP_StrN1.Add(PUMP_1[1]);
-                                i++;
+                                    PUMP_StrN1.Add(PUMP_1[0].Substring(0, 2));
+                                    PUMP_StrN1.Add(PUMP_1[0].Substring(2, 2));
+                                    PUMP_StrN1.Add(PUMP_1[1]);
+                                    i++;
+                                }
+
+                                #endregion
+
                             }
-
-                            #endregion
 
                             #endregion
 
@@ -5731,45 +5758,53 @@ namespace Converter__from_dat_to_xml_
 
                             #region Записали валы
 
+                            
                             sw.WriteLine(" <SHAFT_CNT Value=\"{0}\" Comment=\"Количество валов\">", CountShaftAndTurb[0]);
-                            for (int j = 0; j < int.Parse(CountShaftAndTurb[0]); j++)
+                            if (double.Parse(CountShaftAndTurb[0], formatter) != 0)
                             {
-                                sw.WriteLine("  <SHAFT_NAME Value=\"{0}\">", NameOfShaft[j]);
-                                sw.WriteLine("   <SHAFT_PROP SHAFT_NUM=\"{0}\" Comment=\"Вал турбины\"/>", (j + 1));
-                                sw.WriteLine("   <INITDATA_SHAFT Comment=\"Начальное условие\">");
-                                sw.WriteLine("    <SHAFT_OMTUR Value=\"{0}\" Comment=\"Cкорость вращения вала, Гц\"/>", NomVelos[j]);
-                                sw.WriteLine("   </INITDATA_SHAFT>");
-                                sw.WriteLine("  </SHAFT_NAME>");
+                                for (int j = 0; j < int.Parse(CountShaftAndTurb[0]); j++)
+                                {
+                                    sw.WriteLine("  <SHAFT_NAME Value=\"{0}\">", NameOfShaft[j]);
+                                    sw.WriteLine("   <SHAFT_PROP SHAFT_NUM=\"{0}\" Comment=\"Вал турбины\"/>", (j + 1));
+                                    sw.WriteLine("   <INITDATA_SHAFT Comment=\"Начальное условие\">");
+                                    sw.WriteLine("    <SHAFT_OMTUR Value=\"{0}\" Comment=\"Cкорость вращения вала, Гц\"/>", NomVelos[j]);
+                                    sw.WriteLine("   </INITDATA_SHAFT>");
+                                    sw.WriteLine("  </SHAFT_NAME>");
+                                }
                             }
                             sw.WriteLine(" </SHAFT_CNT>");
+                            
 
                             #endregion
 
                             #region Записали турбины
 
                             sw.WriteLine(" <TURB_CNT Value=\"{0}\" Comment=\"Количество турбин\">", CountShaftAndTurb[1]);
-                            for (int j = 0; j < int.Parse(CountShaftAndTurb[1]); j++)
+                            if (double.Parse(CountShaftAndTurb[0], formatter) != 0)
                             {
-                                sw.WriteLine("  <TURB_NAME Value=\"TurbineStage{0}\">", (j + 1));
-                                sw.WriteLine("   <TURB_PROP TURB_NUM=\"{0}\" Comment=\"Турбина\" Description=\"Ступень №{0} турбины\"/>", (j + 1), PropOfTurb[j][0]);
-                                sw.WriteLine("   <GENERAL_TURB Comment=\"ИД для турбины\">");
-                                sw.WriteLine("    <TURB_SHAFTNAME Value=\"{0}\" Comment=\"Имя вала на который насажена турбина\"/>", NameOfShaft[int.Parse(PropOfTurb[j][0]) - 1]);
-                                sw.WriteLine("    <TURB_SHAFTNUM Value=\"{0}\" Comment=\"Номер вала на который насажена турбина\"/>", PropOfTurb[j][0]);
-                                sw.WriteLine("    <TURB_MJTUR Value=\"{0}\" Comment=\"Момент механической инерции турбины, кг * м ^ 2\"/>", PropOfTurb[j][1]);
-                                sw.WriteLine("    <TURB_MDIS1 Value=\"{0}\" Comment=\"Момент потерь в сальниках, Н * м\"/>", PropOfTurb[j][2]);
-                                sw.WriteLine("    <TURB_MDIS2 Value=\"{0}\" Comment=\"Момент потерь в подшипниках, Н * м\"/>", PropOfTurb[j][3]);
-                                sw.WriteLine("    <TURB_MDIS3 Value=\"{0}\" Comment=\"Момент дискового трения, Н * м\"/>", PropOfTurb[j][4]);
-                                sw.WriteLine("    <TURB_RETUR Value=\"{0}\" Comment=\"Реактивность турбины\"/>", PropOfTurb[j][7]);
-                                sw.WriteLine("    <TURB_FITUR Value=\"{0}\" Comment=\"Коэффициент скорости сопловых лопаток\"/>", PropOfTurb[j][5]);
-                                sw.WriteLine("    <TURB_NUTUR Value=\"{0}\" Comment=\"Скоростная характеристика турбины\"/>", PropOfTurb[j][6]);
-                                sw.WriteLine("   </GENERAL_TURB>");
-                                sw.WriteLine("   <NOMDATA_TURB Comment=\"Номинальные значения\">");
-                                sw.WriteLine("    <TURB_G0TUR Value=\"{0}\" Comment=\"Номинальный расход через турбину, кг / с\"/>", PropOfTurb[j][8]);
-                                sw.WriteLine("    <TURB_GA0TUR Value=\"{0}\" Comment=\"Номинальная плотность пара на входе в турбину, кг / м ^ 3\"/>", PropOfTurb[j][9]);
-                                sw.WriteLine("    <TURB_ET0TUR Value=\"{0}\" Comment=\"КПД турбины в номинальной точке, отн.ед.\"/>", PropOfTurb[j][10]);
-                                sw.WriteLine("    <TURB_OM0TUR Value=\"{0}\" Comment=\"Номинальная скорость вращения турбины, Гц\"/>", PropOfTurb[j][11]);
-                                sw.WriteLine("   </NOMDATA_TURB>");
-                                sw.WriteLine("  </TURB_NAME>");
+                                for (int j = 0; j < int.Parse(CountShaftAndTurb[1]); j++)
+                                {
+                                    sw.WriteLine("  <TURB_NAME Value=\"TurbineStage{0}\">", (j + 1));
+                                    sw.WriteLine("   <TURB_PROP TURB_NUM=\"{0}\" Comment=\"Турбина\" Description=\"Ступень №{0} турбины\"/>", (j + 1), PropOfTurb[j][0]);
+                                    sw.WriteLine("   <GENERAL_TURB Comment=\"ИД для турбины\">");
+                                    sw.WriteLine("    <TURB_SHAFTNAME Value=\"{0}\" Comment=\"Имя вала на который насажена турбина\"/>", NameOfShaft[int.Parse(PropOfTurb[j][0]) - 1]);
+                                    sw.WriteLine("    <TURB_SHAFTNUM Value=\"{0}\" Comment=\"Номер вала на который насажена турбина\"/>", PropOfTurb[j][0]);
+                                    sw.WriteLine("    <TURB_MJTUR Value=\"{0}\" Comment=\"Момент механической инерции турбины, кг * м ^ 2\"/>", PropOfTurb[j][1]);
+                                    sw.WriteLine("    <TURB_MDIS1 Value=\"{0}\" Comment=\"Момент потерь в сальниках, Н * м\"/>", PropOfTurb[j][2]);
+                                    sw.WriteLine("    <TURB_MDIS2 Value=\"{0}\" Comment=\"Момент потерь в подшипниках, Н * м\"/>", PropOfTurb[j][3]);
+                                    sw.WriteLine("    <TURB_MDIS3 Value=\"{0}\" Comment=\"Момент дискового трения, Н * м\"/>", PropOfTurb[j][4]);
+                                    sw.WriteLine("    <TURB_RETUR Value=\"{0}\" Comment=\"Реактивность турбины\"/>", PropOfTurb[j][7]);
+                                    sw.WriteLine("    <TURB_FITUR Value=\"{0}\" Comment=\"Коэффициент скорости сопловых лопаток\"/>", PropOfTurb[j][5]);
+                                    sw.WriteLine("    <TURB_NUTUR Value=\"{0}\" Comment=\"Скоростная характеристика турбины\"/>", PropOfTurb[j][6]);
+                                    sw.WriteLine("   </GENERAL_TURB>");
+                                    sw.WriteLine("   <NOMDATA_TURB Comment=\"Номинальные значения\">");
+                                    sw.WriteLine("    <TURB_G0TUR Value=\"{0}\" Comment=\"Номинальный расход через турбину, кг / с\"/>", PropOfTurb[j][8]);
+                                    sw.WriteLine("    <TURB_GA0TUR Value=\"{0}\" Comment=\"Номинальная плотность пара на входе в турбину, кг / м ^ 3\"/>", PropOfTurb[j][9]);
+                                    sw.WriteLine("    <TURB_ET0TUR Value=\"{0}\" Comment=\"КПД турбины в номинальной точке, отн.ед.\"/>", PropOfTurb[j][10]);
+                                    sw.WriteLine("    <TURB_OM0TUR Value=\"{0}\" Comment=\"Номинальная скорость вращения турбины, Гц\"/>", PropOfTurb[j][11]);
+                                    sw.WriteLine("   </NOMDATA_TURB>");
+                                    sw.WriteLine("  </TURB_NAME>");
+                                }
                             }
                             sw.WriteLine(" </TURB_CNT>");
 
@@ -5778,31 +5813,34 @@ namespace Converter__from_dat_to_xml_
                             #region Записали электрогенераторы
 
                             sw.WriteLine(" <ELG_CNT Value=\"{0}\" Comment=\"Количество электрогенераторов\">", CountELG[0]);
-                            for (int j = 0; j < int.Parse(CountELG[0]); j++)
+                            if (double.Parse(CountELG[0], formatter) != 0)
                             {
-                                sw.WriteLine("  <ELG_NAME Value=\"{0}\">", NameOfELG[j]);
-                                sw.WriteLine("   <ELG_PROP Numb=\"{0}\" Comment=\"Электрогенератор\" Description=\"Электрогенератор №{0}\"/>", (j + 1));
-                                sw.WriteLine("   <GENERAL_ELG Comment=\"ИД для электрогенератора\">");
-                                sw.WriteLine("    <ELG_SHAFTNAME Value=\"{0}\" Comment=\"Имя вала, на котором навешен генератор\"/>", NameOfShaft[int.Parse(ELG_StrN1[3 * j]) - 1]);
-                                sw.WriteLine("    <ELG_SHAFTNUM Value=\"{0}\" Comment=\"Номер вала на котором навешен генератор\"/>", ELG_StrN1[3 * j]);
-                                sw.WriteLine("    <ELG_NETNAME Value=\"{0}\" Comment=\"Имя электрической сети, на которую нагружен генератор\"/>", NameOfNET[int.Parse(ELG_StrN1[3 * j + 1]) - 1]);
-                                sw.WriteLine("    <ELG_NETNUM Value=\"{0}\" Comment=\"Номер электрической сети, на которую нагружен генератор\"/>", ELG_StrN1[3 * j + 1]);
-                                sw.WriteLine("    <ELG_ASU Value=\"0\" Comment=\"Номер сигнала управления, по которому происходит отключение генератора от сети\"/>");
-                                sw.WriteLine("    <ELG_MJGEN Value=\"{0}\" Comment=\"Момент механической инерции генератора, кг * м ^ 2\"/>", ELG_StrN2[3 * j]);
-                                sw.WriteLine("    <ELG_NASIN Value=\"{0}\" Comment=\"Изменение механической мощности на валу генератора при отклонении от частоты сети на один радиан в секунду, Вт / (рад / с)\"/>", ELG_StrN2[3 * j + 2]);
-                                sw.WriteLine("    <ELG_TAUALT Value=\"{0}\" Comment=\"Характерное время регулятора тока возбуждения, с\"/>", ELG_StrN4[4 * j]);
-                                sw.WriteLine("    <ELG_DEDI Value=\"{0}\" Comment=\"Крутизна регулировочной кривой ЭДС генератора от тока возбуждения, В / А\"/>", ELG_StrN4[4 * j + 1]);
-                                sw.WriteLine("    <ELG_IMAXA Value=\"{0}\" Comment=\"Ограничение по току возбуждения генератора, А\"/>", ELG_StrN4[4 * j + 2]);
-                                sw.WriteLine("    <ELG_UMAXA Value=\"{0}\" Comment=\"Значение напряжения на клеммах генератора, при котором ток возбуждения становится равным нулю, В\"/>", ELG_StrN4[4 * j + 3]);
-                                sw.WriteLine("   </GENERAL_ELG>");
-                                sw.WriteLine("   <NOMDATA_ELG Comment=\"Номинальные значения\">");
-                                sw.WriteLine("    <ELG_NNOM Value=\"{0}\" Comment=\"Электрическая мощность генератора, выдаваемая в сеть, Вт\"/>", ELG_StrN2[3 * j + 1]);
-                                sw.WriteLine("   </NOMDATA_ELG>");
-                                sw.WriteLine("   <INITDATA_ELG Comment=\"Начальные условия\">");
-                                sw.WriteLine("    <ELG_FIN Value=\"{0}\" Comment=\"Начальный угол нагрузки генератора, рад\"/>", ELG_5[2 * j]);
-                                sw.WriteLine("    <ELG_IALTER Value=\"{0}\" Comment=\"Начальный ток возбуждения генератора, А\"/>", ELG_5[(2 * j) + 1]);
-                                sw.WriteLine("   </INITDATA_ELG>");
-                                sw.WriteLine("  </ELG_NAME>");
+                                for (int j = 0; j < int.Parse(CountELG[0]); j++)
+                                {
+                                    sw.WriteLine("  <ELG_NAME Value=\"{0}\">", NameOfELG[j]);
+                                    sw.WriteLine("   <ELG_PROP Numb=\"{0}\" Comment=\"Электрогенератор\" Description=\"Электрогенератор №{0}\"/>", (j + 1));
+                                    sw.WriteLine("   <GENERAL_ELG Comment=\"ИД для электрогенератора\">");
+                                    sw.WriteLine("    <ELG_SHAFTNAME Value=\"{0}\" Comment=\"Имя вала, на котором навешен генератор\"/>", NameOfShaft[int.Parse(ELG_StrN1[3 * j]) - 1]);
+                                    sw.WriteLine("    <ELG_SHAFTNUM Value=\"{0}\" Comment=\"Номер вала на котором навешен генератор\"/>", ELG_StrN1[3 * j]);
+                                    sw.WriteLine("    <ELG_NETNAME Value=\"{0}\" Comment=\"Имя электрической сети, на которую нагружен генератор\"/>", NameOfNET[int.Parse(ELG_StrN1[3 * j + 1]) - 1]);
+                                    sw.WriteLine("    <ELG_NETNUM Value=\"{0}\" Comment=\"Номер электрической сети, на которую нагружен генератор\"/>", ELG_StrN1[3 * j + 1]);
+                                    sw.WriteLine("    <ELG_ASU Value=\"0\" Comment=\"Номер сигнала управления, по которому происходит отключение генератора от сети\"/>");
+                                    sw.WriteLine("    <ELG_MJGEN Value=\"{0}\" Comment=\"Момент механической инерции генератора, кг * м ^ 2\"/>", ELG_StrN2[3 * j]);
+                                    sw.WriteLine("    <ELG_NASIN Value=\"{0}\" Comment=\"Изменение механической мощности на валу генератора при отклонении от частоты сети на один радиан в секунду, Вт / (рад / с)\"/>", ELG_StrN2[3 * j + 2]);
+                                    sw.WriteLine("    <ELG_TAUALT Value=\"{0}\" Comment=\"Характерное время регулятора тока возбуждения, с\"/>", ELG_StrN4[4 * j]);
+                                    sw.WriteLine("    <ELG_DEDI Value=\"{0}\" Comment=\"Крутизна регулировочной кривой ЭДС генератора от тока возбуждения, В / А\"/>", ELG_StrN4[4 * j + 1]);
+                                    sw.WriteLine("    <ELG_IMAXA Value=\"{0}\" Comment=\"Ограничение по току возбуждения генератора, А\"/>", ELG_StrN4[4 * j + 2]);
+                                    sw.WriteLine("    <ELG_UMAXA Value=\"{0}\" Comment=\"Значение напряжения на клеммах генератора, при котором ток возбуждения становится равным нулю, В\"/>", ELG_StrN4[4 * j + 3]);
+                                    sw.WriteLine("   </GENERAL_ELG>");
+                                    sw.WriteLine("   <NOMDATA_ELG Comment=\"Номинальные значения\">");
+                                    sw.WriteLine("    <ELG_NNOM Value=\"{0}\" Comment=\"Электрическая мощность генератора, выдаваемая в сеть, Вт\"/>", ELG_StrN2[3 * j + 1]);
+                                    sw.WriteLine("   </NOMDATA_ELG>");
+                                    sw.WriteLine("   <INITDATA_ELG Comment=\"Начальные условия\">");
+                                    sw.WriteLine("    <ELG_FIN Value=\"{0}\" Comment=\"Начальный угол нагрузки генератора, рад\"/>", ELG_5[2 * j]);
+                                    sw.WriteLine("    <ELG_IALTER Value=\"{0}\" Comment=\"Начальный ток возбуждения генератора, А\"/>", ELG_5[(2 * j) + 1]);
+                                    sw.WriteLine("   </INITDATA_ELG>");
+                                    sw.WriteLine("  </ELG_NAME>");
+                                }
                             }
                             sw.WriteLine(" </ELG_CNT>");
 
@@ -5813,28 +5851,31 @@ namespace Converter__from_dat_to_xml_
 
                             sw.WriteLine(" <NET_CNT Value=\"{0}\" Comment=\"Количество электросетей\">", CountNET[0]);
                             int NumTbl = 0;
-                            for (int j = 0; j < int.Parse(CountNET[0]); j++)
+                            if (double.Parse(CountNET[0], formatter) != 0)
                             {
-                                sw.WriteLine("  <NET_NAME Value=\"{0}\">", NameOfNET[j]);
-                                sw.WriteLine("   <NET_PROP NET_NUM=\"{0}\" Comment=\"Электросеть\" Description=\"Электросеть №{0}\"/>", (j + 1));
-                                sw.WriteLine("   <GENERAL_NET Comment=\"ИД для электрической сети\">");
-                                sw.WriteLine("    <NET_JSOUR Value=\"{0}\" Comment=\"Размерность таблицы зависимости мощности внешних источников от времени\"/>", NET_StrN1[j]);
-                                for (int k = NumTbl; k < int.Parse(NET_StrN1[j]) + NumTbl; k++)
+                                for (int j = 0; j < int.Parse(CountNET[0]); j++)
                                 {
-                                    sw.WriteLine("    <NET_PSOUR_ARG Value=\"{0}\" Numb=\"{1}\" Comment=\"Момент времени №{1}, с\"/>", NET_StrN2[k], (k + 1 - NumTbl));
+                                    sw.WriteLine("  <NET_NAME Value=\"{0}\">", NameOfNET[j]);
+                                    sw.WriteLine("   <NET_PROP NET_NUM=\"{0}\" Comment=\"Электросеть\" Description=\"Электросеть №{0}\"/>", (j + 1));
+                                    sw.WriteLine("   <GENERAL_NET Comment=\"ИД для электрической сети\">");
+                                    sw.WriteLine("    <NET_JSOUR Value=\"{0}\" Comment=\"Размерность таблицы зависимости мощности внешних источников от времени\"/>", NET_StrN1[j]);
+                                    for (int k = NumTbl; k < int.Parse(NET_StrN1[j]) + NumTbl; k++)
+                                    {
+                                        sw.WriteLine("    <NET_PSOUR_ARG Value=\"{0}\" Numb=\"{1}\" Comment=\"Момент времени №{1}, с\"/>", NET_StrN2[k], (k + 1 - NumTbl));
 
-                                }
-                                for (int k = int.Parse(NET_StrN1[j]) + NumTbl; k < NumTbl + 2 * int.Parse(NET_StrN1[j]); k++)
-                                {
-                                    sw.WriteLine("    <NET_PSOUR Value=\"{0}\" Numb=\"{1}\" Comment=\"Значение мощности внешних источников №{1}, Вт\"/>", NET_StrN2[k], (k - int.Parse(NET_StrN1[j]) + 1 - NumTbl));
+                                    }
+                                    for (int k = int.Parse(NET_StrN1[j]) + NumTbl; k < NumTbl + 2 * int.Parse(NET_StrN1[j]); k++)
+                                    {
+                                        sw.WriteLine("    <NET_PSOUR Value=\"{0}\" Numb=\"{1}\" Comment=\"Значение мощности внешних источников №{1}, Вт\"/>", NET_StrN2[k], (k - int.Parse(NET_StrN1[j]) + 1 - NumTbl));
 
+                                    }
+                                    NumTbl += int.Parse(NET_StrN1[j]) * 2;
+                                    sw.WriteLine("   </GENERAL_NET>");
+                                    sw.WriteLine("   <INITDATA_NET Comment=\"Начальные условия\">");
+                                    sw.WriteLine("    <NET_OMNET Value=\"{0}\" Comment=\"Частота электросети, 1/с\"/>", NET_StrN3[j]);
+                                    sw.WriteLine("   </INITDATA_NET>");
+                                    sw.WriteLine("  </NET_NAME>");
                                 }
-                                NumTbl += int.Parse(NET_StrN1[j]) * 2;
-                                sw.WriteLine("   </GENERAL_NET>");
-                                sw.WriteLine("   <INITDATA_NET Comment=\"Начальные условия\">");
-                                sw.WriteLine("    <NET_OMNET Value=\"{0}\" Comment=\"Частота электросети, 1/с\"/>", NET_StrN3[j]);
-                                sw.WriteLine("   </INITDATA_NET>");
-                                sw.WriteLine("  </NET_NAME>");
                             }
                             sw.WriteLine(" </NET_CNT>");
 
@@ -5844,38 +5885,41 @@ namespace Converter__from_dat_to_xml_
 
                             NumTbl = 0;
                             sw.WriteLine(" <ELM_CNT Value=\"{0}\" Comment=\"Количество электродвигателей\">", CountELM[0]);
-                            for (int j = 0; j < int.Parse(CountELM[0]); j++)
+                            if (double.Parse(CountELM[0], formatter) != 0)
                             {
-                                sw.WriteLine("  <ELM_NAME Value=\"{0}\">", NameOfELM[j]);
-                                sw.WriteLine("   <ELM_PROP Numb=\"{0}\" Comment=\"Электродвигатель\" Description=\"Электродвигатель №{0}\"/>", (j + 1));
-                                sw.WriteLine("   <GENERAL_ELM Comment=\"ИД для электродвигателя\">");
-                                sw.WriteLine("    <ELM_JMAC Value=\"{0}\" Comment=\"Тип электродвигателя\"/>", ELM_StrN2[2 * j]);
-                                sw.WriteLine("    <ELM_NETNAME Value=\"{0}\" Comment=\"Имя электрической сети, к которой подключен электродвигатель\"/>", NameOfNET[int.Parse(ELM_StrN1[5 * j]) - 1]);
-                                sw.WriteLine("    <ELM_NETNUM Value=\"{0}\" Comment=\"Номер электрической сети, к которой подключен электродвигатель\"/>", ELM_StrN1[5 * j]);
-                                sw.WriteLine("    <ELM_MJMAC Value=\"{0}\" Comment=\"Механический момент инерции ротора электродвигателя, кг * м ^ 2\"/>", ELM_StrN1[5 * j + 1]);
-                                sw.WriteLine("    <ELM_M1MAC Value=\"{0}\" Comment=\"Коэффициент в соотношении момента потерь на трение от частоты(постоянная составляющая), Н * м\"/>", ELM_StrN1[5 * j + 2]);
-                                sw.WriteLine("    <ELM_M2MAC Value=\"{0}\" Comment=\"Коэффициент в соотношении момента потерь на трение от частоты(при линейном члене), Н * м\"/>", ELM_StrN1[5 * j + 3]);
-                                sw.WriteLine("    <ELM_M3MAC Value=\"{0}\" Comment=\"Коэффициент в соотношении момента потерь на трение от частоты(при квадратичном члене), Н * м\"/>", ELM_StrN1[5 * j + 4]);
-                                if (int.Parse(ELM_StrN2[2 * j]) == 1)
+                                for (int j = 0; j < int.Parse(CountELM[0]); j++)
                                 {
-                                    sw.WriteLine("    <ELM_JVFMAC Value=\"{0}\" Comment=\"Размерность таблицы зависимости возмущения по частоте преобразователя от времени\"/>", ELM_StrN2[2 * j + 1]);
-                                    for (int k = NumTbl; k < int.Parse(ELM_StrN2[2 * j + 1]) + NumTbl; k++)
+                                    sw.WriteLine("  <ELM_NAME Value=\"{0}\">", NameOfELM[j]);
+                                    sw.WriteLine("   <ELM_PROP Numb=\"{0}\" Comment=\"Электродвигатель\" Description=\"Электродвигатель №{0}\"/>", (j + 1));
+                                    sw.WriteLine("   <GENERAL_ELM Comment=\"ИД для электродвигателя\">");
+                                    sw.WriteLine("    <ELM_JMAC Value=\"{0}\" Comment=\"Тип электродвигателя\"/>", ELM_StrN2[2 * j]);
+                                    sw.WriteLine("    <ELM_NETNAME Value=\"{0}\" Comment=\"Имя электрической сети, к которой подключен электродвигатель\"/>", NameOfNET[int.Parse(ELM_StrN1[5 * j]) - 1]);
+                                    sw.WriteLine("    <ELM_NETNUM Value=\"{0}\" Comment=\"Номер электрической сети, к которой подключен электродвигатель\"/>", ELM_StrN1[5 * j]);
+                                    sw.WriteLine("    <ELM_MJMAC Value=\"{0}\" Comment=\"Механический момент инерции ротора электродвигателя, кг * м ^ 2\"/>", ELM_StrN1[5 * j + 1]);
+                                    sw.WriteLine("    <ELM_M1MAC Value=\"{0}\" Comment=\"Коэффициент в соотношении момента потерь на трение от частоты(постоянная составляющая), Н * м\"/>", ELM_StrN1[5 * j + 2]);
+                                    sw.WriteLine("    <ELM_M2MAC Value=\"{0}\" Comment=\"Коэффициент в соотношении момента потерь на трение от частоты(при линейном члене), Н * м\"/>", ELM_StrN1[5 * j + 3]);
+                                    sw.WriteLine("    <ELM_M3MAC Value=\"{0}\" Comment=\"Коэффициент в соотношении момента потерь на трение от частоты(при квадратичном члене), Н * м\"/>", ELM_StrN1[5 * j + 4]);
+                                    if (int.Parse(ELM_StrN2[2 * j]) == 1)
                                     {
-                                        sw.WriteLine("    <ELM_VFMAC_ARG Value=\"{0}\" Numb=\"{1}\" Comment=\"Моменты времени №{1}, с\"/>", ELM_StrN3[k], (k + 1 - NumTbl));
+                                        sw.WriteLine("    <ELM_JVFMAC Value=\"{0}\" Comment=\"Размерность таблицы зависимости возмущения по частоте преобразователя от времени\"/>", ELM_StrN2[2 * j + 1]);
+                                        for (int k = NumTbl; k < int.Parse(ELM_StrN2[2 * j + 1]) + NumTbl; k++)
+                                        {
+                                            sw.WriteLine("    <ELM_VFMAC_ARG Value=\"{0}\" Numb=\"{1}\" Comment=\"Моменты времени №{1}, с\"/>", ELM_StrN3[k], (k + 1 - NumTbl));
 
-                                    }
-                                    for (int k = int.Parse(ELM_StrN2[2 * j + 1]) + NumTbl; k < NumTbl + 2 * int.Parse(ELM_StrN2[2 * j + 1]); k++)
-                                    {
-                                        sw.WriteLine("    <ELM_VFMAC Value=\"{0}\" Numb=\"{1}\" Comment=\"Возмущения по частоте №{1}, Гц\"/>", ELM_StrN3[k], (k - int.Parse(ELM_StrN2[2 * j + 1]) + 1 - NumTbl));
+                                        }
+                                        for (int k = int.Parse(ELM_StrN2[2 * j + 1]) + NumTbl; k < NumTbl + 2 * int.Parse(ELM_StrN2[2 * j + 1]); k++)
+                                        {
+                                            sw.WriteLine("    <ELM_VFMAC Value=\"{0}\" Numb=\"{1}\" Comment=\"Возмущения по частоте №{1}, Гц\"/>", ELM_StrN3[k], (k - int.Parse(ELM_StrN2[2 * j + 1]) + 1 - NumTbl));
 
+                                        }
                                     }
+                                    NumTbl += int.Parse(ELM_StrN2[2 * j + 1]) * 2;
+                                    sw.WriteLine("   </GENERAL_ELM>");
+                                    sw.WriteLine("   <INITDATA_ELM Comment=\"Начальные условия\">");
+                                    sw.WriteLine("    <ELM_OMELMA Value=\"{0}\" Comment=\"Cкорость вращения электродвигателя, Гц\"/>", ELM_StrN4[j]);
+                                    sw.WriteLine("   </INITDATA_ELM>");
+                                    sw.WriteLine("  </ELM_NAME>");
                                 }
-                                NumTbl += int.Parse(ELM_StrN2[2 * j + 1]) * 2;
-                                sw.WriteLine("   </GENERAL_ELM>");
-                                sw.WriteLine("   <INITDATA_ELM Comment=\"Начальные условия\">");
-                                sw.WriteLine("    <ELM_OMELMA Value=\"{0}\" Comment=\"Cкорость вращения электродвигателя, Гц\"/>", ELM_StrN4[j]);
-                                sw.WriteLine("   </INITDATA_ELM>");
-                                sw.WriteLine("  </ELM_NAME>");
                             }
                             sw.WriteLine(" </ELM_CNT>");
 
@@ -5884,28 +5928,31 @@ namespace Converter__from_dat_to_xml_
                             #region Записали Насосы
 
                             sw.WriteLine(" <PUMP_CNT Value=\"{0}\" Comment=\"Количество насосов\">", CountPUMP[0]);
-                            for (int j = 0; j < int.Parse(CountPUMP[0]); j++)
+                            if (double.Parse(CountPUMP[0], formatter) != 0)
                             {
-                                sw.WriteLine("  <JUN_PUMPNUM Value=\"{0}\" Comment=\"Номер насоса\">", (j + 1));
-                                sw.WriteLine("   <GENERAL_PUMP Comment=\"ИД для насоса\">");
-                                sw.WriteLine("    <PUMP_TUREM Value=\"{0}\" Comment=\"Тип привода насоса\"/>", PUMP_StrN1[3 * j]);
-                                if (int.Parse(PUMP_StrN1[3 * j]) == 20)
+                                for (int j = 0; j < int.Parse(CountPUMP[0]); j++)
                                 {
-                                    sw.WriteLine("    <PUMP_ELMNAME Value=\"{0}\" Comment=\"Имя электродвигателя\"/>", NameOfELM[int.Parse(PUMP_StrN1[3 * j + 1]) - 1]);
-                                    sw.WriteLine("    <PUMP_ELMNUM Value=\"{0}\" Comment=\"Номер электродвигателя\"/>", int.Parse(PUMP_StrN1[3 * j + 1]));
+                                    sw.WriteLine("  <JUN_PUMPNUM Value=\"{0}\" Comment=\"Номер насоса\">", (j + 1));
+                                    sw.WriteLine("   <GENERAL_PUMP Comment=\"ИД для насоса\">");
+                                    sw.WriteLine("    <PUMP_TUREM Value=\"{0}\" Comment=\"Тип привода насоса\"/>", PUMP_StrN1[3 * j]);
+                                    if (int.Parse(PUMP_StrN1[3 * j]) == 20)
+                                    {
+                                        sw.WriteLine("    <PUMP_ELMNAME Value=\"{0}\" Comment=\"Имя электродвигателя\"/>", NameOfELM[int.Parse(PUMP_StrN1[3 * j + 1]) - 1]);
+                                        sw.WriteLine("    <PUMP_ELMNUM Value=\"{0}\" Comment=\"Номер электродвигателя\"/>", int.Parse(PUMP_StrN1[3 * j + 1]));
+                                    }
+                                    else if (int.Parse(PUMP_StrN1[3 * j]) == 10)
+                                    {
+                                        sw.WriteLine("    <PUMP_SHAFTNAME Value=\"{0}\" Comment=\"Имя вала на который насажен насос\"/>", NameOfShaft[int.Parse(PUMP_StrN1[3 * j + 1]) - 1]);
+                                        sw.WriteLine("    <PUMP_SHAFTNUM Value=\"{0}\" Comment=\"Номер вала на который насажен насос\"/>", int.Parse(PUMP_StrN1[3 * j + 1]));
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("НЕПРАВИЛЬНЫЙ ТИП НАСОСА");
+                                    }
+                                    sw.WriteLine("    <PUMP_MJPUMP Value=\"{0}\" Comment=\"Момент механической инерции насоса, кг * м ^ 2\"/>", PUMP_StrN1[3 * j + 2]);
+                                    sw.WriteLine("   </GENERAL_PUMP>");
+                                    sw.WriteLine("  </JUN_PUMPNUM>");
                                 }
-                                else if (int.Parse(PUMP_StrN1[3 * j]) == 10)
-                                {
-                                    sw.WriteLine("    <PUMP_SHAFTNAME Value=\"{0}\" Comment=\"Имя вала на который насажен насос\"/>", NameOfShaft[int.Parse(PUMP_StrN1[3 * j + 1]) - 1]);
-                                    sw.WriteLine("    <PUMP_SHAFTNUM Value=\"{0}\" Comment=\"Номер вала на который насажен насос\"/>", int.Parse(PUMP_StrN1[3 * j + 1]));
-                                }
-                                else
-                                {
-                                    Console.WriteLine("НЕПРАВИЛЬНЫЙ ТИП НАСОСА");
-                                }
-                                sw.WriteLine("    <PUMP_MJPUMP Value=\"{0}\" Comment=\"Момент механической инерции насоса, кг * м ^ 2\"/>", PUMP_StrN1[3 * j + 2]);
-                                sw.WriteLine("   </GENERAL_PUMP>");
-                                sw.WriteLine("  </JUN_PUMPNUM>");
                             }
                             sw.WriteLine(" </PUMP_CNT>");
 
@@ -5971,82 +6018,89 @@ namespace Converter__from_dat_to_xml_
 
                             #endregion
 
-                            #region Считываем каждого потребителя электроэнергии
-
-                            for (int j = 0; j < int.Parse(CountELL); j++)
+                            if (double.Parse(CountELL, formatter) != 0 )
                             {
 
-                                #region Считали 1 строку
+                                #region Считываем каждого потребителя электроэнергии
 
-                                string[] Str1 = ArrayOfAsuelk[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                                ReadStar(ref ArrayOfAsuelk, ref Str1, i, formatter); // Проверяем на *
-                                for (int k = 0; k < 2; k++)
+                                for (int j = 0; j < int.Parse(CountELL); j++)
                                 {
-                                    Ell_Str1.Add(Str1[k]);
+
+                                    #region Считали 1 строку
+
+                                    string[] Str1 = ArrayOfAsuelk[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                                    ReadStar(ref ArrayOfAsuelk, ref Str1, i, formatter); // Проверяем на *
+                                    for (int k = 0; k < 2; k++)
+                                    {
+                                        Ell_Str1.Add(Str1[k]);
+                                    }
+                                    i++;
+
+                                    #endregion
+
+
+                                    #region Считали 2 строку
+
+                                    string[] Str2 = ArrayOfAsuelk[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                                    ReadStar(ref ArrayOfAsuelk, ref Str2, i, formatter); // Проверяем на *
+                                    Ell_Str2.Add(Str2[0]);
+                                    i++;
+
+                                    #endregion
+
+
+                                    #region Считали 3 строку
+
+                                    string[] Str3 = ArrayOfAsuelk[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                                    ReadStar(ref ArrayOfAsuelk, ref Str3, i, formatter); // Проверяем на *
+                                    for (int k = 0; k < 4; k++)
+                                    {
+                                        Ell_Str3.Add(Str3[k]);
+                                    }
+                                    i++;
+
+                                    #endregion
+
                                 }
-                                i++;
 
                                 #endregion
 
+                                #region Считываем начальные условия
 
-                                #region Считали 2 строку
-
-                                string[] Str2 = ArrayOfAsuelk[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                                ReadStar(ref ArrayOfAsuelk, ref Str2, i, formatter); // Проверяем на *
-                                Ell_Str2.Add(Str2[0]);
-                                i++;
-
-                                #endregion
-
-
-                                #region Считали 3 строку
-
-                                string[] Str3 = ArrayOfAsuelk[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                                ReadStar(ref ArrayOfAsuelk, ref Str3, i, formatter); // Проверяем на *
-                                for (int k = 0; k < 4; k++)
+                                string[] Str4 = ArrayOfAsuelk[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                                ReadStar(ref ArrayOfAsuelk, ref Str4, i, formatter); // Проверяем на *
+                                for (int k = 0; k < int.Parse(CountELL); k++)
                                 {
-                                    Ell_Str3.Add(Str3[k]);
+                                    Ell_Str4.Add(Str4[k]);
                                 }
-                                i++;
 
-                                #endregion
-
+                                    #endregion
                             }
-
-                            #endregion
-
-                            #region Считываем начальные условия
-
-                            string[] Str4 = ArrayOfAsuelk[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                            ReadStar(ref ArrayOfAsuelk, ref Str4, i, formatter); // Проверяем на *
-                            for (int k = 0; k < int.Parse(CountELL); k++)
-                            {
-                                Ell_Str4.Add(Str4[k]);
-                            }
-
-                            #endregion
 
                             #region Записываем в файл
 
                             sw.WriteLine("<ELL_DATA Comment=\"Данные для расчета состояния потребителей электроэнергии\">");
                             sw.WriteLine(" <ELL_CNT Value=\"{0}\" Comment=\"Количество потребителей электроэнергии\">", CountELL);
-                            for (int j = 0; j < int.Parse(CountELL); j++)
+                            if (double.Parse(CountELL, formatter) != 0)
                             {
-                                sw.WriteLine("  <ELL_NAME Value=\"Key{0}\">", (j + 1));
-                                sw.WriteLine("   <ELL_PROP ELL_NUM=\"{0}\" Comment=\"Имя группы потребителей электроэнергии\" Description=\"Группа потребителей №{0}\"/>", (j + 1));
-                                sw.WriteLine("   <GENERAL_ELL Comment=\"ИД для потребителей электроэнергии\">");
-                                sw.WriteLine("    <ELL_NETNAME Value=\"{0}\" Comment=\"Имя электросети, к которой подключена группа потребителей электроэнергии\"/>", NameOfNET[int.Parse(Ell_Str1[2 * j]) - 1]);
-                                sw.WriteLine("    <ELL_NETNUM Value=\"{0}\" Comment=\"Номер электросети, к которой подключена группа потребителей электроэнергии\"/>", Ell_Str1[2 * j]);
-                                sw.WriteLine("    <ELL_PNKEY Value=\"{0}\" Comment=\"Мощность группы потребителей электроэнергии\"/>", Ell_Str1[2 * j + 1]);
-                                sw.WriteLine("    <ELL_FOFF Value=\"{0}\" Comment=\"Уставка на отключение группы потребителей по снижению частоты сети\"/>", Ell_Str3[4 * j]);
-                                sw.WriteLine("    <ELL_DELOFF Value=\"{0}\" Comment=\"Задержка на отключение группы потребителей, c\"/>", Ell_Str3[4 * j + 2]);
-                                sw.WriteLine("    <ELL_FON Value=\"{0}\" Comment=\"Уставка на подключение группы потребителей при повышении частоты сети\"/>", Ell_Str3[4 * j + 1]);
-                                sw.WriteLine("    <ELL_DELON Value=\"{0}\" Comment=\"Задержка на подключение группы потребителей, c\"/>", Ell_Str3[4 * j + 3]);
-                                sw.WriteLine("   </GENERAL_ELL>");
-                                sw.WriteLine("   <INITDATA_ELL>");
-                                sw.WriteLine("    <ELL_VOLKEY Value=\"{0}\" Comment=\"Состояние электрического ключа групп потребителей\"/>", Ell_Str4[j]);
-                                sw.WriteLine("   </INITDATA_ELL>");
-                                sw.WriteLine("  </ELL_NAME>");
+                                for (int j = 0; j < int.Parse(CountELL); j++)
+                                {
+                                    sw.WriteLine("  <ELL_NAME Value=\"Key{0}\">", (j + 1));
+                                    sw.WriteLine("   <ELL_PROP ELL_NUM=\"{0}\" Comment=\"Имя группы потребителей электроэнергии\" Description=\"Группа потребителей №{0}\"/>", (j + 1));
+                                    sw.WriteLine("   <GENERAL_ELL Comment=\"ИД для потребителей электроэнергии\">");
+                                    sw.WriteLine("    <ELL_NETNAME Value=\"{0}\" Comment=\"Имя электросети, к которой подключена группа потребителей электроэнергии\"/>", NameOfNET[int.Parse(Ell_Str1[2 * j]) - 1]);
+                                    sw.WriteLine("    <ELL_NETNUM Value=\"{0}\" Comment=\"Номер электросети, к которой подключена группа потребителей электроэнергии\"/>", Ell_Str1[2 * j]);
+                                    sw.WriteLine("    <ELL_PNKEY Value=\"{0}\" Comment=\"Мощность группы потребителей электроэнергии\"/>", Ell_Str1[2 * j + 1]);
+                                    sw.WriteLine("    <ELL_FOFF Value=\"{0}\" Comment=\"Уставка на отключение группы потребителей по снижению частоты сети\"/>", Ell_Str3[4 * j]);
+                                    sw.WriteLine("    <ELL_DELOFF Value=\"{0}\" Comment=\"Задержка на отключение группы потребителей, c\"/>", Ell_Str3[4 * j + 2]);
+                                    sw.WriteLine("    <ELL_FON Value=\"{0}\" Comment=\"Уставка на подключение группы потребителей при повышении частоты сети\"/>", Ell_Str3[4 * j + 1]);
+                                    sw.WriteLine("    <ELL_DELON Value=\"{0}\" Comment=\"Задержка на подключение группы потребителей, c\"/>", Ell_Str3[4 * j + 3]);
+                                    sw.WriteLine("   </GENERAL_ELL>");
+                                    sw.WriteLine("   <INITDATA_ELL>");
+                                    sw.WriteLine("    <ELL_VOLKEY Value=\"{0}\" Comment=\"Состояние электрического ключа групп потребителей\"/>", Ell_Str4[j]);
+                                    sw.WriteLine("   </INITDATA_ELL>");
+                                    sw.WriteLine("  </ELL_NAME>");
+                                }
                             }
                             sw.WriteLine(" </ELL_CNT>");
                             sw.Write("</ELL_DATA>");
