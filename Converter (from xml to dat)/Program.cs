@@ -31,6 +31,8 @@ namespace Converter__from_xml_to_dat_
 
             #endregion
 
+            #region Инициализация всех файловых классов
+
             MainXML Main = new MainXML();
 
             VolidXML Volid = new VolidXML();
@@ -59,8 +61,9 @@ namespace Converter__from_xml_to_dat_
 
             CanentXML Canent = new CanentXML();
 
-            Console.ReadKey();
+            #endregion
 
+            Console.ReadKey(true);
 
         }
     }
