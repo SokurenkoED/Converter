@@ -272,6 +272,13 @@ namespace Converter__from_dat_to_xml_
 
             #endregion
 
+            #region Путь до файла KIN_SP.DAT
+
+            string ReadPathKinSp = "kin_sp.dat";
+            string WritePathKinSp = "NewFormat-TIGR/kin_sp.xml";
+
+            #endregion
+
             #region MAIN.DAT
 
             try
@@ -8684,7 +8691,7 @@ namespace Converter__from_dat_to_xml_
                                     }
                                 }
                             }
-                            catch (ArgumentOutOfRangeException ex)
+                            catch (ArgumentOutOfRangeException)
                             {
                                 Console.WriteLine("Файл OOPENT.DAT не был найден");
                             }
@@ -9070,6 +9077,359 @@ namespace Converter__from_dat_to_xml_
 
             #endregion
 
+            #region KIN_SP.DAT
+
+            try
+            {
+                using (StreamReader sr = new StreamReader(ReadPathKinSp, Encoding.GetEncoding(1251)))
+                {
+                    using (StreamWriter sw = new StreamWriter(WritePathKinSp, false, Encoding.Default))
+                    {
+
+                        #region Инициализируем массивы
+
+                        string KIN7_JGROST;
+                        string FNAME;
+                        string KIN7_JNJOB = "Ошибка";
+
+                        List<string> INT_PARAM = new List<string>(); // delt dtmin dtmax xd tauaz 
+                        List<string> GENERAL_DATA = new List<string>(); // beta0 pnl sist nist nkist ALFCR
+                        List<string> NKAN = new List<string>();
+                        List<string> KIN7_NETJOB_ARG = new List<string>();
+                        List<string> KIN7_NETJOB = new List<string>();
+
+                        List<string> KIN_BGAM = new List<string>();
+                        List<string> KIN_BLAM = new List<string>();
+                        #endregion
+
+                        #region Записали содержимое файла в массив
+
+                        List<string> ArrayOfKinSp = new List<string>(); // Массив строк с файла 
+                        string LineOfKinet;
+                        while ((LineOfKinet = await sr.ReadLineAsync()) != null)
+                        {
+                            if (!LineOfKinet.StartsWith("C") && !LineOfKinet.StartsWith("c") && !string.IsNullOrWhiteSpace(LineOfKinet) && !LineOfKinet.StartsWith("!"))
+                            {
+                                ArrayOfKinSp.Add(LineOfKinet.Trim());
+                            }
+                        }
+
+                        #endregion
+
+                        for (int i = 0; i < ArrayOfKinSp.Count; i++)
+                        {
+
+                            #region KIN7_JGROST - Количество групп источников остаточных энерговыделений
+
+                            KIN7_JGROST = ArrayOfKinSp[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[0];
+                            i++;
+
+                            #endregion
+
+                            #region Считали FNAME
+
+                            FNAME = ArrayOfKinSp[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[0];
+                            i++;
+
+                            #endregion
+
+                            #region ИД интегрирования
+
+                            string[] Str1 = ArrayOfKinSp[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                            ReadStar(ref ArrayOfKinSp, ref Str1, i, formatter); // Проверяем на *
+
+                            for (int j = 0; j < 5; j++)
+                            {
+                                INT_PARAM.Add(Str1[j]);
+                            }
+                            i++;
+
+                            #endregion
+
+                            #region Пропускаю строку - Lambda
+
+                            i++;
+
+                            #endregion
+
+                            #region Пропускаю строку - BETA
+
+                            i++;
+
+                            #endregion
+
+                            #region BETA0
+
+                            string[] Str2 = ArrayOfKinSp[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                            ReadStar(ref ArrayOfKinSp, ref Str2, i, formatter); // Проверяем на *
+                            GENERAL_DATA.Add(Str2[0]);
+                            i++;
+
+                            #endregion
+
+                            #region GENERAL_DATA - PNL,SIST,NIST,NKIST
+
+                            string[] Str3 = ArrayOfKinSp[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                            ReadStar(ref ArrayOfKinSp, ref Str3, i, formatter); // Проверяем на *
+
+                            for (int j = 0; j < 4; j++)
+                            {
+                                GENERAL_DATA.Add(Str3[j]);
+                            }
+                            i++;
+
+                            #endregion
+
+                            #region GENERAL_DATA - ALFCR
+
+                            string[] Str4 = ArrayOfKinSp[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                            ReadStar(ref ArrayOfKinSp, ref Str4, i, formatter); // Проверяем на *
+                            GENERAL_DATA.Add(Str4[1]);
+                            i++;
+
+                            #endregion
+
+                            #region NKAN
+
+                            for (int j = 0; j < 163; j++)
+                            {
+                                string[] Str5 = ArrayOfKinSp[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                                ReadStar(ref ArrayOfKinSp, ref Str5, i, formatter); // Проверяем на *
+                                for (int k = 0; k < Str5.Length; k++)
+                                {
+                                    NKAN.Add(Str5[k]);
+                                }
+                                i++;
+                                if (NKAN.Count >= 163)
+                                {
+                                    break;
+                                }
+                            }
+
+                            #endregion
+
+                            if (double.Parse(KIN7_JGROST, formatter) > 0)
+                            {
+
+                            #region Пропускаю строку 
+
+                                i++;
+
+                            #endregion
+
+                            #region KIN7_JNJOB - Размер таблицы
+
+                            KIN7_JNJOB = ArrayOfKinSp[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[0];
+                            i++;
+
+                            #endregion
+
+                            #region KIN7_NETJOB_ARG
+
+                            for (int j = 0; j < double.Parse(KIN7_JNJOB, formatter); j++)
+                            {
+                                string[] Str6 = ArrayOfKinSp[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                                ReadStar(ref ArrayOfKinSp, ref Str6, i, formatter); // Проверяем на *
+                                for (int k = 0; k < Str6.Length; k++)
+                                {
+                                    KIN7_NETJOB_ARG.Add(Str6[k]);
+                                }
+                                i++;
+                                if (KIN7_NETJOB_ARG.Count >= double.Parse(KIN7_JNJOB, formatter))
+                                {
+                                    break;
+                                }
+                            }
+
+                            #endregion
+
+                            #region KIN7_NETJOB
+
+                            for (int j = 0; j < double.Parse(KIN7_JNJOB, formatter); j++)
+                            {
+                                string[] Str6 = ArrayOfKinSp[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                                ReadStar(ref ArrayOfKinSp, ref Str6, i, formatter); // Проверяем на *
+                                for (int k = 0; k < Str6.Length; k++)
+                                {
+                                    KIN7_NETJOB.Add(Str6[k]);
+                                }
+                                i++;
+                                if (KIN7_NETJOB.Count >= double.Parse(KIN7_JNJOB, formatter))
+                                {
+                                    break;
+                                }
+                            }
+
+                            #endregion
+
+
+
+                            #region Записываем BGAM и BLAM
+
+                            try
+                            {
+                                using (StreamReader sr_s = new StreamReader(FNAME, Encoding.GetEncoding(1251)))
+                                {
+
+                                    #region Записали содержимое файла в массив
+
+                                    List<string> ArrayOfBG = new List<string>(); // Массив строк с файла 
+                                    string LineOfBG;
+                                    while ((LineOfBG = await sr_s.ReadLineAsync()) != null)
+                                    {
+                                        if (!LineOfBG.StartsWith("C") && !LineOfBG.StartsWith("c") && !string.IsNullOrWhiteSpace(LineOfBG) && !LineOfBG.StartsWith("!"))
+                                        {
+                                            ArrayOfBG.Add(LineOfBG.Trim());
+                                        }
+                                    }
+
+                                    #endregion
+
+                                    for (int nn = 0; nn < ArrayOfBG.Count; nn++)
+                                    {
+
+                                        #region KIN_BGAM
+
+                                        for (int j = 0; j < int.Parse(KIN7_JGROST); j++)
+                                        {
+                                            string[] Str30 = ArrayOfBG[nn].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                                            ReadStar(ref ArrayOfBG, ref Str30, nn, formatter); // Проверяем на *
+                                            for (int k = 0; k < Str30.Length; k++)
+                                            {
+                                                KIN_BGAM.Add(Str30[k]);
+
+                                            }
+                                            nn++;
+                                            if (KIN_BGAM.Count >= int.Parse(KIN7_JGROST))
+                                            {
+                                                break;
+                                            }
+                                        }
+
+                                        #endregion
+
+                                        #region KIN_BLAM
+
+                                        for (int j = 0; j < int.Parse(KIN7_JGROST); j++)
+                                        {
+                                            string[] Str31 = ArrayOfBG[nn].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                                            ReadStar(ref ArrayOfBG, ref Str31, nn, formatter); // Проверяем на *
+                                            for (int k = 0; k < Str31.Length; k++)
+                                            {
+                                                KIN_BLAM.Add(Str31[k]);
+
+                                            }
+                                            nn++;
+                                            if (KIN_BLAM.Count >= int.Parse(KIN7_JGROST))
+                                            {
+                                                break;
+                                            }
+                                        }
+
+                                        #endregion
+
+                                    }
+                                }
+                            }
+                            catch (FileNotFoundException)
+                            {
+                                Console.WriteLine("Файл {0} не был найден", FNAME);
+                            }
+
+                            #endregion
+
+                            }
+
+                            #region Запись в файл
+
+                            sw.WriteLine("<KINSP_DATA Comment=\"Данные для расчета по модели кинетики BIPR7KN\">");
+
+                            #region ИД интегрирования
+
+                            sw.WriteLine(" <INT_PARAM Comment=\"ИД интегрирования\">");
+                            sw.WriteLine($"  <KIN7_DELT Value=\"{INT_PARAM[0]}\" Comment=\"Шаг интегрирования по времени при расчете кинетики, с\"/>");
+                            sw.WriteLine($"  <KIN7_DTMIN Value=\"{INT_PARAM[1]}\" Comment=\"Минимальный шаг интегрирования при расчете кинетики, с\"/>");
+                            sw.WriteLine($"  <KIN7_DTMAX Value=\"{INT_PARAM[2]}\" Comment=\"Максимальный шаг интегрирования при расчете кинетики, с\"/>");
+                            sw.WriteLine($"  <KIN7_XD Value=\"{INT_PARAM[3]}\" Comment=\"Допустимое значение относительного отклонения на шаге интегрирования,% \"/>");
+                            sw.WriteLine($"  <KIN7_TAUAZ Value=\"{INT_PARAM[4]}\" Comment=\"Время стабилизации теплогидравлических параметров в активной зоне при расчете стационарного состояния, с\"/>");
+                            sw.WriteLine(" </INT_PARAM>");
+
+                            #endregion
+
+                            #region Общие кинетические
+
+                            sw.WriteLine(" <GENERAL_DATA Comment=\"Общие кинетические\">");
+
+                            sw.WriteLine($"  <KIN7_NN Value=\"{"???"}\" Comment=\"Исходная мощность реактора, отн.ед.\"/>");
+                            sw.WriteLine($"  <KIN7_SIST Value=\"{GENERAL_DATA[2]}\" Comment=\"Мощность внешнего источника, нейтрон/с\"/>");
+                            sw.WriteLine($"  <KIN7_NIST Value=\"{GENERAL_DATA[3]}\" Comment=\"Номер участка по высоте активной зоны с внешним источником\"/>");
+                            sw.WriteLine($"  <KIN7_NKIST Value=\"{GENERAL_DATA[4]}\" Comment=\"Номер кассеты с внешним источником\"/>");
+                            sw.WriteLine($"  <KIN7_PNL Value=\"{GENERAL_DATA[1]}\" Comment=\"Время жизни замедляющихся нейтронов,с\"/>");
+                            sw.WriteLine($"  <KIN7_BETA0 Value=\"{GENERAL_DATA[0]}\" Comment=\"Суммарная доля запаздывающих нейтроновботн.ед.\"/>");
+                            sw.WriteLine($"  <KIN7_ALFCR Value=\"{GENERAL_DATA[5]}\" Comment=\"”Вес” ТВС при определении параметров теплоносителя физической кассеты,отн.ед.\"/>");
+
+                            sw.WriteLine(" </GENERAL_DATA>");
+
+                            #endregion
+
+                            sw.WriteLine(" <RESIDUAL_DATA Comment=\"Остаточные энерговыделения\">");
+
+                            if (double.Parse(KIN7_JGROST, formatter) > 0)
+                            {
+                                #region Остаточные энерговыделения
+
+                                sw.WriteLine($"  <KIN7_JGROST Value=\"{KIN7_JGROST}\" Comment=\"Количество групп источников остаточных энерговыделений\">");
+                                for (int j = 0; j < int.Parse(KIN7_JGROST); j++)
+                                {
+                                    sw.WriteLine("   <KIN7_BGAM Value=\"{0}\" Comment=\"Выход источников остаточных энерговыделений на один акт деления для группы №{1}\"/>", KIN_BGAM[j], j + 1);
+                                    sw.WriteLine("   <KIN7_BLAM Value=\"{0}\" Comment=\"Постоянная распада источников остаточных энерговыделений группы №{1}\"/>", KIN_BLAM[j], j + 1);
+                                }
+                                sw.WriteLine($"  </KIN7_JGROST>");
+
+                                #endregion
+
+                                #region Поправочный множитель при расчете остаточных энерговыделений
+
+                                sw.WriteLine($" <KIN7_POWFIS Value=\"{"???"}\" Comment=\"Поправочный множитель при расчете остаточных энерговыделений\"/>");
+
+                                #endregion
+
+                                #region Размерность таблицы описания предыстории работы реактора
+
+                                sw.WriteLine($" <KIN7_JNJOB Value=\"{KIN7_JNJOB}\" Comment=\"Размерность таблицы описания предыстории работы реактора\">");
+
+                                for (int j = 0; j < int.Parse(KIN7_JNJOB); j++)
+                                {
+                                    sw.WriteLine($"  <KIN7_NETJOB_ARG Value=\"{KIN7_NETJOB_ARG[j]}\" Comment=\"Период №{j + 1} времени работы реактора на соответствующей мощности\"/>");
+                                }
+                                for (int j = 0; j < int.Parse(KIN7_JNJOB); j++)
+                                {
+                                    sw.WriteLine($"  <KIN7_NETJOB Value=\"{KIN7_NETJOB[j]}\" Comment=\"Значение №{j + 1} мощности реактора \"/>");
+                                }
+
+                                sw.WriteLine(" </KIN7_JNJOB>");
+
+                                #endregion
+                            }
+
+                            sw.WriteLine(" </RESIDUAL_DATA>");
+
+                            sw.WriteLine("</KINSP_DATA>");
+
+                            #endregion
+
+                            break;
+                        }
+
+                    }
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine("Файл KIN_SP.DAT не был найден");
+            }
+
+            #endregion
 
             Console.ReadKey(true);
         }
