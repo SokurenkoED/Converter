@@ -9089,8 +9089,11 @@ namespace Converter__from_dat_to_xml_
                         #region Инициализируем массивы
 
                         string KIN7_JGROST;
-                        string FNAME;
+                        string POWFIS;
                         string KIN7_JNJOB = "Ошибка";
+                        string FNAME;
+                        string PNKIN;
+
 
                         List<string> INT_PARAM = new List<string>(); // delt dtmin dtmax xd tauaz 
                         List<string> GENERAL_DATA = new List<string>(); // beta0 pnl sist nist nkist ALFCR
@@ -9100,6 +9103,7 @@ namespace Converter__from_dat_to_xml_
 
                         List<string> KIN_BGAM = new List<string>();
                         List<string> KIN_BLAM = new List<string>();
+
                         #endregion
 
                         #region Записали содержимое файла в массив
@@ -9184,6 +9188,7 @@ namespace Converter__from_dat_to_xml_
 
                             string[] Str4 = ArrayOfKinSp[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                             ReadStar(ref ArrayOfKinSp, ref Str4, i, formatter); // Проверяем на *
+                            PNKIN = Str4[0];
                             GENERAL_DATA.Add(Str4[1]);
                             i++;
 
@@ -9208,23 +9213,26 @@ namespace Converter__from_dat_to_xml_
 
                             #endregion
 
-                            if (double.Parse(KIN7_JGROST, formatter) > 0)
-                            {
+                            #region POWFIS - Поправочный множитель при расчете остаточных энерговыделений
 
-                            #region Пропускаю строку 
-
-                                i++;
+                            POWFIS = ArrayOfKinSp[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[0];
+                            i++;
 
                             #endregion
 
-                            #region KIN7_JNJOB - Размер таблицы
+                            if (double.Parse(KIN7_JGROST, formatter) > 0)
+                            {
+
+
+
+                                #region KIN7_JNJOB - Размер таблицы
 
                             KIN7_JNJOB = ArrayOfKinSp[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[0];
                             i++;
 
                             #endregion
 
-                            #region KIN7_NETJOB_ARG
+                                #region KIN7_NETJOB_ARG
 
                             for (int j = 0; j < double.Parse(KIN7_JNJOB, formatter); j++)
                             {
@@ -9243,7 +9251,7 @@ namespace Converter__from_dat_to_xml_
 
                             #endregion
 
-                            #region KIN7_NETJOB
+                                #region KIN7_NETJOB
 
                             for (int j = 0; j < double.Parse(KIN7_JNJOB, formatter); j++)
                             {
@@ -9262,9 +9270,7 @@ namespace Converter__from_dat_to_xml_
 
                             #endregion
 
-
-
-                            #region Записываем BGAM и BLAM
+                                #region Записываем BGAM и BLAM
 
                             try
                             {
@@ -9360,7 +9366,7 @@ namespace Converter__from_dat_to_xml_
 
                             sw.WriteLine(" <GENERAL_DATA Comment=\"Общие кинетические\">");
 
-                            sw.WriteLine($"  <KIN7_NN Value=\"{"???"}\" Comment=\"Исходная мощность реактора, отн.ед.\"/>");
+                            sw.WriteLine($"  <KIN7_PNKIN Value=\"{PNKIN}\" Comment=\"Исходная мощность реактора, отн.ед.\"/>");
                             sw.WriteLine($"  <KIN7_SIST Value=\"{GENERAL_DATA[2]}\" Comment=\"Мощность внешнего источника, нейтрон/с\"/>");
                             sw.WriteLine($"  <KIN7_NIST Value=\"{GENERAL_DATA[3]}\" Comment=\"Номер участка по высоте активной зоны с внешним источником\"/>");
                             sw.WriteLine($"  <KIN7_NKIST Value=\"{GENERAL_DATA[4]}\" Comment=\"Номер кассеты с внешним источником\"/>");
@@ -9387,13 +9393,16 @@ namespace Converter__from_dat_to_xml_
                                 sw.WriteLine($"  </KIN7_JGROST>");
 
                                 #endregion
+                            }
 
-                                #region Поправочный множитель при расчете остаточных энерговыделений
+                            #region Поправочный множитель при расчете остаточных энерговыделений
 
-                                sw.WriteLine($" <KIN7_POWFIS Value=\"{"???"}\" Comment=\"Поправочный множитель при расчете остаточных энерговыделений\"/>");
+                            sw.WriteLine($" <KIN7_POWFIS Value=\"{POWFIS}\" Comment=\"Поправочный множитель при расчете остаточных энерговыделений\"/>");
 
-                                #endregion
+                            #endregion
 
+                            if (double.Parse(KIN7_JGROST, formatter) > 0)
+                            {
                                 #region Размерность таблицы описания предыстории работы реактора
 
                                 sw.WriteLine($" <KIN7_JNJOB Value=\"{KIN7_JNJOB}\" Comment=\"Размерность таблицы описания предыстории работы реактора\">");
@@ -9411,6 +9420,8 @@ namespace Converter__from_dat_to_xml_
 
                                 #endregion
                             }
+
+
 
                             sw.WriteLine(" </RESIDUAL_DATA>");
 
