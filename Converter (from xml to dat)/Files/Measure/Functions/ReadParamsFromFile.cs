@@ -70,7 +70,10 @@ namespace Converter__from_xml_to_dat_.Files.Measure.Functions
             foreach (var item in Strctrs.Descendants("SENS_PROP"))
             {
                 XAttribute Attr = item.Attribute("Description");
-                Sens.Discription = Attr.Value;
+                if (Attr != null)
+                {
+                    Sens.Discription = Attr.Value;
+                }
             }
             if (Strctrs.Element("TVERSUSN") != null)
             {

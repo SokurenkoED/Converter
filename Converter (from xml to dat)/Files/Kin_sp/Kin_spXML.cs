@@ -16,7 +16,7 @@ namespace Converter__from_xml_to_dat_.Files.Kin_sp
         RESIDUAL_DATA_SP RD = new RESIDUAL_DATA_SP();
 
 
-        public KinetXML()
+        public Kin_spXML()
         {
             try
             {
@@ -24,7 +24,7 @@ namespace Converter__from_xml_to_dat_.Files.Kin_sp
 
                 ReadParamsFromFile.ReadFile(xdoc, ref GD, ref IP, ref RD);
 
-                WriteParamsToFile.WriteFile(ref CDs, ref GD, ref RD);
+                //WriteParamsToFile.WriteFile(ref CDs, ref GD, ref RD);
 
             }
             catch (FileNotFoundException)
