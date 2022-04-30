@@ -180,6 +180,20 @@ namespace Converter__from_xml_to_dat_.Files.Gidr2k.Functions
                     sw.WriteLine($"C Input data for Valve");
                     sw.WriteLine($"C Lengh   Area   KSI    C   Hidr.Diam");
                     sw.WriteLine($" {stndrt.JUN_LVLV} {stndrt.JUN_S0VLV} {stndrt.JUN_KSIVLV} {stndrt.JUN_CVLV} {stndrt.JUN_DGVLV}");
+                    sw.WriteLine($" {stndrt.JUN_JVTBL}");
+                    if (stndrt.JUN_JVTBL != "0")
+                    {
+                        for (int i = 0; i < stndrt.JUN_VLVTBL_ARG.Count; i++)
+                        {
+                            sw.Write($"{stndrt.JUN_VLVTBL_ARG[i]} ");
+                        }
+                        sw.WriteLine();
+                        for (int i = 0; i < stndrt.JUN_VLVTBL_S.Count; i++)
+                        {
+                            sw.Write($"{stndrt.JUN_VLVTBL_S[i]} ");
+                        }
+                        sw.WriteLine();
+                    }
                 }
                 if (stndrt.JUN_JPUG2K != "0")
                 {

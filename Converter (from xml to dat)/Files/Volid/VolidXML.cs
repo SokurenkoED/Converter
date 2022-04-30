@@ -25,7 +25,7 @@ namespace Converter__from_xml_to_dat_.Files
         {
             if (AttrValue.Value == "AZ_IN" || AttrValue.Value == "AZ_OUT")
             {
-                XAttribute AttributeValueFromDiscr = Elems.Attribute("Discription");
+                XAttribute AttributeValueFromDiscr = Elems.Attribute("Description");
                 XAttribute AttributeValueFromNumb = Elems.Attribute("Numb");
                 Elem.Type = AttrValue.Value;
                 Elem.Name = AttrValue.Value;
@@ -120,6 +120,7 @@ namespace Converter__from_xml_to_dat_.Files
                         WriteTubeParams.WriteParams(Elem, sw, formatter);
                         WriteVolumeParams.WriteParams(Elem, sw, formatter);
                         WriteVolGasParams.WriteParams(Elem, sw, formatter);
+                        WriteAZParams.WriteParams(Elem, sw, formatter);
                     }
                 }
             }

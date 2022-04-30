@@ -61,6 +61,7 @@ namespace Converter__from_xml_to_dat_.Files
                     XAttribute nameAttribute = Params.Attribute("Value");
                     sw.WriteLine(nameAttribute.Value);
                 }
+                sw.WriteLine(0);
             }
         }
 

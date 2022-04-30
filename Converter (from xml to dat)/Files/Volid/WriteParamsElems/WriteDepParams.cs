@@ -17,6 +17,7 @@ namespace Converter__from_xml_to_dat_.Files.Volid.WriteParamsElems
             {
                 Dep dep = (Dep)Elem;
                 sw.WriteLine($"{" "}{dep.Name}               {"!"}{dep.Description}               {"#"}{dep.Number}");
+                sw.WriteLine($"{dep.Type}");
                 if (dep.DEP_JTVT == null)
                 {
                     sw.WriteLine($"{dep.DEP_JPVT} {dep.DEP_JPSVT} {dep.DEP_JIVT} {dep.DEP_JCBVT} {dep.DEP_JJARG}");
