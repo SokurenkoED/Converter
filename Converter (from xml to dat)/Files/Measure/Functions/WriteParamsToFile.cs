@@ -37,15 +37,15 @@ namespace Converter__from_xml_to_dat_.Files.Measure.Functions
             }
             if (sensor.SENS_JTAUN != null)
             {
-                sw.WriteLine($"{sensor.SENS_JTAUN}");
+                sw.WriteLine($" {sensor.SENS_JTAUN}");
                 foreach (var item in sensor.DEP_PSOUR_ARG)
                 {
-                    sw.Write($"{item} ");
+                    sw.Write($" {item} ");
                 }
                 sw.WriteLine();
                 foreach (var item in sensor.DEP_PSOUR)
                 {
-                    sw.Write($"{item} ");
+                    sw.Write($" {item} ");
                 }
                 sw.WriteLine();
             }

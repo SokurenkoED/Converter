@@ -75,23 +75,20 @@ namespace Converter__from_xml_to_dat_.Files.Measure.Functions
                     Sens.Discription = Attr.Value;
                 }
             }
-            if (Strctrs.Element("TVERSUSN") != null)
+            foreach (var item in Strctrs.Descendants("SENS_JTAUN"))
             {
-                foreach (var item in Strctrs.Descendants("SENS_JTAUN"))
-                {
-                    XAttribute Attr = item.Attribute("Value");
-                    Sens.SENS_JTAUN = Attr.Value;
-                }
-                foreach (XElement Param in Strctrs.Descendants("DEP_PSOUR_ARG"))
-                {
-                    XAttribute Attr = Param.Attribute("Value");
-                    Sens.DEP_PSOUR_ARG.Add(Attr.Value);
-                }
-                foreach (XElement Param in Strctrs.Descendants("DEP_PSOUR"))
-                {
-                    XAttribute Attr = Param.Attribute("Value");
-                    Sens.DEP_PSOUR.Add(Attr.Value);
-                }
+                XAttribute Attr = item.Attribute("Value");
+                Sens.SENS_JTAUN = Attr.Value;
+            }
+            foreach (XElement Param in Strctrs.Descendants("DEP_PSOUR_ARG"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                Sens.DEP_PSOUR_ARG.Add(Attr.Value);
+            }
+            foreach (XElement Param in Strctrs.Descendants("DEP_PSOUR"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                Sens.DEP_PSOUR.Add(Attr.Value);
             }
             return Sens;
         }

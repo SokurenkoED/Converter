@@ -61,6 +61,10 @@ namespace Converter__from_xml_to_dat_
 
             CanentXML Canent = new CanentXML();
 
+            GR1XML GR1 = new GR1XML();
+
+            MemgrXML Memgr = new MemgrXML();
+
             #endregion
 
             Console.ReadKey(true);

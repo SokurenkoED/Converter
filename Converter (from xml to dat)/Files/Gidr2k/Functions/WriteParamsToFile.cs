@@ -30,7 +30,8 @@ namespace Converter__from_xml_to_dat_.Files.Gidr2k.Functions
                 }
                 WriteHomols(ref Homols, sw);
                 sw.WriteLine("C  Crit Flow    Eps PUMP");
-                WriteLastTwoParams(ref LastParams, sw);
+                WriteLastTwoParams(ref LastParams, sw); // Почему-то не находит последние 2 параметра, поэтому запишем сами
+                sw.WriteLine("0.7 0.01");
                 sw.WriteLine("CCCCCCCCCCCCCCCCCCCCCCC INITIAL CONDITION CCCCCCCCCCCCCCCCCCCCCCCCCCCC");
                 WriteIC(ref Juns, sw);
             }
@@ -58,8 +59,6 @@ namespace Converter__from_xml_to_dat_.Files.Gidr2k.Functions
             {
                 sw.Write($"{item} {""}");
             }
-            sw.WriteLine();
-            sw.WriteLine();
         }
 
         private static void WriteHomols(ref List<Homol> Homols, StreamWriter sw)
@@ -108,7 +107,6 @@ namespace Converter__from_xml_to_dat_.Files.Gidr2k.Functions
                 {
                     sw.Write($"{item} {""}");
                 }
-                sw.WriteLine();
                 sw.WriteLine();
             }
             

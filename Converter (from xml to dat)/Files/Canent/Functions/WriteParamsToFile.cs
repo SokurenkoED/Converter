@@ -47,7 +47,7 @@ namespace Converter__from_xml_to_dat_.Files.Canent.Functions
                 sw.WriteLine($" {GC.CORE_NNOM} {GC.CORE_ALFC} {GC.CORE_ALFB} {GC.CORE_P} {GC.CORE_JJRC}");
                 sw.WriteLine($" {GC.CORE_EPSMK}");
                 sw.WriteLine("CCC  /dksi.dx/№ II(t)/P(z)/dp.dt/fi_medi/Xmin /");
-                sw.WriteLine($" {MC.CORE_JDGDZ} {MC.CORE_JNF} {MC.CORE_JDPDZ} {MC.CORE_JDPDT} {MC.CORE_JPRFI} {MC.CORE_EPSX}");
+                sw.WriteLine($" {MC.CORE_JDGDZ} {MC.CORE_JNF} {MC.CORE_JDPDZ} {MC.CORE_JDPDT} {MC.CORE_JPRFI} {MC.CORE_JFZ} {MC.CORE_QPOPR} {MC.CORE_EPSX}");
                 sw.WriteLine("CCC  / № MIDDLE CHAN./ BYPAS CHAN.");
                 sw.WriteLine($" {MC.CORE_JCB} {MC.CORE_JCPROT}");
                 sw.WriteLine("CCC /Пмет/Пмкп/Rтепл/Kгидр/Кто/Птепл/равновес/проскальз/Qкрит/alfa_крит/Geom_Qкрит ! №");
@@ -89,7 +89,8 @@ namespace Converter__from_xml_to_dat_.Files.Canent.Functions
                     sw.WriteLine($" {item.CORE_TVEL}");
                     sw.WriteLine($" {item.CORE_EPSTF}");
                     sw.WriteLine("CC (Тип-1) признак геометрии ТВЭЛов (0- данные задаются, j- данные берутся из канала с номером типа j )");
-                    sw.WriteLine($" {"0"} {item.CORE_JVVOD}");
+                    sw.WriteLine($" {"0"}");
+                    sw.WriteLine($" {item.CORE_JVVOD}");
                     sw.WriteLine($" {item.CORE_RT1} {item.CORE_RT2} {item.CORE_RIO} {item.CORE_ROO}");
                     sw.WriteLine($" {item.CORE_GAT} {item.CORE_GAOB} {item.CORE_DELST}");
                     sw.WriteLine($" {item.CORE_CTTAB_ARG.Count}");
@@ -262,7 +263,8 @@ namespace Converter__from_xml_to_dat_.Files.Canent.Functions
                 sw.WriteLine("-2.0");
                 sw.WriteLine(CC.CORE_JCROSS);
                 sw.WriteLine("C Число т/ф каналов");
-                sw.WriteLine(CTFT.CORE_JTFT);
+                //sw.WriteLine(CTFT.CORE_JTFT);
+                sw.WriteLine("0");
                 sw.WriteLine("0");
             }
         }

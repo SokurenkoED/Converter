@@ -55,7 +55,8 @@ namespace Converter__from_xml_to_dat_.Files.Elpows.Functions
                 sw.WriteLine($" {item.Name}");
                 sw.WriteLine($" {item.ELG_SHAFTNUM} {item.ELG_NETNUM} {"50"}   {"/(JTURB,JNET,JESMI)"}");
                 sw.WriteLine($" {item.ELG_MJGEN} {item.ELG_NNOM} {item.ELG_NASIN}");
-                sw.WriteLine($" {item.ELG_ASU}");
+                //sw.WriteLine($" {item.ELG_ASU}"); // Не пишется значение
+                sw.WriteLine(" 0");
                 sw.WriteLine($" {item.ELG_TAUALT} {item.ELG_DEDI} {item.ELG_IMAXA} {item.ELG_UMAXA}");
             }
             sw.WriteLine();

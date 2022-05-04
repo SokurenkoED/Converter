@@ -23,7 +23,7 @@ namespace Converter__from_xml_to_dat_.Files.Asuelm.Functions
             sw.WriteLine($" {Elms.Count}");
             foreach (var item in Elms)
             {
-                sw.WriteLine($" {"/USU/"} {item.Name}");
+                sw.WriteLine($"{"/USU/"} {item.Name}");
                 sw.WriteLine($" {item.ELM_ASU1} {item.ELM_ASU2} {item.ELM_ASU3} {item.ELM_ASU4}");
                 sw.WriteLine($" {item.ELM_PHAND} {item.ELM_PHAND} {item.ELM_PHAND} {item.ELM_PHAND}");
                 sw.WriteLine($" {item.ELM_MHAND} {item.ELM_MHAND} {item.ELM_MHAND} {item.ELM_MHAND}");
