@@ -29,6 +29,10 @@ namespace Converter__from_xml_to_dat_.Files.Asuval
             {
                 Console.WriteLine("Файл Asuval.xml не был найден");
             }
+            catch (System.Xml.XmlException)
+            {
+                Console.WriteLine("Проверить файл Asuval.xml. Неверный формат записи");
+            }
         }
     }
 }

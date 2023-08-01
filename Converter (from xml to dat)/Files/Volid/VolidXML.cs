@@ -171,6 +171,10 @@ namespace Converter__from_xml_to_dat_.Files
             {
                 Console.WriteLine("Файл Volid.xml не был найден");
             }
+            catch (System.Xml.XmlException)
+            {
+                Console.WriteLine("Проверить файл Volid.xml. Неверный формат записи");
+            }
         }
 
         public List<Cont> Conts = new List<Cont>();

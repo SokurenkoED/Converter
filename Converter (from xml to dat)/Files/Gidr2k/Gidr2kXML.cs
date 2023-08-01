@@ -33,6 +33,10 @@ namespace Converter__from_xml_to_dat_.Files
             {
                 Console.WriteLine("Файл Gidr2k.xml не был найден");
             }
+            catch (System.Xml.XmlException)
+            {
+                Console.WriteLine("Проверить файл Gidr2k.xml. Неверный формат записи");
+            }
         }
     }
 }

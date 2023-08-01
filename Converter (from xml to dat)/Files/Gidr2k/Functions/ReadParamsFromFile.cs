@@ -433,6 +433,11 @@ namespace Converter__from_xml_to_dat_.Files.Gidr2k.Functions
                 XAttribute Attr = Param.Attribute("Value");
                 stdrt.JUN_QP0G2K = Attr.Value;
             }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_GAM02K"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                stdrt.JUN_GAM02K = Attr.Value;
+            }
             foreach (XElement Param in JunFromFIle.Descendants("JUN_OMP02K"))
             {
                 XAttribute Attr = Param.Attribute("Value");

@@ -29,6 +29,10 @@ namespace Converter__from_xml_to_dat_.Files.Upper
             {
                 Console.WriteLine("Файл Upper.xml не был найден");
             }
+            catch (System.Xml.XmlException)
+            {
+                Console.WriteLine("Проверить файл Upper.xml. Неверный формат записи");
+            }
         }
     }
 }

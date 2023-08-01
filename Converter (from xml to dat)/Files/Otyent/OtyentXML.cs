@@ -29,6 +29,10 @@ namespace Converter__from_xml_to_dat_.Files.Otyent
             {
                 Console.WriteLine("Файл Otyent.xml не был найден");
             }
+            catch (System.Xml.XmlException)
+            {
+                Console.WriteLine("Проверить файл Otyent.xml. Неверный формат записи");
+            }
         }
     }
 }

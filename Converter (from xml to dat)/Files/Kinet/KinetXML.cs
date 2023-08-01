@@ -28,6 +28,10 @@ namespace Converter__from_xml_to_dat_.Files.Kinet
             {
                 Console.WriteLine("Файл Kinet.xml не был найден");
             }
+            catch (System.Xml.XmlException)
+            {
+                Console.WriteLine("Проверить файл Kinet.xml. Неверный формат записи");
+            }
         }
     }
 }

@@ -82,6 +82,10 @@ namespace Converter__from_xml_to_dat_.Files
             {
                 Console.WriteLine("Файл Main.xml не был найден");
             }
+            catch (System.Xml.XmlException)
+            {
+                Console.WriteLine("Проверить файл Main.xml. Неверный формат записи");
+            }
         }
     }
     class REAC_PARAM

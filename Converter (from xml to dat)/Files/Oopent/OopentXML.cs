@@ -18,7 +18,7 @@ namespace Converter__from_xml_to_dat_.Files.Oopent
         {
             try
             {
-                xdoc = XDocument.Load("Oopent.xml");
+                xdoc = XDocument.Load("oopent.xml");
 
                 ReadParamsFromFile.ReadFile(xdoc, ref OOU);
 
@@ -28,6 +28,10 @@ namespace Converter__from_xml_to_dat_.Files.Oopent
             catch (FileNotFoundException)
             {
                 Console.WriteLine("Файл Oopent.xml не был найден");
+            }
+            catch (System.Xml.XmlException)
+            {
+                Console.WriteLine("Проверить файл oopent.xml. Неверный формат записи");
             }
         }
     }

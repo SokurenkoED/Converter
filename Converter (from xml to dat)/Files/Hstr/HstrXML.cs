@@ -31,6 +31,10 @@ namespace Converter__from_xml_to_dat_.Files.Hstr
             {
                 Console.WriteLine("Файл hstr.xml не был найден");
             }
-}
+            catch (System.Xml.XmlException)
+            {
+                Console.WriteLine("Проверить файл hstr.xml. Неверный формат записи");
+            }
+        }
     }
 }

@@ -30,6 +30,10 @@ namespace Converter__from_xml_to_dat_.Files.Asuelk
             {
                 Console.WriteLine("Файл Asuelk.xml не был найден");
             }
+            catch (System.Xml.XmlException)
+            {
+                Console.WriteLine("Проверить файл Asuelk.xml. Неверный формат записи");
+            }
         }
     }
 }

@@ -43,6 +43,10 @@ namespace Converter__from_xml_to_dat_.Files.Canent
             {
                 Console.WriteLine("Файл Canent.xml не был найден");
             }
+            catch (System.Xml.XmlException)
+            {
+                Console.WriteLine("Проверить файл Canent.xml. Неверный формат записи");
+            }
         }
     }
 }

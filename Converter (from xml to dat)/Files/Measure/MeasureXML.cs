@@ -30,6 +30,10 @@ namespace Converter__from_xml_to_dat_.Files.Measure
             {
                 Console.WriteLine("Файл measure.xml не был найден");
             }
-}
+            catch (System.Xml.XmlException)
+            {
+                Console.WriteLine("Проверить файл measure.xml. Неверный формат записи");
+            }
+        }
     }
 }

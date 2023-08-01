@@ -29,6 +29,10 @@ namespace Converter__from_xml_to_dat_.Files.Asuelm
             {
                 Console.WriteLine("Файл Asuelm.xml не был найден");
             }
+            catch (System.Xml.XmlException)
+            {
+                Console.WriteLine("Проверить файл Asuelm.xml. Неверный формат записи");
+            }
         }
     }
 }

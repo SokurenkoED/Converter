@@ -196,7 +196,7 @@ namespace Converter__from_xml_to_dat_.Files.Gidr2k.Functions
                 if (stndrt.JUN_JPUG2K != "0")
                 {
                     sw.WriteLine($"C Head  Torque   Flow   Velocity");
-                    sw.WriteLine($" {stndrt.JUN_HP0G2K} {stndrt.JUN_MP0G2K} {stndrt.JUN_QP0G2K} {stndrt.JUN_OMP02K}");
+                    sw.WriteLine($" {stndrt.JUN_HP0G2K} {stndrt.JUN_MP0G2K} {stndrt.JUN_QP0G2K} {stndrt.JUN_OMP02K} {stndrt.JUN_GAM02K}");
                     sw.WriteLine($" {stndrt.JUN_JWTG2K}");
                     if (stndrt.JUN_JWTG2K != "0")
                     {

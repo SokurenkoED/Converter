@@ -34,6 +34,10 @@ namespace Converter__from_xml_to_dat_.Files.Elpows
             {
                 Console.WriteLine("Файл Elpows.xml не был найден");
             }
+            catch (System.Xml.XmlException)
+            {
+                Console.WriteLine("Проверить файл Elpows.xml. Неверный формат записи");
+            }
         }
     }
 }

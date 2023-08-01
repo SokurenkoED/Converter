@@ -31,6 +31,10 @@ namespace Converter__from_xml_to_dat_.Files.Kin_sp
             {
                 Console.WriteLine("Файл kin_sp.xml не был найден");
             }
+            catch (System.Xml.XmlException)
+            {
+                Console.WriteLine("Проверить файл kin_sp.xml. Неверный формат записи");
+            }
         }
     }
 }
