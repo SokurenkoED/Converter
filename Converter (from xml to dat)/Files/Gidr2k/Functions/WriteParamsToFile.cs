@@ -2,9 +2,11 @@
 using Converter__from_xml_to_dat_.Files.Gidr2k.Junctions;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -173,6 +175,8 @@ namespace Converter__from_xml_to_dat_.Files.Gidr2k.Functions
 
         private static void WriteParamsFromStandart(Jun Jun, StreamWriter sw)
         {
+            CultureInfo temp_culture = Thread.CurrentThread.CurrentCulture;
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
             if (Jun.Type == "1")
             {
                 Standart stndrt = (Standart)Jun;
@@ -193,6 +197,10 @@ namespace Converter__from_xml_to_dat_.Files.Gidr2k.Functions
                 {
                     sw.WriteLine($"C Input data for Valve");
                     sw.WriteLine($"C Lengh   Area   KSI    C   Hidr.Diam   Diment_KSI");
+                    if (stndrt.JUN_JVTBL2 != "0")
+                    {
+                        stndrt.JUN_KSIVLV =(double.Parse(stndrt.JUN_KSIVLV) * -1).ToString();
+                    }
                     sw.WriteLine($" {stndrt.JUN_LVLV} {stndrt.JUN_S0VLV} {stndrt.JUN_KSIVLV} {stndrt.JUN_CVLV} {stndrt.JUN_DGVLV} {stndrt.JUN_JVTBL2}");
                     if(stndrt.JUN_JVTBL2 != "0")
                     {
