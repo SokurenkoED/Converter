@@ -11,6 +11,11 @@ namespace Converter__from_xml_to_dat_.Files.Gidr2k.Junctions
         public Standart(string name) : base(name)
         {
         }
+        public string JUN_KCICLS { get; set; }
+        public string JUN_KCIUNOPN { get; set; }
+        public string JUN_KCILAM { get; set; }
+        public string JUN_TAUBCV { get; set; }
+        public string JUN_SBCVLV { get; set; }
         public string JUN_GAM02K { get; set; }
         public string JUN_DP02K { get; set; }
         public string JUN_AJNMLT { get; set; }

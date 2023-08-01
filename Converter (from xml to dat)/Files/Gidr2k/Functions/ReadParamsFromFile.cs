@@ -337,7 +337,31 @@ namespace Converter__from_xml_to_dat_.Files.Gidr2k.Functions
         private static Standart SetParamsToStandart(string name, XElement JunFromFIle)
         {
             Standart stdrt = new Standart(name);
-
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_KCICLS"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                stdrt.JUN_KCICLS = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_KCIUNOPN"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                stdrt.JUN_KCIUNOPN = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_KCILAM"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                stdrt.JUN_KCILAM = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_TAUBCV"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                stdrt.JUN_TAUBCV = Attr.Value;
+            }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_SBCVLV"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                stdrt.JUN_SBCVLV = Attr.Value;
+            }
             foreach (XElement Param in JunFromFIle.Descendants("JUN_DP02K"))
             {
                 XAttribute Attr = Param.Attribute("Value");

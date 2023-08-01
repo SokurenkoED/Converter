@@ -34,6 +34,21 @@ namespace Converter__from_xml_to_dat_.Files.Gidr2k.Functions
                 sw.WriteLine("0.7 0.01");
                 sw.WriteLine("CCCCCCCCCCCCCCCCCCCCCCC INITIAL CONDITION CCCCCCCCCCCCCCCCCCCCCCCCCCCC");
                 WriteIC(ref Juns, sw);
+                WriteCheckValve(ref Juns, sw);
+            }
+        }
+        private static void WriteCheckValve(ref List<Jun> Juns, StreamWriter sw)
+        {
+            foreach (var Jun in Juns)
+            {
+                if (Jun.Type == "1")
+                {
+                    Standart stndrt = (Standart)Jun;
+                    if (stndrt.JUN_JOBR == "2")
+                    {
+                        sw.WriteLine($"{stndrt.JUN_KCICLS} {stndrt.JUN_KCIUNOPN} {stndrt.JUN_KCILAM} {stndrt.JUN_TAUBCV} {stndrt.JUN_SBCVLV}");
+                    }
+                }
             }
         }
 
@@ -51,6 +66,7 @@ namespace Converter__from_xml_to_dat_.Files.Gidr2k.Functions
             {
                 sw.Write(Jun.JUN_KCI2KJ + " ");
             }
+            sw.WriteLine();
         }
 
         private static void WriteLastTwoParams(ref List<string> LastParams, StreamWriter sw)
