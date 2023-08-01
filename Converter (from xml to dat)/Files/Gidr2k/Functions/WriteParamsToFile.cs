@@ -176,8 +176,21 @@ namespace Converter__from_xml_to_dat_.Files.Gidr2k.Functions
                 if (stndrt.JUN_VLVNAM != "NO")
                 {
                     sw.WriteLine($"C Input data for Valve");
-                    sw.WriteLine($"C Lengh   Area   KSI    C   Hidr.Diam");
-                    sw.WriteLine($" {stndrt.JUN_LVLV} {stndrt.JUN_S0VLV} {stndrt.JUN_KSIVLV} {stndrt.JUN_CVLV} {stndrt.JUN_DGVLV}");
+                    sw.WriteLine($"C Lengh   Area   KSI    C   Hidr.Diam   Diment_KSI");
+                    sw.WriteLine($" {stndrt.JUN_LVLV} {stndrt.JUN_S0VLV} {stndrt.JUN_KSIVLV} {stndrt.JUN_CVLV} {stndrt.JUN_DGVLV} {stndrt.JUN_JVTBL2}");
+                    if(stndrt.JUN_JVTBL2 != "0")
+                    {
+                        for (int i = 0; i < stndrt.JUN_VLVTBL_H.Count; i++)
+                        {
+                            sw.Write($"{stndrt.JUN_VLVTBL_H[i]} ");
+                        }
+                        sw.WriteLine();
+                        for (int i = 0; i < stndrt.JUN_VLVTBL_R.Count; i++)
+                        {
+                            sw.Write($"{stndrt.JUN_VLVTBL_R[i]} ");
+                        }
+                        sw.WriteLine();
+                    }
                     sw.WriteLine($" {stndrt.JUN_JVTBL}");
                     if (stndrt.JUN_JVTBL != "0")
                     {
@@ -195,7 +208,7 @@ namespace Converter__from_xml_to_dat_.Files.Gidr2k.Functions
                 }
                 if (stndrt.JUN_JPUG2K != "0")
                 {
-                    sw.WriteLine($"C Head  Torque   Flow   Velocity");
+                    sw.WriteLine($"C Head  Torque   Flow   Velocity   Dencity");
                     sw.WriteLine($" {stndrt.JUN_HP0G2K} {stndrt.JUN_MP0G2K} {stndrt.JUN_QP0G2K} {stndrt.JUN_OMP02K} {stndrt.JUN_GAM02K}");
                     sw.WriteLine($" {stndrt.JUN_JWTG2K}");
                     if (stndrt.JUN_JWTG2K != "0")
