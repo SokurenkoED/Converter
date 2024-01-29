@@ -18,6 +18,14 @@ namespace Converter__from_xml_to_dat_.Files.Asuval
         {
             try
             {
+                FileInfo file = new FileInfo("asuval.xml");
+                long size = file.Length;
+                if (size == 0)
+                {
+                    Console.WriteLine("Файл asuval.xml пустой.");
+                    return;
+                }
+
                 xdoc = XDocument.Load("asuval.xml");
 
                 ReadParamsFromFile.ReadFile(xdoc, ref Valves);

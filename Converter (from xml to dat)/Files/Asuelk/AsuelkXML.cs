@@ -18,6 +18,13 @@ namespace Converter__from_xml_to_dat_.Files.Asuelk
         {
             try
             {
+                FileInfo file = new FileInfo("asuelk.xml");
+                long size = file.Length;
+                if (size == 0)
+                {
+                    Console.WriteLine("Файл asuelk.xml пустой.");
+                    return;
+                }
 
                 xdoc = XDocument.Load("asuelk.xml");
 

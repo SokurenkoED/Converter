@@ -23,6 +23,14 @@ namespace Converter__from_xml_to_dat_.Files.Elpows
         {
             try
             {
+                FileInfo file = new FileInfo("elpows.xml");
+                long size = file.Length;
+                if (size == 0)
+                {
+                    Console.WriteLine("Файл elpows.xml пустой.");
+                    return;
+                }
+
                 xdoc = XDocument.Load("elpows.xml");
 
                 ReadParamsFromFile.ReadFile(xdoc, ref EG, ref EM, ref NT, ref PMP, ref Shft, ref TB );

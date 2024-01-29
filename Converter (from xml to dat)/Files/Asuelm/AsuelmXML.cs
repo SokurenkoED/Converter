@@ -18,6 +18,14 @@ namespace Converter__from_xml_to_dat_.Files.Asuelm
         {
             try
             {
+                FileInfo file = new FileInfo("asuelm.xml");
+                long size = file.Length;
+                if (size == 0)
+                {
+                    Console.WriteLine("Файл asuelm.xml пустой.");
+                    return;
+                }
+
                 xdoc = XDocument.Load("asuelm.xml");
 
                 ReadParamsFromFile.ReadFile(xdoc, ref elms);

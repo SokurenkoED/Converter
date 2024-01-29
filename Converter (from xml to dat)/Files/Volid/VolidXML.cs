@@ -67,7 +67,7 @@ namespace Converter__from_xml_to_dat_.Files
                             Elem = new Tube(AttributeNumb.Value, AttributeValue.Value);
                         }
                     }
-                    else if (AttributeValue.Value == "3" || AttributeValue.Value == "31")
+                    else if (AttributeValue.Value == "3" || AttributeValue.Value == "31" || AttributeValue.Value == "32")
                     {
                         if (AttributeDescription != null)
                         {
@@ -163,6 +163,14 @@ namespace Converter__from_xml_to_dat_.Files
         {
             try
             {
+                FileInfo file = new FileInfo("Volid.xml");
+                long size = file.Length;
+                if (size == 0)
+                {
+                    Console.WriteLine("Файл Volid.xml пустой.");
+                    return;
+                }
+
                 ReadParamsToFile();
 
                 WriteParamsFromFile();

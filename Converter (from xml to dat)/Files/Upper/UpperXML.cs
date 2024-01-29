@@ -18,6 +18,14 @@ namespace Converter__from_xml_to_dat_.Files.Upper
         {
             try
             {
+                FileInfo file = new FileInfo("Upper.xml");
+                long size = file.Length;
+                if (size == 0)
+                {
+                    Console.WriteLine("Файл Upper.xml пустой.");
+                    return;
+                }
+
                 xdoc = XDocument.Load("Upper.xml");
 
                 ReadParamsFromFile.ReadFile(xdoc, ref Upp);

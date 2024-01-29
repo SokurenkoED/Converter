@@ -18,6 +18,14 @@ namespace Converter__from_xml_to_dat_.Files.Otyent
         {
             try
             {
+                FileInfo file = new FileInfo("Otyent.xml");
+                long size = file.Length;
+                if (size == 0)
+                {
+                    Console.WriteLine("Файл Otyent.xml пустой.");
+                    return;
+                }
+
                 xdoc = XDocument.Load("Otyent.xml");
 
                 ReadParamsFromFile.ReadFile(xdoc, ref OTY);

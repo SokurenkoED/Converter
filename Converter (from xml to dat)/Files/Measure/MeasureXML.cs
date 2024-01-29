@@ -19,6 +19,14 @@ namespace Converter__from_xml_to_dat_.Files.Measure
         {
             try
             {
+                FileInfo file = new FileInfo("measure.xml");
+                long size = file.Length;
+                if (size == 0)
+                {
+                    Console.WriteLine("Файл measure.xml пустой.");
+                    return;
+                }
+
                 xdoc = XDocument.Load("measure.xml");
 
                 ReadParamsFromFile.ReadFile(xdoc, ref Sensors);

@@ -12,7 +12,7 @@ namespace Converter__from_xml_to_dat_.Files.Volid.ReadParamsElems
     {
         public static void ReadParams(ref Elems Elem, XElement Elems)
         {
-            if (Elem.Type == "3" || Elem.Type == "31")
+            if (Elem.Type == "3" || Elem.Type == "31" || Elem.Type == "32")
             {
                 Volume volume = (Volume)Elem;
 
@@ -41,6 +41,11 @@ namespace Converter__from_xml_to_dat_.Files.Volid.ReadParamsElems
                     XAttribute AttributeValue = VOLMLT.Attribute("Value");
                     volume.VOL_DGWSCN = AttributeValue.Value;
                 }
+                foreach (XElement VOLMLT in Elems.Descendants("VOL_FTOVOL"))
+                {
+                    XAttribute AttributeValue = VOLMLT.Attribute("Value");
+                    volume.VOL_FTOVOL = AttributeValue.Value;
+                }
                 foreach (XElement VOLMLT in Elems.Descendants("VOL_PSGCON"))
                 {
                     XAttribute AttributeValue = VOLMLT.Attribute("Value");
@@ -66,6 +71,38 @@ namespace Converter__from_xml_to_dat_.Files.Volid.ReadParamsElems
                     XAttribute AttributeValue = VOLMLT.Attribute("Value");
                     volume.VOL_TABV.Add(AttributeValue.Value);
                 }
+
+                foreach (XElement VOLMLT in Elems.Descendants("VOL_JNM"))
+                {
+                    XAttribute AttributeValue = VOLMLT.Attribute("Value");
+                    volume.VOL_JNM = AttributeValue.Value;
+                }
+                foreach (XElement VOLMLT in Elems.Descendants("VOL_CMVOL"))
+                {
+                    XAttribute AttributeValue = VOLMLT.Attribute("Value");
+                    volume.VOL_CMVOL = AttributeValue.Value;
+                }
+                foreach (XElement VOLMLT in Elems.Descendants("VOL_RMVOL"))
+                {
+                    XAttribute AttributeValue = VOLMLT.Attribute("Value");
+                    volume.VOL_RMVOL = AttributeValue.Value;
+                }
+                foreach (XElement VOLMLT in Elems.Descendants("VOL_DLVOL"))
+                {
+                    XAttribute AttributeValue = VOLMLT.Attribute("Value");
+                    volume.VOL_DLVOL = AttributeValue.Value;
+                }
+                foreach (XElement VOLMLT in Elems.Descendants("VOL_LAMBDA"))
+                {
+                    XAttribute AttributeValue = VOLMLT.Attribute("Value");
+                    volume.VOL_LAMBDA = AttributeValue.Value;
+                }
+                foreach (XElement VOLMLT in Elems.Descendants("VOL_KOCVOLEQ"))
+                {
+                    XAttribute AttributeValue = VOLMLT.Attribute("Value");
+                    volume.VOL_KOCVOLEQ = AttributeValue.Value;
+                }
+
                 foreach (XElement VOLMLT in Elems.Descendants("VOL_JNMG"))
                 {
                     XAttribute AttributeValue = VOLMLT.Attribute("Value");
@@ -142,6 +179,11 @@ namespace Converter__from_xml_to_dat_.Files.Volid.ReadParamsElems
                 {
                     XAttribute AttributeValue = VOLMLT.Attribute("Value");
                     volume.VOL_ISG = AttributeValue.Value;
+                }
+                foreach (XElement VOLMLT in Elems.Descendants("VOL_IVOLEQU"))
+                {
+                    XAttribute AttributeValue = VOLMLT.Attribute("Value");
+                    volume.VOL_IVOLEQU = AttributeValue.Value;
                 }
                 foreach (XElement VOLMLT in Elems.Descendants("VOL_IVOL"))
                 {

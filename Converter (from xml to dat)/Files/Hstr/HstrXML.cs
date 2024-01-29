@@ -20,6 +20,14 @@ namespace Converter__from_xml_to_dat_.Files.Hstr
         {
             try
             {
+                FileInfo file = new FileInfo("hstr.xml");
+                long size = file.Length;
+                if (size == 0)
+                {
+                    Console.WriteLine("Файл hstr.xml пустой.");
+                    return;
+                }
+
                 xdoc = XDocument.Load("hstr.xml");
 
                 ReadParamsFromFile.ReadFile(xdoc, ref Structures);

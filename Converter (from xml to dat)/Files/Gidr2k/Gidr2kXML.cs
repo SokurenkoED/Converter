@@ -22,6 +22,14 @@ namespace Converter__from_xml_to_dat_.Files
         {
             try
             {
+                FileInfo file = new FileInfo("gidr2k.xml");
+                long size = file.Length;
+                if (size == 0)
+                {
+                    Console.WriteLine("Файл gidr2k.xml пустой.");
+                    return;
+                }
+
                 xdoc = XDocument.Load("gidr2k.xml");
 
                 ReadParamsFromFile.ReadFIle(ref Juns, ref Homols,ref LastParams, xdoc);

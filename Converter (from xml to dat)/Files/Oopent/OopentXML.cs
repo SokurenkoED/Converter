@@ -18,6 +18,15 @@ namespace Converter__from_xml_to_dat_.Files.Oopent
         {
             try
             {
+
+                FileInfo file = new FileInfo("oopent.xml");
+                long size = file.Length;
+                if (size == 0) 
+                {
+                    Console.WriteLine("Файл Oopent.xml пустой.");
+                    return;
+                }
+
                 xdoc = XDocument.Load("oopent.xml");
 
                 ReadParamsFromFile.ReadFile(xdoc, ref OOU);

@@ -12,7 +12,7 @@ namespace Converter__from_xml_to_dat_.Files.Volid.WriteParamsElems
     {
         public static void WriteParams(Elems Elem, StreamWriter sw, IFormatProvider formatter)
         {
-            if (Elem.Type == "3" || Elem.Type == "31")
+            if (Elem.Type == "3" || Elem.Type == "31" || Elem.Type == "32")
             {
                 Volume volume = (Volume)Elem;
                 sw.WriteLine($"{" "}{volume.Name}               {"!"}{volume.Description}               {"#"}{volume.Number}");
@@ -32,21 +32,43 @@ namespace Converter__from_xml_to_dat_.Files.Volid.WriteParamsElems
                     sw.Write($"{volume.VOL_TABV[i]} ");
                 }
                 sw.WriteLine();
-                sw.WriteLine($"C Wall perimeter on the level & under the level");
-                sw.WriteLine($"{volume.VOL_PSGCON} {volume.VOL_PWSCON}");
-                if (double.Parse(volume.VOL_PSGCON, formatter) > 0)
+                if (Elem.Type == "3" || Elem.Type == "31")
                 {
-                    sw.WriteLine($"C Heat Cap Density Fikness  Condact   HTR AIR   Wall Areac");
-                    sw.WriteLine($"{volume.VOL_CMSG} {volume.VOL_RMSG} {volume.VOL_DLSG} {volume.VOL_LMBDG} {volume.VOL_KOCSGC} {volume.VOL_JNMG}");
+                    sw.WriteLine($"C Wall perimeter on the level & under the level");
+                    sw.WriteLine($"{volume.VOL_PSGCON} {volume.VOL_PWSCON}");
+                    if (double.Parse(volume.VOL_PSGCON, formatter) > 0)
+                    {
+                        sw.WriteLine($"C Heat Cap Density Fikness  Condact   HTR AIR   Wall Areac");
+                        sw.WriteLine($"{volume.VOL_CMSG} {volume.VOL_RMSG} {volume.VOL_DLSG} {volume.VOL_LMBDG} {volume.VOL_KOCSGC} {volume.VOL_JNMG}");
+                    }
+                    if (double.Parse(volume.VOL_PWSCON, formatter) > 0)
+                    {
+                        sw.WriteLine($"C Heat Cap Density Fikness  Condact   HTR AIR   Wall Areac");
+                        sw.WriteLine($"{volume.VOL_CMWS} {volume.VOL_RMWS} {volume.VOL_DLWS} {volume.VOL_LMBDW} {volume.VOL_KOCVOL} {volume.VOL_JNMW}");
+                    }
                 }
-                if (double.Parse(volume.VOL_PWSCON, formatter) > 0)
+                else if (Elem.Type == "32")
                 {
-                    sw.WriteLine($"C Heat Cap Density Fikness  Condact   HTR AIR   Wall Areac");
-                    sw.WriteLine($"{volume.VOL_CMWS} {volume.VOL_RMWS} {volume.VOL_DLWS} {volume.VOL_LMBDW} {volume.VOL_KOCVOL} {volume.VOL_JNMW}");
+                    sw.WriteLine($"C Wall perimeter");
+                    sw.WriteLine($"{volume.VOL_FTOVOL}");
+                    if (double.Parse(volume.VOL_FTOVOL, formatter) > 0)
+                    {
+                        sw.WriteLine($"C Heat Cap Density Fikness  Condact   HTR AIR   Wall Areac");
+                        sw.WriteLine($"{volume.VOL_CMVOL} {volume.VOL_RMVOL} {volume.VOL_DLVOL} {volume.VOL_LAMBDA} {volume.VOL_KOCVOLEQ} {volume.VOL_JNM}");
+                    }
                 }
                 sw.WriteLine($"C Initial Conditions");
-                sw.WriteLine($"C Total Press Partial Steam Press Enthalpy On the level & Under  Height   Bor");
-                sw.WriteLine($"{volume.VOL_PVOL} {volume.VOL_PSVOL} {volume.VOL_ISG} {volume.VOL_IVOL} {volume.VOL_HL} {volume.VOL_CBVOL}");
+               
+                if (Elem.Type == "32")
+                {
+                    sw.WriteLine($"C Total Press Partial Enthalpy Height Bor");
+                    sw.WriteLine($"{volume.VOL_PVOL} {volume.VOL_IVOLEQU} {volume.VOL_HL} {volume.VOL_CBVOL}");
+                }
+                else
+                {
+                    sw.WriteLine($"C Total Press Partial Steam Press Enthalpy On the level & Under  Height   Bor");
+                    sw.WriteLine($"{volume.VOL_PVOL} {volume.VOL_PSVOL} {volume.VOL_ISG} {volume.VOL_IVOL} {volume.VOL_HL} {volume.VOL_CBVOL}");
+                }
                 sw.WriteLine($"C");
             }
         }

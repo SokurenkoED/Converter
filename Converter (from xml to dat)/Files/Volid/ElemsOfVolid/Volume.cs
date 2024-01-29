@@ -38,6 +38,7 @@ namespace Converter__from_xml_to_dat_.ElemsOfVolid
         public string VOL_DLSG { get; set; }
         public string VOL_LMBDG { get; set; }
         public string VOL_KOCSGC { get; set; }
+        public string VOL_FTOVOL { get; set; }
 
 
         public string VOL_JNMW { get; set; }
@@ -47,8 +48,16 @@ namespace Converter__from_xml_to_dat_.ElemsOfVolid
         public string VOL_LMBDW { get; set; }
         public string VOL_KOCVOL { get; set; }
 
+        public string VOL_JNM { get; set; }
+        public string VOL_CMVOL { get; set; }
+        public string VOL_RMVOL { get; set; }
+        public string VOL_DLVOL { get; set; }
+        public string VOL_LAMBDA { get; set; }
+        public string VOL_KOCVOLEQ { get; set; }
+
         public string VOL_PVOL { get; set; }
         public string VOL_PSVOL { get; set; }
+        public string VOL_IVOLEQU { get; set; }
         public string VOL_ISG { get; set; }
         public string VOL_IVOL { get; set; }
         public string VOL_HL { get; set; }

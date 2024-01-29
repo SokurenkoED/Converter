@@ -17,6 +17,14 @@ namespace Converter__from_xml_to_dat_.Files.Kinet
         {
             try
             {
+                FileInfo file = new FileInfo("kinet.xml");
+                long size = file.Length;
+                if (size == 0)
+                {
+                    Console.WriteLine("Файл kinet.xml пустой.");
+                    return;
+                }
+
                 xdoc = XDocument.Load("kinet.xml");
 
                 ReadParamsFromFile.ReadFile(xdoc, ref CDs, ref GD, ref RD);

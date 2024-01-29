@@ -45,7 +45,11 @@ namespace Converter__from_xml_to_dat_.Files
                 sw.WriteLine($"{ RPParams.JTIME} { RPParams.PRINT_STEP1} { RPParams.PRINT_STEP2} { RPParams.PRINT_STEP3} { RPParams.PRINT_TIME1} { RPParams.PRINT_TIME2} { RPParams.PRINT_TIME3} { RPParams.JREAD} { RPParams.JWRITE} { RPParams.JNP}");
                 sw.WriteLine($"{ IParams.DTMIN} { IParams.DTMAX} { IParams.EPSMIN} { IParams.EPSMAX}");
                 sw.WriteLine($"{ RPParams.JNGR} { RPParams.TGRAF}");
-                sw.WriteLine($"{ RParams.JKIN} { RParams.JJSNAT} { RPParams.DTDISK}");
+                sw.WriteLine($"{ RParams.JKIN} { RParams.JJSTAT} { RPParams.DTDISK}");
+                if (RParams.JKIN == "7")
+                {
+                    sw.WriteLine($"{ RParams.JSTAT}");
+                }
                 sw.WriteLine(CParams.JVTOT.Count);
                 for (int i = 0; i < CParams.JVTOT.Count; i++)
                 {
@@ -71,6 +75,14 @@ namespace Converter__from_xml_to_dat_.Files
         {
             try
             {
+                FileInfo file = new FileInfo("main.xml");
+                long size = file.Length;
+                if (size == 0)
+                {
+                    Console.WriteLine("Файл main.xml пустой.");
+                    return;
+                }
+
                 XDocument xdoc = XDocument.Load("main.xml");
                 REAC_PARAM RParams = new REAC_PARAM(ParseParams(xdoc, "REAC_PARAM"));
                 INT_PARAM IParams = new INT_PARAM(ParseParams(xdoc, "INT_PARAM"));
@@ -100,7 +112,11 @@ namespace Converter__from_xml_to_dat_.Files
             JTFT = ReturnParams[5];
             JBORAZ = ReturnParams[6];
             JKIN = ReturnParams[7];
-            JJSNAT = ReturnParams[8];
+            JJSTAT = ReturnParams[8];
+            if (JKIN == "7") 
+            {
+                JSTAT = ReturnParams[9];
+            }
         }
         public string JCAN { get; set; }
         public string JK1 { get; set; }
@@ -110,7 +126,8 @@ namespace Converter__from_xml_to_dat_.Files
         public string JTFT { get; set; }
         public string JBORAZ { get; set; }
         public string JKIN { get; set; }
-        public string JJSNAT { get; set; }
+        public string JJSTAT { get; set; }
+        public string JSTAT { get; set; }
     }
     class INT_PARAM
     {

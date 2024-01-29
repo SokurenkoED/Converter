@@ -32,6 +32,14 @@ namespace Converter__from_xml_to_dat_.Files.Canent
         {
             try
             {
+                FileInfo file = new FileInfo("canent.xml");
+                long size = file.Length;
+                if (size == 0)
+                {
+                    Console.WriteLine("Файл canent.xml пустой.");
+                    return;
+                }
+
                 xdoc = XDocument.Load("canent.xml");
 
                 ReadParamsFromFile.ReadFile(xdoc, ref GC, ref SCs, ref MC, ref FaC, ref UC, ref CG, ref CGeom, ref FCs, ref SFC, ref SUC, ref CC, ref CTFT);
