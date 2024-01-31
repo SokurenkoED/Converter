@@ -2,9 +2,11 @@
 using Converter__from_xml_to_dat_.Files.Asuelk;
 using Converter__from_xml_to_dat_.Files.Asuelm;
 using Converter__from_xml_to_dat_.Files.Asuval;
+using Converter__from_xml_to_dat_.Files.bipr7;
 using Converter__from_xml_to_dat_.Files.Canent;
 using Converter__from_xml_to_dat_.Files.Elpows;
 using Converter__from_xml_to_dat_.Files.Hstr;
+using Converter__from_xml_to_dat_.Files.Kin_sp;
 using Converter__from_xml_to_dat_.Files.Kinet;
 using Converter__from_xml_to_dat_.Files.Measure;
 using Converter__from_xml_to_dat_.Files.Oopent;
@@ -64,6 +66,10 @@ namespace Converter__from_xml_to_dat_
             GR1XML GR1 = new GR1XML();
 
             MemgrXML Memgr = new MemgrXML();
+
+            Bipr7XML Bipr7 = new Bipr7XML();
+
+            Kin_spXML Kin_sp = new Kin_spXML();
 
             #endregion
 

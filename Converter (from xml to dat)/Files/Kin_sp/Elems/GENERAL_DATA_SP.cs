@@ -14,6 +14,7 @@ namespace Converter__from_xml_to_dat_.Files.Kin_sp.Elems
         public string KIN_JGRKIN { get; set; }
         public string KIN7_BETA0 { get; set; }
         public string KIN7_ALFCR { get; set; }
+        public string KIN7_JGRKIN { get; set; }
 
         public List<string> KIN_LM = new List<string>();
 

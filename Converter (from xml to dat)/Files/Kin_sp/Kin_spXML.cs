@@ -14,6 +14,7 @@ namespace Converter__from_xml_to_dat_.Files.Kin_sp
         GENERAL_DATA_SP GD = new GENERAL_DATA_SP();
         INT_PARAM_SP IP = new INT_PARAM_SP();
         RESIDUAL_DATA_SP RD = new RESIDUAL_DATA_SP();
+        CRODS_DATA_SP CD = new CRODS_DATA_SP();
 
 
         public Kin_spXML()
@@ -22,9 +23,9 @@ namespace Converter__from_xml_to_dat_.Files.Kin_sp
             {
                 xdoc = XDocument.Load("kin_sp.xml");
 
-                ReadParamsFromFile.ReadFile(xdoc, ref GD, ref IP, ref RD);
+                ReadParamsFromFile.ReadFile(xdoc, ref GD, ref IP, ref RD, ref CD);
 
-                //WriteParamsToFile.WriteFile(ref CDs, ref GD, ref RD);
+                WriteParamsToFile.WriteFile(ref GD, ref IP, ref RD, ref CD);
 
             }
             catch (FileNotFoundException)
