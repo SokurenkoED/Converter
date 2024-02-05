@@ -24,6 +24,10 @@ namespace Converter__from_xml_to_dat_.Files.Gidr2k.Functions
                 sw.WriteLine("C");
                 foreach (var Jun in Juns)
                 {
+                    if (Jun.Name == "CRCL2_10MAA14JA240")
+                    {
+                        Console.WriteLine(123);
+                    }
                     WriteParamsFromStandart(Jun, sw);
                     WriteParamsFromTurb(Jun, sw);
                     WriteParamsFromDep(Jun, sw);

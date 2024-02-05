@@ -47,6 +47,15 @@ namespace Converter__from_xml_to_dat_.Files.Copy_Files
             }
         }
 
+        public void Create_directory(string Path)
+        {
+            DirectoryInfo dirInfo = new DirectoryInfo(Path);
+            if (!dirInfo.Exists)
+            {
+                dirInfo.Create();
+            }
+        }
+
         public CopyFilesXML()
         {
             Copy_file_from_SIT_to_TIGR_Dir("Bipr7.dat");
@@ -56,6 +65,8 @@ namespace Converter__from_xml_to_dat_.Files.Copy_Files
             Copy_file_from_SIT_to_TIGR_Dir("fort.10");
 
             Copy_file_from_SIT_to_TIGR_Dir("list");
+
+            Create_directory($"OldFormat-TIGR/SVRK");
 
             Create_files();
 
