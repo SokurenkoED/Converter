@@ -14,7 +14,7 @@ namespace Converter__from_xml_to_dat_.Files.Canent
     {
         XDocument xdoc;
 
-        GeneralCore GC = new GeneralCore();
+        public GeneralCore GC = new GeneralCore();
         List<SeparateCore> SCs = new List<SeparateCore>();
         ModlimitCore MC = new ModlimitCore();
         FaCore FaC = new FaCore();

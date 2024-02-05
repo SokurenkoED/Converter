@@ -14,6 +14,10 @@ namespace Converter__from_xml_to_dat_.Files.Hstr.Structures
         public string HSTR_HBOTHSR { get; set; }
         public string HSTR_HTOPHSR { get; set; }
         public string HSTR_JDIRHSR { get; set; }
+        public string HSTR_J1RUL { get; set; }
+        public string HSTR_JADDL { get; set; }
+        public string HSTR_J1RUR { get; set; }
+        public string HSTR_JADDR { get; set; }
         public string HSTR_CM { get; set; }
         public string HSTR_RM { get; set; }
         public string HSTR_ALMD { get; set; }

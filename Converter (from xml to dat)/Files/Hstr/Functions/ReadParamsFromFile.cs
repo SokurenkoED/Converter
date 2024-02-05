@@ -98,6 +98,26 @@ namespace Converter__from_xml_to_dat_.Files.Hstr.Functions
                 XAttribute Attr = item.Attribute("Value");
                 HS.HSTR_JDIRHSR = Attr.Value;
             }
+            foreach (var item in Strctrs.Descendants("HSTR_J1RUL"))
+            {
+                XAttribute Attr = item.Attribute("Value");
+                HS.HSTR_J1RUL = Attr.Value;
+            }
+            foreach (var item in Strctrs.Descendants("HSTR_JADDL"))
+            {
+                XAttribute Attr = item.Attribute("Value");
+                HS.HSTR_JADDL = Attr.Value;
+            }
+            foreach (var item in Strctrs.Descendants("HSTR_J1RUR"))
+            {
+                XAttribute Attr = item.Attribute("Value");
+                HS.HSTR_J1RUR = Attr.Value;
+            }
+            foreach (var item in Strctrs.Descendants("HSTR_JADDR"))
+            {
+                XAttribute Attr = item.Attribute("Value");
+                HS.HSTR_JADDR = Attr.Value;
+            }
             foreach (var item in Strctrs.Descendants("HSTR_CM"))
             {
                 XAttribute Attr = item.Attribute("Value");

@@ -48,7 +48,7 @@ namespace Converter__from_xml_to_dat_.Files.Hstr.Functions
                 {
                     sw.WriteLine($"{HS.HSTR_HBOTHSR} {HS.HSTR_HTOPHSR} {HS.HSTR_JDIRHSR}");
                 }
-                sw.WriteLine($"{"1"} {"0"} {"1"} {"0"}");
+                sw.WriteLine($"{HS.HSTR_J1RUL} {HS.HSTR_JADDL} {HS.HSTR_JADDR} {HS.HSTR_JADDR}");
                 sw.WriteLine($"{"C"}");
             }
         }

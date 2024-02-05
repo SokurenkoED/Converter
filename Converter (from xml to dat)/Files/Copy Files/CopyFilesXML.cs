@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.IO.Enumeration;
 using System.Text;
@@ -17,7 +18,7 @@ namespace Converter__from_xml_to_dat_.Files.Copy_Files
 
                 if (File.Exists($"{FileSystemName}"))
                 {
-                    File.Copy(FileSystemName, $"OldFormat-TIGR/{FileSystemName}");
+                    File.Copy(FileSystemName, $"OldFormat-TIGR/{FileSystemName}", true);
                 }
                 else
                 {
@@ -35,6 +36,17 @@ namespace Converter__from_xml_to_dat_.Files.Copy_Files
             }
         }
 
+        public void Create_files()
+        {
+            using (StreamWriter sw = new StreamWriter("OldFormat-TIGR/algoritm", false, Encoding.Default))
+            {
+                IFormatProvider formatter = new NumberFormatInfo { NumberDecimalSeparator = "." };
+
+                sw.WriteLine($" 0 0 0 0");
+                sw.WriteLine($" empty");
+            }
+        }
+
         public CopyFilesXML()
         {
             Copy_file_from_SIT_to_TIGR_Dir("Bipr7.dat");
@@ -42,6 +54,10 @@ namespace Converter__from_xml_to_dat_.Files.Copy_Files
             Copy_file_from_SIT_to_TIGR_Dir("fort.8");
 
             Copy_file_from_SIT_to_TIGR_Dir("fort.10");
+
+            Copy_file_from_SIT_to_TIGR_Dir("list");
+
+            Create_files();
 
 
         }
