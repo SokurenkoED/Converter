@@ -69,6 +69,19 @@ namespace Converter__from_xml_to_dat_.Files.Kin_sp.Functions
                     sw.Write($"{RD.KIN7_BLAM[i]} ");
                 }
             }
+            using (StreamWriter sw = new StreamWriter("OldFormat-TIGR/ASUPO.dat", false, Encoding.Default))
+            {
+                IFormatProvider formatter = new NumberFormatInfo { NumberDecimalSeparator = "." };
+
+                for (int i = 0; i < CD.KIN7_ASUOR.Count; i++)
+                {
+                    sw.WriteLine($"/USU/ {CD.KIN7_ASUOR[i]} ");
+                }
+                for (int i = 0; i < CD.KIN7_ASUHRO0.Count; i++)
+                {
+                    sw.Write($"{CD.KIN7_ASUHRO0[i]} ");
+                }
+            }
         }
     }
 }
