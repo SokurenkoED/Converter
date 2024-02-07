@@ -566,6 +566,11 @@ namespace Converter__from_xml_to_dat_.Files.Gidr2k.Functions
                 XAttribute Attr = Param.Attribute("Value");
                 stdrt.JUN_VLVTBL_R.Add(Attr.Value);
             }
+            foreach (XElement Param in JunFromFIle.Descendants("JUN_JCVD"))
+            {
+                XAttribute Attr = Param.Attribute("Value");
+                stdrt.JUN_JCVD = Attr.Value;
+            }
             return stdrt;
         }
 

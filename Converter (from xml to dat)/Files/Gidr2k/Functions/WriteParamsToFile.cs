@@ -24,10 +24,6 @@ namespace Converter__from_xml_to_dat_.Files.Gidr2k.Functions
                 sw.WriteLine("C");
                 foreach (var Jun in Juns)
                 {
-                    if (Jun.Name == "CRCL2_10MAA14JA240")
-                    {
-                        Console.WriteLine(123);
-                    }
                     WriteParamsFromStandart(Jun, sw);
                     WriteParamsFromTurb(Jun, sw);
                     WriteParamsFromDep(Jun, sw);
@@ -265,6 +261,7 @@ namespace Converter__from_xml_to_dat_.Files.Gidr2k.Functions
                 sw.WriteLine($" {stndrt.Name} {"/"}{stndrt.JUN_FROM} {stndrt.JUN_TO}   {"#"}{stndrt.Number}{"/"}");
                 sw.WriteLine($" {stndrt.JUN_AJNMLT}");
                 sw.WriteLine($" {"0"} {"NO"} {"0"} {"0"} {stndrt.Type} {stndrt.JUN_VJ} {stndrt.JUN_HJ1} {stndrt.JUN_HJ2}");
+                sw.WriteLine($" {stndrt.JUN_JCVD}");
                 sw.WriteLine($"C SG       KSI     DG      LG      SHER    INER      DZ");
                 sw.WriteLine($" {stndrt.JUN_SG} {stndrt.JUN_KSIG2K} {stndrt.JUN_DGG2K} {stndrt.JUN_LG} {stndrt.JUN_SHRG2K} {stndrt.JUN_INMG2K} {stndrt.JUN_DZG2K}");
                 sw.WriteLine("C");

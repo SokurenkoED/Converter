@@ -59,6 +59,6 @@ namespace Converter__from_xml_to_dat_.Files.Gidr2k.Junctions
         public List<string> JUN_VLVTBL_H = new List<string>();
         public List<string> JUN_VLVTBL_R = new List<string>();
 
-
+        public string JUN_JCVD { get; set; }
     }
 }
