@@ -158,7 +158,7 @@ namespace Converter__from_xml_to_dat_.Files.Gidr2k.Functions
                 Dep dep = (Dep)Jun;
                 sw.WriteLine($" {dep.Name} {"/"}{dep.JUN_FROM} {dep.JUN_TO}   {"#"}{dep.Number}{"/"}");
                 sw.WriteLine($" {dep.JUN_AJNMLT}");
-                sw.WriteLine($" {dep.JUN_JPUG2K} {dep.JUN_VLVNAM} {dep.JUN_JCRFLJ} {dep.JUN_JOBR} {dep.Type} {dep.JUN_VJ} {dep.JUN_HJ1} {dep.JUN_HJ2}");
+                sw.WriteLine($" 0 NO 0 0 {dep.Type} 0.0011 {dep.JUN_HJ1} {dep.JUN_HJ2}");
                 sw.WriteLine($" {dep.JUN_JJNT} {"0"} {dep.JUN_JJNPAR}");
                 for (int i = 0; i < dep.JUN_KC2KT_ARG.Count; i++)
                 {
