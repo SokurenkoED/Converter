@@ -543,19 +543,19 @@ namespace Converter__from_xml_to_dat_.Files.Canent.Functions
                 {
                     CTFT.CORETT_DELT4.Add(item.Attribute("Value").Value);
                 }
-                foreach (var item in Data.Descendants("CORETT_СDELT1"))
+                foreach (var item in Data.Descendants("CORETT_DELTR1"))
                 {
                     CTFT.CORETT_CDELT1.Add(item.Attribute("Value").Value);
                 }
-                foreach (var item in Data.Descendants("CORETT_СDELT2"))
+                foreach (var item in Data.Descendants("CORETT_DELTR2"))
                 {
                     CTFT.CORETT_CDELT2.Add(item.Attribute("Value").Value);
                 }
-                foreach (var item in Data.Descendants("CORETT_СDELT3"))
+                foreach (var item in Data.Descendants("CORETT_DELTR3"))
                 {
                     CTFT.CORETT_CDELT3.Add(item.Attribute("Value").Value);
                 }
-                foreach (var item in Data.Descendants("CORETT_СDELT4"))
+                foreach (var item in Data.Descendants("CORETT_DELTR4"))
                 {
                     CTFT.CORETT_CDELT4.Add(item.Attribute("Value").Value);
                 }
