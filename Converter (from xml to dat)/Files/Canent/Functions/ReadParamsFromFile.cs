@@ -478,11 +478,188 @@ namespace Converter__from_xml_to_dat_.Files.Canent.Functions
 
         public static void ReadParamsFormStrmatCoreTFT(XDocument xdoc, ref CoreTFT CTFT)
         {
-            foreach (XElement Data in xdoc.Element("CORE_DATA").Elements("CORE_TFT"))
+            foreach (XElement Data in xdoc.Element("CORE_DATA").Element("CORE_TFT").Elements("SEPARATE_CORETT"))
             {
-                foreach (var item in Data.Descendants("CORE_JTFT"))
+                foreach (var item in Data.Descendants("CORETT_JTFCAN"))
                 {
-                    CTFT.CORE_JTFT = item.Attribute("Value").Value;
+                    CTFT.CORETT_JTFCAN = item.Attribute("Value").Value;
+                }
+
+                foreach (var item in Data.Descendants("CORETT_JTFCAN"))
+                {
+                    CTFT.CORETT_JTFCAN = item.Attribute("Value").Value;
+                }
+
+                foreach (var item in Data.Descendants("CORETT_JTFJ"))
+                {
+                    CTFT.CORETT_JTFJ = item.Attribute("Value").Value;
+                }
+
+                foreach (var item in Data.Descendants("CORETT_JRC"))
+                {
+                    CTFT.CORETT_JRC.Add(item.Attribute("Value").Value);
+                }
+                foreach (var item in Data.Descendants("CORETT_JRCTIP"))
+                {
+                    CTFT.CORETT_JRCTIP.Add(item.Attribute("Value").Value);
+                }
+                foreach (var item in Data.Descendants("CORETT_KSIMJ"))
+                {
+                    CTFT.CORETT_KSIMJ.Add(item.Attribute("Value").Value);
+                }
+                foreach (var item in Data.Descendants("CORETT_KR"))
+                {
+                    CTFT.CORETT_KR.Add(item.Attribute("Value").Value);
+                }
+                foreach (var item in Data.Descendants("CORETT_JCELL1"))
+                {
+                    CTFT.CORETT_JCELL1.Add(item.Attribute("Value").Value);
+                }
+                foreach (var item in Data.Descendants("CORETT_JCELL2"))
+                {
+                    CTFT.CORETT_JCELL2.Add(item.Attribute("Value").Value);
+                }
+                foreach (var item in Data.Descendants("CORETT_JCELL3"))
+                {
+                    CTFT.CORETT_JCELL3.Add(item.Attribute("Value").Value);
+                }
+                foreach (var item in Data.Descendants("CORETT_JCELL4"))
+                {
+                    CTFT.CORETT_JCELL4.Add(item.Attribute("Value").Value);
+                }
+                foreach (var item in Data.Descendants("CORETT_DELT1"))
+                {
+                    CTFT.CORETT_DELT1.Add(item.Attribute("Value").Value);
+                }
+                foreach (var item in Data.Descendants("CORETT_DELT2"))
+                {
+                    CTFT.CORETT_DELT2.Add(item.Attribute("Value").Value);
+                }
+                foreach (var item in Data.Descendants("CORETT_DELT3"))
+                {
+                    CTFT.CORETT_DELT3.Add(item.Attribute("Value").Value);
+                }
+                foreach (var item in Data.Descendants("CORETT_DELT4"))
+                {
+                    CTFT.CORETT_DELT4.Add(item.Attribute("Value").Value);
+                }
+            }
+
+            foreach (XElement Data in xdoc.Element("CORE_DATA").Element("CORE_TFT").Elements("FT_CORETT"))
+            {
+                foreach (var item in Data.Descendants("CORETT_PMI"))
+                {
+                    CTFT.CORETT_PMI.Add(item.Attribute("Value").Value);
+                }
+                foreach (var item in Data.Descendants("CORETT_PPROT"))
+                {
+                    CTFT.CORETT_PPROT.Add(item.Attribute("Value").Value);
+                }
+                foreach (var item in Data.Descendants("CORETT_DELMD"))
+                {
+                    CTFT.CORETT_DELMD.Add(item.Attribute("Value").Value);
+                }
+                foreach (var item in Data.Descendants("CORETT_POPRB"))
+                {
+                    CTFT.CORETT_POPRB.Add(item.Attribute("Value").Value);
+                }
+                foreach (var item in Data.Descendants("CORETT_ALFKDH"))
+                {
+                    CTFT.CORETT_ALFKDH.Add(item.Attribute("Value").Value);
+                }
+                foreach (var item in Data.Descendants("CORETT_DTCRIT"))
+                {
+                    CTFT.CORETT_DTCRIT.Add(item.Attribute("Value").Value);
+                }
+                foreach (var item in Data.Descendants("CORETT_JUNEQ"))
+                {
+                    CTFT.CORETT_JUNEQ.Add(item.Attribute("Value").Value);
+                }
+                foreach (var item in Data.Descendants("CORETT_JOMEG"))
+                {
+                    CTFT.CORETT_JOMEG.Add(item.Attribute("Value").Value);
+                }
+                foreach (var item in Data.Descendants("CORETT_JQCRIT"))
+                {
+                    CTFT.CORETT_JQCRIT.Add(item.Attribute("Value").Value);
+                }
+                foreach (var item in Data.Descendants("CORETT_JACRIT"))
+                {
+                    CTFT.CORETT_JACRIT.Add(item.Attribute("Value").Value);
+                }
+                foreach (var item in Data.Descendants("CORETT_JBUNDL"))
+                {
+                    CTFT.CORETT_JBUNDL.Add(item.Attribute("Value").Value);
+                }
+            }
+
+            foreach (XElement Data in xdoc.Element("CORE_DATA").Element("CORE_TFT").Elements("GEOM_CORETT"))
+            {
+                foreach (var item in Data.Descendants("CORETT_K2"))
+                {
+                    CTFT.CORETT_K2.Add(item.Attribute("Value").Value);
+                }
+                foreach (var item in Data.Descendants("CORETT_VC"))
+                {
+                    CTFT.CORETT_VC.Add(item.Attribute("Value").Value);
+                }
+                foreach (var item in Data.Descendants("CORETT_SC"))
+                {
+                    CTFT.CORETT_SC.Add(item.Attribute("Value").Value);
+                }
+                foreach (var item in Data.Descendants("CORETT_DC"))
+                {
+                    CTFT.CORETT_DC.Add(item.Attribute("Value").Value);
+                }
+                foreach (var item in Data.Descendants("CORETT_KSIM"))
+                {
+                    CTFT.CORETT_KSIM.Add(item.Attribute("Value").Value);
+                }
+                foreach (var item in Data.Descendants("CORETT_SHER"))
+                {
+                    CTFT.CORETT_SHER.Add(item.Attribute("Value").Value);
+                }
+                foreach (var item in Data.Descendants("CORETT_JV2"))
+                {
+                    CTFT.CORETT_JV2.Add(item.Attribute("Value").Value);
+                }
+            }
+            foreach (XElement Data in xdoc.Element("CORE_DATA").Element("CORE_TFT").Elements("STRMAT_FT_CORETT"))
+            {
+                foreach (var item in Data.Descendants("CORETT_CMI"))
+                {
+                    CTFT.CORETT_CMI.Add(item.Attribute("Value").Value);
+                }
+                foreach (var item in Data.Descendants("CORETT_RMI"))
+                {
+                    CTFT.CORETT_RMI.Add(item.Attribute("Value").Value);
+                }
+                foreach (var item in Data.Descendants("CORETT_DELMI"))
+                {
+                    CTFT.CORETT_DELMI.Add(item.Attribute("Value").Value);
+                }
+                foreach (var item in Data.Descendants("CORETT_ALMI"))
+                {
+                    CTFT.CORETT_ALMI.Add(item.Attribute("Value").Value);
+                }
+            }
+            foreach (XElement Data in xdoc.Element("CORE_DATA").Element("CORE_TFT").Elements("GEOM_TVEL_CORRET"))
+            {
+                foreach (var item in Data.Descendants("CORETT_FSTAND"))
+                {
+                    CTFT.CORETT_FSTAND = item.Attribute("Value").Value;
+                }
+                foreach (var item in Data.Descendants("CORETT_DSTAND"))
+                {
+                    CTFT.CORETT_DSTAND = item.Attribute("Value").Value;
+                }
+                foreach (var item in Data.Descendants("CORETT_TVELCOUNT"))
+                {
+                    CTFT.CORETT_TVELCOUNT.Add(item.Attribute("Value").Value);
+                }
+                foreach (var item in Data.Descendants("CORETT_JGEOM"))
+                {
+                    CTFT.CORETT_JGEOM.Add(item.Attribute("Value").Value);
                 }
             }
         }

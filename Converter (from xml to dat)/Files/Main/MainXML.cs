@@ -60,12 +60,17 @@ namespace Converter__from_xml_to_dat_.Files
                     sw.WriteLine($"{CParams.CPGAS2[i]} {CParams.AMGAS2[i]} {CParams.ALGAS2[i]} {CParams.RGAS2[i]}");
                     sw.WriteLine(CParams.JGASCN[i]);
                 }
-                foreach (XElement Params in xdoc.Element("GENERAL_DATA").Elements("JNEV_T"))
+                foreach (XElement Params in xdoc.Element("GENERAL_DATA").Element("INT_PARAM").Elements("JNEV_T"))
                 {
                     XAttribute nameAttribute = Params.Attribute("Value");
                     sw.WriteLine(nameAttribute.Value);
                 }
-                sw.WriteLine(0);
+                foreach (XElement Params in xdoc.Element("GENERAL_DATA").Element("INT_PARAM").Elements("DTNEV"))
+                {
+                    XAttribute nameAttribute = Params.Attribute("Value");
+                    sw.WriteLine(nameAttribute.Value);
+                }
+
             }
         }
 

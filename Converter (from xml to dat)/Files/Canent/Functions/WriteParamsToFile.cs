@@ -263,8 +263,98 @@ namespace Converter__from_xml_to_dat_.Files.Canent.Functions
                 sw.WriteLine("-2.0");
                 sw.WriteLine(CC.CORE_JCROSS);
                 sw.WriteLine("C Число т/ф каналов");
-                //sw.WriteLine(CTFT.CORE_JTFT);
-                sw.WriteLine("0");
+                sw.WriteLine(CTFT.CORETT_JTFCAN);
+                if (CTFT.CORETT_JTFCAN != "0")
+                {
+                    sw.WriteLine("C номер тг канала, моделируемого набором  ячеек  / число расчетных ячеек");
+                    sw.WriteLine($"{CTFT.CORETT_JTFJ} {CTFT.CORETT_JCELL1.Count}");
+                    sw.WriteLine("C число конструктивнvх  ячеек в каждой  расчетной  ячейке");
+                    k = 0;
+                    foreach (var JRC in CTFT.CORETT_JRC)
+                    {
+                        sw.Write(JRC + " ");
+                        k++;
+                        if (k == 20)
+                        {
+                            sw.WriteLine();
+                            k = 0;
+                        }
+                    }
+                    sw.WriteLine();
+
+                    sw.WriteLine("C номера геометрических типов конструктивых  ячеек");
+                    k = 0;
+                    foreach (var JRCTIP in CTFT.CORETT_JRCTIP)
+                    {
+                        sw.Write(JRCTIP + " ");
+                        k++;
+                        if (k == 20)
+                        {
+                            sw.WriteLine();
+                            k = 0;
+                        }
+                    }
+                    sw.WriteLine();
+
+                    sw.WriteLine("C Коэффициент гидравлического сопротивлени на входе");
+                    k = 0;
+                    foreach (var KSIMJ in CTFT.CORETT_KSIMJ)
+                    {
+                        sw.Write(KSIMJ + " ");
+                        k++;
+                        if (k == 20)
+                        {
+                            sw.WriteLine();
+                            k = 0;
+                        }
+                    }
+                    sw.WriteLine();
+
+                    sw.WriteLine("C  /імет/імкп/Rтепл/Kгидр/іто/Dтепл/равновес/проскальз/Qкрит/alfa_крит/Geom_Qкрит/  і");
+                    for (int i = 0; i < CTFT.CORETT_PMI.Count; i++)
+                    {
+                        sw.WriteLine($"{CTFT.CORETT_PMI[i]} {CTFT.CORETT_PPROT[i]} {CTFT.CORETT_DELMD[i]} {CTFT.CORETT_POPRB[i]} {CTFT.CORETT_ALFKDH[i]} {CTFT.CORETT_DTCRIT[i]} {CTFT.CORETT_JUNEQ[i]}  {CTFT.CORETT_JOMEG[i]} {CTFT.CORETT_JQCRIT[i]} {CTFT.CORETT_JACRIT[i]} {CTFT.CORETT_JBUNDL[i]} ({i + 1 + 1})");
+                    }
+
+                    int gap = 0;
+                    for (int i = 0; i < CTFT.CORETT_PMI.Count; i++)
+                    {
+                        sw.WriteLine($"C Геом. характеристики ячейки типа {i + 1} V/S/Dгидр/Kгидр/Rough/Nh");
+                        for (int j = 0; j < Int32.Parse(CTFT.CORETT_K2[i]); j++)
+                        {
+                            sw.WriteLine($"{CTFT.CORETT_VC[gap + j]} {CTFT.CORETT_SC[gap + j]} {CTFT.CORETT_DC[gap + j]} {CTFT.CORETT_KSIM[gap + j]} {CTFT.CORETT_SHER[gap + j]} {CTFT.CORETT_JV2[gap + j]}");
+                        }
+                        gap = gap + Int32.Parse(CTFT.CORETT_K2[i]);
+                    }
+
+                    sw.WriteLine($"C Число ТВЭЛ в чейках по типам");
+                    foreach (var TVEL in CTFT.CORETT_TVELCOUNT)
+                    {
+                        sw.Write($"{TVEL} ");
+                    }
+                    sw.WriteLine();
+
+                    sw.WriteLine($"CC признак геометрии типов твэл (0- данные задаются, j- данные берутся из канала с номером типа j)");
+                    foreach (var JGEOM in CTFT.CORETT_JGEOM)
+                    {
+                        sw.WriteLine($"{JGEOM}");
+                    }
+
+                    sw.WriteLine($"C Свойства конструкционных материалов ячеек различных типов ТТК");
+                    for (int i = 0; i < CTFT.CORETT_CMI.Count; i++)
+                    {
+                        sw.WriteLine($"{CTFT.CORETT_CMI[i]} {CTFT.CORETT_RMI[i]} {CTFT.CORETT_DELMI[i]} {CTFT.CORETT_ALMI[i]}");
+                    }
+
+                    sw.WriteLine($"C Площадь проходного сечени и эффективный зазор между ТВЭЛ  стандартной чейки, JCOV");
+                    sw.WriteLine($"{CTFT.CORETT_FSTAND} {CTFT.CORETT_DSTAND} {1}");
+
+                    for (int i = 0; i < CTFT.CORETT_JCELL1.Count; i++)
+                    {
+                        sw.WriteLine($"{CTFT.CORETT_KR[i]} {CTFT.CORETT_JCELL1[i]} {CTFT.CORETT_JCELL2[i]} {CTFT.CORETT_JCELL3[i]} {CTFT.CORETT_JCELL4[i]} ({i+1})");
+                        sw.WriteLine($"            {CTFT.CORETT_DELT1[i]} {CTFT.CORETT_DELT2[i]} {CTFT.CORETT_DELT3[i]} {CTFT.CORETT_DELT4[i]}");
+                    }
+                }
                 sw.WriteLine("0");
             }
         }

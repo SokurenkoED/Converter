@@ -30,7 +30,7 @@ namespace Converter__from_xml_to_dat_.Files.Gidr2k.Functions
                     WriteParamsFromGas(Jun, sw);
                     
                 }
-                WriteHomols(ref Homols, sw);
+                //WriteHomols(ref Homols, sw);
                 sw.WriteLine("C  Crit Flow    Eps PUMP");
                 WriteLastTwoParams(ref LastParams, sw); // Почему-то не находит последние 2 параметра, поэтому запишем сами
                 sw.WriteLine("0.7 0.01");

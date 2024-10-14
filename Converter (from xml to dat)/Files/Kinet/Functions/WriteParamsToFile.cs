@@ -54,31 +54,34 @@ namespace Converter__from_xml_to_dat_.Files.Kinet.Functions
             using (StreamWriter sw2 = new StreamWriter("OldFormat-TIGR/ost6_9%", false, Encoding.Default))
             {
                 int k = 0;
-                foreach (var item in GD.KIN_BGAM)
-                {
-                    if (k == 5)
-                    {
-                        sw2.WriteLine();
-                        k = 0;
-                    }
-                    sw2.Write($" {item}");
-                    k++;
-                }
-                sw2.WriteLine("      BGAM(" + GD.KIN_BGAM.Count + ")");
-                sw2.WriteLine();
-                k = 0;
-                foreach (var item in GD.KIN_BLAM)
-                {
-                    if (k == 5)
-                    {
-                        sw2.WriteLine();
-                        k = 0;
-                    }
-                    sw2.Write($" {item}");
-                    k++;
-                }
-                sw2.WriteLine("      BLAM(" + GD.KIN_BLAM.Count + ")");
-                sw2.WriteLine();
+                //foreach (var item in GD.KIN_BGAM)
+                //{
+                //    if (k == 5)
+                //    {
+                //        sw2.WriteLine();
+                //        k = 0;
+                //    }
+                //    sw2.Write($" {item}");
+                //    k++;
+                //}
+                //sw2.WriteLine("      BGAM(" + GD.KIN_BGAM.Count + ")");
+                //sw2.WriteLine();
+                //k = 0;
+                //foreach (var item in GD.KIN_BLAM)
+                //{
+                //    if (k == 5)
+                //    {
+                //        sw2.WriteLine();
+                //        k = 0;
+                //    }
+                //    sw2.Write($" {item}");
+                //    k++;
+                //}
+                //sw2.WriteLine("      BLAM(" + GD.KIN_BLAM.Count + ")");
+                //sw2.WriteLine();
+                sw2.WriteLine("  2");
+                sw2.WriteLine(" 1000.  1000.       0.0      500.0 ");
+                sw2.WriteLine("");
             }
         }
 
@@ -137,26 +140,35 @@ namespace Converter__from_xml_to_dat_.Files.Kinet.Functions
                 sw.Write($" {item}");
             }
             sw.WriteLine();
-
-            sw.WriteLine($" {RD.KIN_ARHCB_ARG.Count}");
-            foreach (var item in RD.KIN_ARHCB_ARG)
+            if (RD.KIN_ARHCB_ARG.Count > 0)
             {
-                sw.Write($" {item}");
+                sw.WriteLine($" {RD.KIN_ARHCB_ARG.Count}");
+                foreach (var item in RD.KIN_ARHCB_ARG)
+                {
+                    sw.Write($" {item}");
+                }
+                sw.WriteLine();
+                foreach (var item in RD.KIN_ARHCB)
+                {
+                    sw.Write($" {item}");
+                }
+                sw.WriteLine();
             }
-            sw.WriteLine();
-            foreach (var item in RD.KIN_ARHCB)
-            {
-                sw.Write($" {item}");
-            }
-            sw.WriteLine();
-
             sw.WriteLine($" {RD.KIN_DRONE0} {RD.KIN_DTNOM}");
 
             sw.WriteLine(" 566.  288.  695.  1000."); 
 
             sw.WriteLine($" {RD.KIN_ALFCR}");
 
-            sw.WriteLine($" {RD.KIN_DKT_ARG.Count} {CDs[0].KIN_DKGRUP_ARG.Count}");
+            if (CDs.Count > 0)
+            {
+                sw.WriteLine($" {RD.KIN_DKT_ARG.Count} {CDs[0].KIN_DKGRUP_ARG.Count}");
+            }
+            else
+            {
+                sw.WriteLine($" {RD.KIN_DKT_ARG.Count} 0");
+            }
+            
             foreach (var item in RD.KIN_DKT_ARG)
             {
                 sw.Write($" {item}");
@@ -208,7 +220,8 @@ namespace Converter__from_xml_to_dat_.Files.Kinet.Functions
                     }
                 }
             }
-
+            sw.WriteLine($" 0");
+            sw.WriteLine($" 0");
         }
     }
 }
