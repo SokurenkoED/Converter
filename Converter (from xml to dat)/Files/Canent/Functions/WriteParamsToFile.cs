@@ -353,6 +353,7 @@ namespace Converter__from_xml_to_dat_.Files.Canent.Functions
                     {
                         sw.WriteLine($"{CTFT.CORETT_KR[i]} {CTFT.CORETT_JCELL1[i]} {CTFT.CORETT_JCELL2[i]} {CTFT.CORETT_JCELL3[i]} {CTFT.CORETT_JCELL4[i]} ({i+1})");
                         sw.WriteLine($"            {CTFT.CORETT_DELT1[i]} {CTFT.CORETT_DELT2[i]} {CTFT.CORETT_DELT3[i]} {CTFT.CORETT_DELT4[i]}");
+                        sw.WriteLine($"            {CTFT.CORETT_CDELT1[i]} {CTFT.CORETT_CDELT2[i]} {CTFT.CORETT_CDELT3[i]} {CTFT.CORETT_CDELT4[i]}");
                     }
                 }
                 sw.WriteLine("0");

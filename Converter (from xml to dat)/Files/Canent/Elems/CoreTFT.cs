@@ -23,6 +23,10 @@ namespace Converter__from_xml_to_dat_.Files.Canent.Elems
         public List<string> CORETT_DELT2 = new List<string>();
         public List<string> CORETT_DELT3 = new List<string>();
         public List<string> CORETT_DELT4 = new List<string>();
+        public List<string> CORETT_CDELT1 = new List<string>();
+        public List<string> CORETT_CDELT2 = new List<string>();
+        public List<string> CORETT_CDELT3 = new List<string>();
+        public List<string> CORETT_CDELT4 = new List<string>();
 
         public List<string> CORETT_PMI = new List<string>();
         public List<string> CORETT_PPROT = new List<string>();
