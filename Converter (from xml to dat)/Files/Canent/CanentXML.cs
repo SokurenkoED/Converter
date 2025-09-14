@@ -27,6 +27,49 @@ namespace Converter__from_xml_to_dat_.Files.Canent
         CoreCross CC = new CoreCross();
         CoreTFT CTFT = new CoreTFT();
 
+        // Функция для запроса "да/нет" с возвратом 1 или 0
+        static int AskYesNo(string question)
+        {
+            while (true)
+            {
+                Console.WriteLine($"{question} (1 - да, 0 - нет)");
+                string? input = Console.ReadLine();
+
+                if (int.TryParse(input, out int answer) && (answer == 0 || answer == 1))
+                {
+                    return answer;
+                }
+                else
+                {
+                    Console.WriteLine("Ошибка: введите 1 (да) или 0 (нет).");
+                }
+            }
+        }
+
+        int TypeNumber(string question)
+        {
+            while (true)
+            {
+                Console.WriteLine($"{question}");
+                string input = Console.ReadLine();
+
+                if (int.TryParse(input, out int answer))
+                {
+                    if (CTFT.CORETT_JRCTIP.Contains((answer + 1).ToString()))
+                    {
+                        return answer + 1;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Ошибка, такого типа не существует.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Ошибка, введите число типа int.");
+                }
+            }
+        }
 
         public CanentXML()
         {
@@ -43,6 +86,21 @@ namespace Converter__from_xml_to_dat_.Files.Canent
                 xdoc = XDocument.Load("canent.xml");
 
                 ReadParamsFromFile.ReadFile(xdoc, ref GC, ref SCs, ref MC, ref FaC, ref UC, ref CG, ref CGeom, ref FCs, ref SFC, ref SUC, ref CC, ref CTFT);
+
+                int answer = AskYesNo("Нужно ли программе изменять зону задания для ТТК?");
+                if (answer == 1)
+                {
+                    int JRCTIP = TypeNumber($"Укажите тип ячейки, который необходимо убрать.");
+
+                    // Редактируем зону задания для ТТК
+                    CTFT.ChangeTTK(JRCTIP);
+
+
+                }
+                else
+                {
+                    Console.WriteLine("Вы выбрали: Нет. Изменения не требуются.");
+                }
 
                 WriteParamsToFile.WriteFile(ref GC, ref SCs, ref MC, ref FaC, ref UC, ref CG, ref CGeom, ref FCs, ref SFC, ref SUC, ref CC, ref CTFT);
 
