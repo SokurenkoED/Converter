@@ -280,7 +280,7 @@ namespace Converter__from_xml_to_dat_.Files.Canent.Functions
                             k = 0;
                         }
                     }
-                    sw.WriteLine();
+                    //sw.WriteLine();
 
                     sw.WriteLine("C номера геометрических типов конструктивых  ячеек");
                     k = 0;
@@ -294,7 +294,7 @@ namespace Converter__from_xml_to_dat_.Files.Canent.Functions
                             k = 0;
                         }
                     }
-                    sw.WriteLine();
+                    //sw.WriteLine();
 
                     sw.WriteLine("C Коэффициент гидравлического сопротивлени на входе");
                     k = 0;
@@ -308,7 +308,7 @@ namespace Converter__from_xml_to_dat_.Files.Canent.Functions
                             k = 0;
                         }
                     }
-                    sw.WriteLine();
+                    //sw.WriteLine();
 
                     sw.WriteLine("C  /імет/імкп/Rтепл/Kгидр/іто/Dтепл/равновес/проскальз/Qкрит/alfa_крит/Geom_Qкрит/  і");
                     for (int i = 0; i < CTFT.CORETT_PMI.Count; i++)
