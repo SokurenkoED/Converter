@@ -1,4 +1,5 @@
 ﻿
+using Converter__from_xml_to_dat_.Files.Canent;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -76,7 +77,7 @@ namespace Converter__from_xml_to_dat_.Files
 
         #endregion
 
-        public MainXML()
+        public MainXML(CanentXML Canent)
         {
             try
             {
@@ -90,6 +91,7 @@ namespace Converter__from_xml_to_dat_.Files
 
                 XDocument xdoc = XDocument.Load("main.xml");
                 REAC_PARAM RParams = new REAC_PARAM(ParseParams(xdoc, "REAC_PARAM"));
+                RParams.JTFT = Canent.CTFT.CORETT_JRCTIP.Count.ToString();
                 INT_PARAM IParams = new INT_PARAM(ParseParams(xdoc, "INT_PARAM"));
                 REST_PRINT_PARAM RPParams = new REST_PRINT_PARAM(ParseParams(xdoc, "REST_PRINT_PARAM"));
                 CONT_PARAM CParams = new CONT_PARAM(ParseCONT_PARAM(xdoc));

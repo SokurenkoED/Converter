@@ -25,7 +25,7 @@ namespace Converter__from_xml_to_dat_.Files.Canent
         StrmatFaCore SFC = new StrmatFaCore();
         StrmatUnheatCore SUC = new StrmatUnheatCore();
         CoreCross CC = new CoreCross();
-        CoreTFT CTFT = new CoreTFT();
+        public CoreTFT CTFT = new CoreTFT();
 
         // Функция для запроса "да/нет" с возвратом 1 или 0
         static int AskYesNo(string question)

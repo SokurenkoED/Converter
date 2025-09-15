@@ -35,7 +35,6 @@ namespace Converter__from_xml_to_dat_
 
             #region Инициализация всех файловых классов
 
-            MainXML Main = new MainXML();
 
             VolidXML Volid = new VolidXML();
 
@@ -70,6 +69,8 @@ namespace Converter__from_xml_to_dat_
             CopyFilesXML Files = new CopyFilesXML();
 
             Kin_spXML Kin_sp = new Kin_spXML();
+
+            MainXML Main = new MainXML(Canent);
 
             #endregion
 

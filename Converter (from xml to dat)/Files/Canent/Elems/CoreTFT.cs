@@ -276,6 +276,8 @@ namespace Converter__from_xml_to_dat_.Files.Canent.Elems
 
             CORETT_JGEOM.RemoveAt(deletedType - 2);
             CORETT_TVELCOUNT.RemoveAt(deletedType - 2);
+
+            Console.WriteLine("Убедись, что из-за удаленных ячеек не будет проблем с датчиками.");
         }
 
 
