@@ -209,7 +209,7 @@ namespace Converter__from_xml_to_dat_.Files.Canent.Elems
 
             for (int i = changedStartIndex; i < changedStartIndex + changedK2 - 2; i++) // 2 это хвостовик
             {
-                CORETT_VC[i] = (0.075 * 0.032505 * int.Parse(CORETT_JV2[i])).ToString();
+                CORETT_VC[i] = (3.75 / 50 * 0.032505 * int.Parse(CORETT_JV2[i])).ToString();
                 CORETT_SC[i] = "0.032505";
                 CORETT_DC[i] = "0.006604";
                 //CORETT_KSIM[i] = "KSIM";
@@ -218,7 +218,7 @@ namespace Converter__from_xml_to_dat_.Files.Canent.Elems
             }
 
             // Нужно изменить CORETT_TVELCOUNT
-            CORETT_TVELCOUNT[changedType - 1] = "0.41666666663";
+            CORETT_TVELCOUNT[changedType - 1] = "0.41666666667";
 
             // Удаляем ненужные ячейки
             for (int j = deleteIndexes.Count - 1; j >= 0; j--)

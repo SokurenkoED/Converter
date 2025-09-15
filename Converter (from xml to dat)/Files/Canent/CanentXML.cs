@@ -102,6 +102,15 @@ namespace Converter__from_xml_to_dat_.Files.Canent
                     Console.WriteLine("Вы выбрали: Нет. Изменения не требуются.");
                 }
 
+                // Это для теста
+                //for (int i = 0; i < CTFT.CORETT_DELT1.Count; i++)
+                //{
+                //    CTFT.CORETT_DELT1[i] = (double.Parse(CTFT.CORETT_DELT1[i]) / 100).ToString();
+                //    CTFT.CORETT_DELT2[i] = (double.Parse(CTFT.CORETT_DELT2[i]) / 100).ToString();
+                //    CTFT.CORETT_DELT3[i] = (double.Parse(CTFT.CORETT_DELT3[i]) / 100).ToString();
+                //    CTFT.CORETT_DELT4[i] = (double.Parse(CTFT.CORETT_DELT4[i]) / 100).ToString();
+                //}
+
                 WriteParamsToFile.WriteFile(ref GC, ref SCs, ref MC, ref FaC, ref UC, ref CG, ref CGeom, ref FCs, ref SFC, ref SUC, ref CC, ref CTFT);
 
             }
