@@ -207,7 +207,7 @@ namespace Converter__from_xml_to_dat_.Files.Canent.Elems
                 changedStartIndex += int.Parse(CORETT_K2[i]);
             }
 
-            for (int i = changedStartIndex; i < changedStartIndex + changedK2; i++)
+            for (int i = changedStartIndex; i < changedStartIndex + changedK2 - 2; i++) // 2 это хвостовик
             {
                 CORETT_VC[i] = (0.075 * 0.032505 * int.Parse(CORETT_JV2[i])).ToString();
                 CORETT_SC[i] = "0.032505";
