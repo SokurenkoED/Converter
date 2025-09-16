@@ -207,10 +207,11 @@ namespace Converter__from_xml_to_dat_.Files.Canent.Elems
                 changedStartIndex += int.Parse(CORETT_K2[i]);
             }
 
+            double sc = 0.000032505;
             for (int i = changedStartIndex; i < changedStartIndex + changedK2 - 2; i++) // 2 это хвостовик
             {
-                CORETT_VC[i] = (3.75 / 50 * 0.032505 * int.Parse(CORETT_JV2[i])).ToString();
-                CORETT_SC[i] = "0.032505";
+                CORETT_VC[i] = (3.75 / 50 * sc * int.Parse(CORETT_JV2[i])).ToString();
+                CORETT_SC[i] = sc.ToString();
                 CORETT_DC[i] = "0.006604";
                 //CORETT_KSIM[i] = "KSIM";
                 //CORETT_SHER[i] = "SHER";
