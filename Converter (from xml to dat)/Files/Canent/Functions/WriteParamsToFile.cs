@@ -346,7 +346,7 @@ namespace Converter__from_xml_to_dat_.Files.Canent.Functions
                         sw.WriteLine($"{CTFT.CORETT_CMI[i]} {CTFT.CORETT_RMI[i]} {CTFT.CORETT_DELMI[i]} {CTFT.CORETT_ALMI[i]}");
                     }
 
-                    sw.WriteLine($"C Площадь проходного сечени и эффективный зазор между ТВЭЛ  стандартной чейки, JCOV");
+                    sw.WriteLine($"C Площадь проходного сечени и эффективный зазор между ТВЭЛ  стандартной чейки, JCONV");
                     sw.WriteLine($"{CTFT.CORETT_FSTAND} {CTFT.CORETT_DSTAND} {1}");
 
                     for (int i = 0; i < CTFT.CORETT_JCELL1.Count; i++)
